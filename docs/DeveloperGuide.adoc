@@ -723,15 +723,78 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new person specifying their name, phone, home address and email address |
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |list a contact according to the tag(s) |find my friends better
+
+|`* * *` |user |find contacts based on the different fields, for instance 'find /p 123 /e @hotmail.com' |locate details of persons without having to go through the entire list
+
+|`* * *` |user |remove a tag |manage the tag
+
+|`* * *` |user |list a contact according to the tag(s) |find my friends better
+
+|`* * *` |forgetful user |filter my contacts based on their tags, affiliations, gender, age et cetera |find someone even when I forget their name
+
+|`* * *` |user |edit details base on parameters, for instance 'edit user /p 12345678' |edit a contact more easily and in a shorter way
+
+|`* * *` |user with many persons in the address book |create link:#group[groups] in my address book |categorize my acquaintances neatly
+
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
+|`* *` |user |set and change my password to my address book |hide link:#private-contact-detail[private contact details] and prevent others from seeing those details
+
+|`* *` |user |undo an addition, deletion, or edit of a contact
+
+|`* *` |user |know if I am adding a duplicate name but with different details |store people with same names
+
+|`* *` |user |view my edit history of each contact that I edited at least once
+
+|`* *` |user |export my address book in a file form |use the file in other applications
+
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |delete some details
+
+|`*` |user |sort according to multiple different parameters |locate a person easier
+
+|`*` |user |choose to add my contacts to my acquaintance's address book when I add their contacts to mine |allow my contacts to easily add me
+
+|`*` |user |display my contact's address using Google Map |navigate my way
+
+|`*` |user |have a temp delete 'folder' after I delete a contact and contact will be deleted after a week |re-add the contact back if I change my mind
+
+|`*` |user |have multiple address books |further categorize contacts
+
+|`*` |user |delete a person from multiple address books |not have to delete them multiple times
+
+|`*` |user |update a user across all address books |not have to update them multiple times
+
+|`*` |user |search for a user across multiple address books |find people more efficiently
+
+|`*` |user |delete address books I do not need |organize my contacts better
+
+|`*` |user |edit the look and feel of the GUI |change it according to my favorite color, icon, font size et cetera
+
+|`*` |user |add LinkedIn or Facebook profile links to my contacts |navigate to their social media profiles easily
+
+|`*` |user |drag-and-drop my contacts around the address book |sort or manage my contacts manually
+
+|`*` |user |retrieve my address book on any device |access my address book anywhere
+
+|`*` |user |add a person into multiple address books |not have to add them multiple times
+
+|`*` |user |add people and it will be reflected on other devices |not have to add the contact to multiple devices
+
+|`*` |user |delete people and it will reflected on other devices |not have to delete multiple times
+
+|`*` |user |edit my address book anywhere, from any device, |keep the most up-to-date copy of it
+
+|`*` |user |customize my profile with a photo and descriptions |allow my contacts to easily recognize me when I am in their address book
+
 |=======================================================================
 
 {More to be added}
