@@ -729,15 +729,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* * *` |user |list a contact according to the link:tag[tag](s) |find my friends better
+|`* * *` |user |list a contact according to the link:#tag[tag](s) |find my friends better
 
 |`* * *` |user |find contacts based on the different fields, for instance 'find /p 123 /e @hotmail.com' |locate details of persons without having to go through the entire list
 
-|`* * *` |user |remove a link:tag[tag] |manage the link:tag[tag]
+|`* * *` |user |remove a link:#tag[tag] |manage the link:#tag[tag]
 
-|`* * *` |user |list a contact according to the link:tag[tag](s) |find my friends better
+|`* * *` |user |list a contact according to the link:#tag[tag](s) |find my friends better
 
-|`* * *` |forgetful user |filter my contacts based on their link:tag[tag](s), affiliations, gender, age et cetera |find someone even when I forget their name
+|`* * *` |forgetful user |filter my contacts based on their link:#tag[tag](s), affiliations, gender, age et cetera |find someone even when I forget their name
 
 |`* * *` |user |edit details base on parameters, for instance 'edit user /p 12345678' |edit a contact more easily and in a shorter way
 
@@ -747,17 +747,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |set and change my password to my address book |hide link:#private-contact-detail[private contact details] and prevent others from seeing those details
 
-|`* *` |user |undo an addition, deletion, or edit of a contact
+|`* *` |user |undo an addition, deletion, or edit of a contact |
 
 |`* *` |user |know if I am adding a duplicate name but with different details |store people with same names
 
-|`* *` |user |view my edit history of each contact that I edited at least once
+|`* *` |user |view my edit history of each contact that I edited at least once |
 
 |`* *` |user |export my address book in a file form |use the file in other applications
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
-|`*` |user |delete some details
+|`*` |user |delete some details |
 
 |`*` |user |sort according to multiple different parameters |locate a person easier
 
