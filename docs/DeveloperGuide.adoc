@@ -504,14 +504,14 @@ Do take a look at the link:#logic-component[Design: Logic Component] section bef
 [TIP]
 Do take a look at the link:#model-component[Design: Model Component] section before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified link:tag[tag] will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified link:#tag[tag] will be removed from everyone in the address book.
 +
 ****
 * Hints
 ** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] API needs to be updated.
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the link:tag[tag] removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the link:tag[tags].
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the link:#tag[tag] removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the link:#tag[tags].
 * Solution
-** Add the implementation of `deleteTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Loop through each person, and remove the `link:tag[tag]` from each person.
+** Add the implementation of `deleteTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Loop through each person, and remove the `link:#tag[tag]` from each person.
 ** See this https://github.com/se-edu/addressbook-level4/pull/591/files[PR] for the full solution.
 ****
 
@@ -521,7 +521,7 @@ Do take a look at the link:#model-component[Design: Model Component] section bef
 [TIP]
 Do take a look at the link:#ui-component[Design: UI Component] section before attempting to modify the `UI` component.
 
-. Use different colors for different link:tag[tags] inside person cards. For example, `friends` link:tag[tags] can be all in grey, and `colleagues` link:tag[tags] can be all in red.
+. Use different colors for different link:#tag[tags] inside person cards. For example, `friends` link:#tag[tags] can be all in grey, and `colleagues` link:#tag[tags] can be all in red.
 +
 **Before**
 +
@@ -775,6 +775,7 @@ Use case resumes at step 2.
 
 1.  User request to add person by specifying their name, phone, home address and email address.
 2.  AddressBook adds the person
+3.  AddressBook shows success message
 +
 Use case ends.
 
@@ -877,7 +878,7 @@ Tag
 A 'tag' is a temporary label that can be used as a casual, mental-note for users to quickly remember who the contact is. For instance, a tag can include detailed relationships ('BFF') or short description about that person ('cool professor').
 ....
 
-[[Group]]
+[[group]]
 Group
 ....
 A 'Group' is a broad category that users can categorize their contacts into. For instance, these can include school names ('NUS') or relationships ('work').
