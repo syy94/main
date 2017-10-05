@@ -8,7 +8,8 @@ import java.util.Random;
  * HSL is used here as it is easier to randomise a certain color range as compared to
  * RGB.
  *
- * @see <a href="https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#introlimitations"
+ * @see <a href="https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#introlimitations">
+ * </a>
  */
 public class ColorUtil {
     private static Random random = new Random();
