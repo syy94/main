@@ -17,11 +17,11 @@ public class PersonFieldContainsKeywordsPredicate implements Predicate<ReadOnlyP
 
     @Override
     public boolean test(ReadOnlyPerson person) {
-        return ( keywords.stream()
+        return (keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)
                 || StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword)
                 || StringUtil.containsWordIgnoreCase(person.getEmail().toString(), keyword)
-                || StringUtil.containsWordIgnoreCase(person.getAddress().toString(), keyword) ) );
+                || StringUtil.containsWordIgnoreCase(person.getAddress().toString(), keyword)));
 
     }
 
