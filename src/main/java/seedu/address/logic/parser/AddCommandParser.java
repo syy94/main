@@ -60,9 +60,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * {@value}.
      */
     private static Optional<String> areValuePresent(Optional<String> value) {
-        //Optional<String> opt = Optional.of(name);
         value = Optional.of(value.orElse("N\\A"));
-        System.out.println(value);
         return value;
     }
 
