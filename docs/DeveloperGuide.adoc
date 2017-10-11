@@ -751,9 +751,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |know if I am adding a duplicate name but with different details |store people with same names
 
-|`* *` |user |view my edit history of each contact that I edited at least once |
+|`* *` |user |view my edit history of each contact that I edited at least once |old data can be kept for posterity
 
-|`* *` |user |export my address book in a file form |use the file in other applications
+|`* *` |user |export my address book as a file |use the file in other applications
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
@@ -916,7 +916,7 @@ Use case ends.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  New functions must be added regularly.
 .  The system should work on both windows and unix.
-.  The system should respond within 3 seconds.
+.  The system should be responsive to user inputs
 .  The product should be usable by any user who has an adequate experience of computer usage.
 .  Database should be easily convertible to a JSON format.
 .  Database should be able to be exported to a common file type (eg. csv).
