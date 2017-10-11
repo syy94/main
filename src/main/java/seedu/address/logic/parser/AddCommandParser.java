@@ -56,11 +56,11 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * Returns N\A if prefixes contains empty values in the given
+     * Returns null if prefixes contains empty values in the given
      * {@value}.
      */
     private static Optional<String> areValuePresent(Optional<String> value) {
-        value = Optional.of(value.orElse("N\\A"));
+        value = Optional.of(value.orElse(""));
         return value;
     }
 
