@@ -92,7 +92,7 @@ public class AddCommandParserTest {
         // missing email prefix
         Person expectedPersonMissingEmail = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMPTY).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND).build();
-        assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB +PHONE_DESC_BOB
+        assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPersonMissingEmail));
 
         // missing address prefix
@@ -104,7 +104,8 @@ public class AddCommandParserTest {
         // all prefixes missing
         Person expectedPersonMissingAllExceptName = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_EMPTY)
                 .withEmail(VALID_EMPTY).withAddress(VALID_EMPTY).withTags().build();
-        assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB , new AddCommand(expectedPersonMissingAllExceptName));
+        assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB,
+                new AddCommand(expectedPersonMissingAllExceptName));
 
 
     }
