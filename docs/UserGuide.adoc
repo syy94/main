@@ -112,6 +112,28 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+=== [Coming in v2.0] Locating persons by other fields: `find`
+
+Finds persons whose field matches any of the given fields, with the exception of tags.
+Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] ...`
+
+****
+* The search is case insensitive. e.g `Email@Email.com` will match `email@email.com`
+* Partial words will also be matched. e.g. `find p/9004` will match anyone whose phone number contains `9004`.
+* Persons matching at least one field will be returned (i.e. `OR` search).
+****
+
+=== [Coming in v2.0] Locating and listing persons by tag and/or group: `find`
+
+Finds persons who belongs to at least one of the given tags and/or groups. +
+Format: `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...`
+
+****
+* The search is case insensitive. e.g `Friend` will match `friend`
+* Only full words will be matched e.g. `Enem` will not match `Enemy`
+* Persons matching at least one tag or group will be returned (i.e. `OR` search). e.g. `t/Friend t/NUS g/Google` will return `John Smith ... t/friend g/google` and `Sarah Li ... t/NUS`
+****
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -211,6 +233,15 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
+
+=== [Coming in v2.0] Creating groups : `create`
+
+Creates a group and adds contacts, identified by indices from the last persons listing, to the group.
+Format: `create GROUP_NAME [INDEX] [MORE_INDICES] ...`
+
+***
+* An empty group with no persons added can be created.
+***
 
 === Clearing all entries : `clear`
 
