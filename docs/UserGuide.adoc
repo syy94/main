@@ -72,6 +72,25 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+=== [Coming in v2.0] Sorts and lists all persons : `sort`
+
+Sorts all persons in the address book by their names in alphabetical order. +
+Format: `sort`
+
+=== [Coming in v2.0] Sorts and lists all persons using parameters : `sort`
+
+Sorts all persons in the address book by the given parameter(s) in lexicographic order. +
+Format: `sort [n/] [p/] [e/] [a/] [t/]...`
+
+***
+* If more than one parameter is given, address book will sort by the first parameter first, then the next, and so on.
+***
+
+Examples:
+
+* `sort n/ a/`
+Contacts are sorted by name first and then sorted by address.
+
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -95,7 +114,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 === Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -115,7 +134,7 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 === [Coming in v2.0] Locating persons by other fields: `find`
 
 Finds persons whose field matches any of the given fields, with the exception of tags.
-Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] ...`
+Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]...`
 
 ****
 * The search is case insensitive. e.g `Email@Email.com` will match `email@email.com`
@@ -154,6 +173,15 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
+=== [Coming in v2.0] Deleting one or more field(s) of a person : `delete`
+
+Deletes the specified field(s) from the person identified by the index number used in the last person listing. +
+Format: `delete INDEX [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+***
+* Name cannot be deleted.
+***
+
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the last person listing. +
@@ -183,6 +211,16 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+
+=== [Coming in v2.0] Listing the edit history of a contact : `edit_history`
+
+Lists all edit history of the person, identified by the index number used in the last person listing, in reverse chronological order. +
+Format: `edit_history` INDEX
+
+Examples:
+
+* `edit 1 p/12341234` +
+`edit_history 1` (prints: `phone number changed from ******** to 12341234`
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
@@ -237,10 +275,21 @@ The `redo` command fails as there are no `undo` commands executed previously.
 === [Coming in v2.0] Creating groups : `create`
 
 Creates a group and adds contacts, identified by indices from the last persons listing, to the group.
-Format: `create GROUP_NAME [INDEX] [MORE_INDICES] ...`
+Format: `create GROUP_NAME [INDEX] [MORE_INDICES]...`
 
 ***
-* An empty group with no persons added can be created.
+* An empty group with no persons can be created.
+***
+
+=== [Coming in v2.0] Setting a password to humanDEX : `set_password`
+
+Sets a password for humanDEX.
+Format: `set_password PASSWORD PASSWORD_CONFIRMATION`
+
+***
+* A password must be at least 8 characters long.
+* A password must contain at least one lowercase letter, at least one uppercase letter, and at least one special character.
+* The password and password_confirmation inputs must be the same.
 ***
 
 === Clearing all entries : `clear`
