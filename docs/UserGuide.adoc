@@ -281,6 +281,26 @@ Format: `create GROUP_NAME [INDEX] [MORE_INDICES]...`
 * An empty group with no persons can be created.
 ***
 
+=== [Coming in v2.0] Creating a new humanDEX : `create_humanDEX`
+
+Creates a new humanDEX.
+Format: `create_humanDEX NAME`
+
+***
+* If you do not specify the name, the default name will be set to `humanDEX_#`
+* You can perform all commands in any humanDEX.
+* Modifying a contact in one humanDEX will be reflected in all other humanDEXes.
+***
+
+=== [Coming in v2.0] Switching to another humanDEX : `switch`
+
+Switches to another humanDEX.
+Format: `switch NAME`
+
+***
+* A new humanDEX interface will popup.
+***
+
 === [Coming in v2.0] Setting a password to humanDEX : `set_password`
 
 Sets a password for humanDEX.
