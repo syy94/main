@@ -353,12 +353,25 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Find by Name* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Find by Phone / Email / Address* : `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]...` +
+e.g. `find p/99991234`
+* *Find by Tag or Group* : `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...` +
+e.g. `find t/friend`
 * *List* : `list`
+* *Sort (by name)* : `sort`
+* *Sort* : `sort [n/] [p/] [e/] [a/] [t/]...` +
+e.g. `sort n/ a/`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Delete Field* : `delete INDEX [p/] [e/] [a/] [t/TAG]...` +
+e.g. `delete 4 p/ a/ t/friend`
 * *History* : `history`
+* *Edit History* : `edit_history INDEX` +
+e.g. `edit_history 1`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Create Group* : `create GROUP_NAME [INDEX] [MORE_INDICES]...`
+e.g. `create Car Insurance Buyers 1 3 5 7`
