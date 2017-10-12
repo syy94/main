@@ -281,10 +281,10 @@ Format: `create GROUP_NAME [INDEX] [MORE_INDICES]...`
 * An empty group with no persons can be created.
 ***
 
-=== [Coming in v2.0] Creating a new humanDEX : `create_humanDEX`
+=== [Coming in v2.0] Creating a new humanDEX : `new_humanDEX`
 
 Creates a new humanDEX.
-Format: `create_humanDEX NAME`
+Format: `new_humanDEX NAME`
 
 ***
 * If you do not specify the name, the default name will be set to `humanDEX_#`
