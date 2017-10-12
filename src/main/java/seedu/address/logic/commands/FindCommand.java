@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import java.util.function.Predicate;
 
-import seedu.address.model.person.PersonFieldContainsKeywordsPredicate;
+import seedu.address.model.person.PersonContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -22,7 +22,7 @@ public class FindCommand extends Command {
 
     private final Predicate<ReadOnlyPerson> predicate;
 
-    public FindCommand(PersonFieldContainsKeywordsPredicate predicate) {
+    public FindCommand(PersonContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
