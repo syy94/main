@@ -30,7 +30,7 @@ Responsibilities: UI
 '''
 
 === Sophie, Park Se Hyun
-image::sofarsophie.jpg[width="150", align="left"]
+image::sofarsophie.png[width="150", align="left"]
 {empty}[http://github.com/sofarsophie[github]] [https://github.com/CS2103AUG2017-F11-B1/main/blob/master/docs/team/sofarsophie.adoc[portfolio]]
 
 Role: Developer +
