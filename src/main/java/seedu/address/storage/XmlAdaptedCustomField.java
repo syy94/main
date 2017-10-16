@@ -9,11 +9,18 @@ public class XmlAdaptedCustomField {
     @XmlValue
     private String customField;
 
+    /**
+     * Constructs an XmlAdaptedPerson.
+     * This is the no-arg constructor that is required by JAXB.
+     */
+    public XmlAdaptedCustomField() {
+    }
+
     public XmlAdaptedCustomField(CustomField field) {
         this.customField = field.toString();
     }
 
-    public CustomField toModelType() throws IllegalValueException{
+    public CustomField toModelType() throws IllegalValueException {
         return new CustomField(customField);
     }
 }

@@ -7,8 +7,8 @@ import java.util.Objects;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class CustomField {
-    private String field;
-    private String value;
+    public String key;
+    public String value;
 
     public static final String MESSAGE_FIELD_CONSTRAINTS =
             "Custom fields should be 2 alphanumeric strings separated by ':'";
@@ -22,7 +22,7 @@ public class CustomField {
         }
         final String[] fieldData = trimmedField.split(":", 2);
         requireAllNonNull(fieldData[0], fieldData[1]);
-        this.field = fieldData[0];
+        this.key = fieldData[0];
         this.value = fieldData[1];
     }
 
@@ -36,16 +36,16 @@ public class CustomField {
     @Override
     public boolean equals(Object obj) {
         final CustomField other = (CustomField) obj;
-        return field.equals(other.field) && value.equals(other.value);
+        return key.equals(other.key) && value.equals(other.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(field, value);
+        return Objects.hash(key, value);
     }
 
     @Override
     public String toString() {
-        return field + ":" + value;
+        return key + ":" + value;
     }
 }
