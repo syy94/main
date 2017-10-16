@@ -23,7 +23,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-        } else if(trimmedArgs.equalsIgnoreCase("all")) {
+        } else if (trimmedArgs.equalsIgnoreCase("all")) {
             return new ListCommand();
         }
 
