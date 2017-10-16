@@ -30,7 +30,9 @@ public class ListCommand extends Command {
         this.predicate = predicate;
     }
 
-    public ListCommand() { predicate = PREDICATE_SHOW_ALL_PERSONS; }
+    public ListCommand() {
+        predicate = PREDICATE_SHOW_ALL_PERSONS;
+    }
 
     @Override
     public CommandResult execute() {
