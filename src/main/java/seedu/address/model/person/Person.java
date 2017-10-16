@@ -3,12 +3,15 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import seedu.address.model.customFields.CustomField;
+import seedu.address.model.customFields.CustomFieldsList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -22,20 +25,22 @@ public class Person implements ReadOnlyPerson {
     private ObjectProperty<Phone> phone;
     private ObjectProperty<Email> email;
     private ObjectProperty<Address> address;
+    private ObjectProperty<CustomFieldsList> fieldsList;
 
     private ObjectProperty<UniqueTagList> tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<CustomField> fields, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, fields, tags);
         this.name = new SimpleObjectProperty<>(name);
         this.phone = new SimpleObjectProperty<>(phone);
         this.email = new SimpleObjectProperty<>(email);
         this.address = new SimpleObjectProperty<>(address);
         // protect internal tags from changes in the arg list
         this.tags = new SimpleObjectProperty<>(new UniqueTagList(tags));
+        this.fieldsList = new SimpleObjectProperty<>(new CustomFieldsList(fields));
     }
 
     /**
@@ -43,7 +48,7 @@ public class Person implements ReadOnlyPerson {
      */
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
-                source.getTags());
+                source.getFields(), source.getTags());
     }
 
     public void setName(Name name) {
@@ -100,6 +105,16 @@ public class Person implements ReadOnlyPerson {
     @Override
     public Address getAddress() {
         return address.get();
+    }
+
+    @Override
+    public ObjectProperty<CustomFieldsList> fieldsListProperty() {
+        return fieldsList;
+    }
+
+    @Override
+    public Set<CustomField> getFields() {
+        return Collections.unmodifiableSet(fieldsList.get().toSet());
     }
 
     /**
