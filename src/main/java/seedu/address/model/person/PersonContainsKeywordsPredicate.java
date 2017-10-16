@@ -17,6 +17,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
 
     @Override
     public boolean test(ReadOnlyPerson person) {
+        System.out.println(person.getTags().toString());
         return (keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)
                 || StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword)
