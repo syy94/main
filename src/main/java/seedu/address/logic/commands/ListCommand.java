@@ -24,14 +24,10 @@ public class ListCommand extends Command {
             + COMMAND_WORD + " all";;
 
 
-    private Predicate<ReadOnlyPerson> predicate;
+    private Predicate<ReadOnlyPerson> predicate = PREDICATE_SHOW_ALL_PERSONS;
 
     public ListCommand(PersonContainsTagsPredicate predicate) {
         this.predicate = predicate;
-    }
-
-    public ListCommand() {
-        predicate = PREDICATE_SHOW_ALL_PERSONS;
     }
 
     @Override
