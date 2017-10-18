@@ -94,6 +94,7 @@ public class AddCommandParserTest {
         // zero tags and zero fields
         Person expectedPersonZeroTags = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().withFields().build();
+
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, new AddCommand(expectedPersonZeroTags));
 
