@@ -8,9 +8,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.person.PersonContainsKeywordsPredicate;
 import seedu.address.model.person.PersonContainsTagsPredicate;
 
 public class LogicCommandParserTest {
