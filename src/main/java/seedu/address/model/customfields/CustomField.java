@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Represents a field as created by the user in the address book.
@@ -51,5 +52,14 @@ public class CustomField {
     @Override
     public String toString() {
         return key + ":" + value;
+    }
+
+    /**
+     * returns a String representation of custom fields as a sentence.
+     *
+     * @see seedu.address.model.person.PersonContainsKeywordsPredicate#test(ReadOnlyPerson)
+     */
+    public String asData() {
+        return key + " " + value;
     }
 }
