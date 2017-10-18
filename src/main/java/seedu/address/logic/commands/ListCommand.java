@@ -30,6 +30,10 @@ public class ListCommand extends Command {
         this.predicate = predicate;
     }
 
+    public ListCommand() {
+
+    }
+
     @Override
     public CommandResult execute() {
         model.updateFilteredPersonList(predicate);
