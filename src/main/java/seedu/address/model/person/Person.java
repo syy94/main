@@ -107,6 +107,10 @@ public class Person implements ReadOnlyPerson {
         return address.get();
     }
 
+    public void setFields(Set<CustomField> replacement){
+        fieldsList.set(new CustomFieldsList(replacement));
+    }
+
     @Override
     public ObjectProperty<CustomFieldsList> fieldsListProperty() {
         return fieldsList;

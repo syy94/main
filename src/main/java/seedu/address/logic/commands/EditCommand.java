@@ -225,7 +225,7 @@ public class EditCommand extends UndoableCommand {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
-                    && getFieldsList().equals(e.getAddress())
+                    && getFieldsList().equals(e.getFieldsList())
                     && getTags().equals(e.getTags());
         }
     }
