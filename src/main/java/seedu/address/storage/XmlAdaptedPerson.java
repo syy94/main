@@ -86,7 +86,6 @@ public class XmlAdaptedPerson {
         final Phone phone = new Phone(this.phone);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
-        final Set<CustomField> fieldsList = new HashSet<>(personFields);
         final Set<Tag> tags = new HashSet<>(personTags);
         final Set<CustomField> fields = new HashSet<>(personFields);
         return new Person(name, phone, email, address, fields, tags);
