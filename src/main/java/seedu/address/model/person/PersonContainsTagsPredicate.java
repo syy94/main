@@ -17,10 +17,10 @@ public class PersonContainsTagsPredicate implements Predicate<ReadOnlyPerson> {
 
     @Override
     public boolean test(ReadOnlyPerson person) {
-        System.out.println(person.getTags().toString());
         return (keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getTags().toString()
-                        .replace("[", "").replace("]", ""), keyword)));
+                        .replace("[", "").replace("]", "")
+                        .replace(",", ""), keyword)));
 
     }
 
