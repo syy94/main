@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.FIELD_DESC_COMPANY;
 import static seedu.address.logic.commands.CommandTestUtil.FIELD_DESC_SCHOOL;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -55,22 +54,22 @@ public class AddCommandParserTest {
 
         // multiple names - last name accepted
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
+                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
                 new AddCommand(expectedPerson));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
+                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
                 new AddCommand(expectedPerson));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
+                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
                 new AddCommand(expectedPerson));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
+                        + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
                 new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
@@ -93,7 +92,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags and zero fields
-        Person expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+        Person expectedPersonZeroTags = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().withFields().build();
 
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
@@ -102,25 +101,28 @@ public class AddCommandParserTest {
 
         // missing phone prefix
         Person expectedPersonMissingPhone = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_EMPTY)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND).build();
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND)
+                .withFields(VALID_FIELD_SCHOOL).build();
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPersonMissingPhone));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL, new AddCommand(expectedPersonMissingPhone));
 
         // missing email prefix
         Person expectedPersonMissingEmail = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMPTY).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND).build();
+                .withEmail(VALID_EMPTY).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND)
+                .withFields(VALID_FIELD_SCHOOL).build();
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPersonMissingEmail));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL, new AddCommand(expectedPersonMissingEmail));
 
         // missing address prefix
         Person expectedPersonMissingAddress = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_EMPTY).withTags(VALID_TAG_FRIEND).build();
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_EMPTY).withTags(VALID_TAG_FRIEND)
+                .withFields(VALID_FIELD_SCHOOL).build();
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPersonMissingAddress));
+                + EMAIL_DESC_BOB + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL, new AddCommand(expectedPersonMissingAddress));
 
         // all prefixes missing
         Person expectedPersonMissingAllExceptName = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_EMPTY)
-                .withEmail(VALID_EMPTY).withAddress(VALID_EMPTY).withTags().build();
+                .withEmail(VALID_EMPTY).withAddress(VALID_EMPTY).withTags().withFields().build();
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB,
                 new AddCommand(expectedPersonMissingAllExceptName));
 
