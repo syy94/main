@@ -3,8 +3,11 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.customFields.CustomField;
+import seedu.address.model.customfields.CustomField;
 
+/**
+ * JAXB-friendly adapted version of the Field.
+ */
 public class XmlAdaptedCustomField {
     @XmlValue
     private String customField;

@@ -6,9 +6,8 @@ import java.util.Set;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.customFields.CustomField;
+import seedu.address.model.customfields.CustomField;
 import seedu.address.model.person.Address;
-import seedu.address.model.customFields.CustomFieldsList;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -22,7 +21,7 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         try {
-            return new Person[] {
+            return new Person[]{
                 new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                     new Address("Blk 30 Geylang Street 29, #06-40"),
                     getFieldsSet("Company:Google"),
@@ -31,7 +30,8 @@ public class SampleDataUtil {
                     new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                     getFieldsSet("Company:Google1"),
                     getTagSet("colleagues", "friends")),
-                new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+                new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
+                    new Email("charlotte@example.com"),
                     new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     getFieldsSet("Company:Google2"),
                     getTagSet("neighbours")),

@@ -8,9 +8,8 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.customFields.CustomField;
+import seedu.address.model.customfields.CustomField;
 import seedu.address.model.person.Address;
-import seedu.address.model.customFields.CustomFieldsList;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -35,13 +34,14 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
     @XmlElement
-    private List<XmlAdaptedCustomField> fieldsList = new ArrayList<>();;
+    private List<XmlAdaptedCustomField> fieldsList = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedPerson() {
+    }
 
 
     /**
@@ -56,7 +56,7 @@ public class XmlAdaptedPerson {
         address = source.getAddress().value;
 
         fieldsList = new ArrayList<>();
-        for(CustomField field : source.getFields()){
+        for (CustomField field : source.getFields()) {
             fieldsList.add(new XmlAdaptedCustomField(field));
         }
 
@@ -86,7 +86,7 @@ public class XmlAdaptedPerson {
         final Phone phone = new Phone(this.phone);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
-        final Set<CustomField> fieldsList= new HashSet<>(personFields);
+        final Set<CustomField> fieldsList = new HashSet<>(personFields);
         final Set<Tag> tags = new HashSet<>(personTags);
         final Set<CustomField> fields = new HashSet<>(personFields);
         return new Person(name, phone, email, address, fields, tags);

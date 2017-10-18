@@ -42,7 +42,7 @@ public class PersonUtil {
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         person.getFields().stream().forEach(
-                s -> sb.append(PREFIX_CUSTOM_FIELD + s.toString()+ " ")
+            s -> sb.append(PREFIX_CUSTOM_FIELD + s.toString() + " ")
         );
         return sb.toString();
     }

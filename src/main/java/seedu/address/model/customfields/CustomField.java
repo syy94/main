@@ -1,4 +1,4 @@
-package seedu.address.model.customFields;
+package seedu.address.model.customfields;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -6,18 +6,22 @@ import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+/**
+ * Represents a field as created by the user in the address book.
+ * Guarantees: immutable; name is valid as declared in {@link #isValidField(String)}
+ */
 public class CustomField {
-    public String key;
-    public String value;
-
     public static final String MESSAGE_FIELD_CONSTRAINTS =
             "Custom fields should be 2 alphanumeric strings separated by ':'";
     public static final String FIELD_VALIDATION_REGEX = "[\\w]+:[\\w]+";
 
-    public CustomField(String field) throws IllegalValueException{
+    public final String key;
+    public final String value;
+
+    public CustomField(String field) throws IllegalValueException {
         requireAllNonNull(field);
         final String trimmedField = field.trim();
-        if(!isValidField(trimmedField)){
+        if (!isValidField(trimmedField)) {
             throw new IllegalValueException(MESSAGE_FIELD_CONSTRAINTS);
         }
         final String[] fieldData = trimmedField.split(":", 2);

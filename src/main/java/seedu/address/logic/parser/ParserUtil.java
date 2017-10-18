@@ -10,8 +10,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.customFields.CustomField;
-import seedu.address.model.customFields.CustomFieldsList;
+import seedu.address.model.customfields.CustomField;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -82,6 +81,9 @@ public class ParserUtil {
         return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
     }
 
+    /**
+     * Parses {@code Collection<String> fields} into a {@code Set<{@link CustomField}>}.
+     */
     public static Set<CustomField> parseCustomFields(Collection<String> fields) throws IllegalValueException {
         requireNonNull(fields);
 

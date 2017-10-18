@@ -18,13 +18,16 @@ import seedu.address.commons.util.ColorUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Panel containing the details of the selected person.
+ */
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
     private static final HashMap<String, String> TAG_COLORS = new HashMap<String, String>();
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public ReadOnlyPerson person;
+    private ReadOnlyPerson person;
 
     @FXML
     private HBox cardPane;
@@ -94,7 +97,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     private void initFields(ReadOnlyPerson person) {
         person.getFields().forEach(field -> {
-            final Label label = new Label(field.key+": "+field.value);
+            final Label label = new Label(field.key + ": " + field.value);
             fields.getChildren().add(label);
         });
     }

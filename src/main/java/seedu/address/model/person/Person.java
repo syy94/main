@@ -3,15 +3,14 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import seedu.address.model.customFields.CustomField;
-import seedu.address.model.customFields.CustomFieldsList;
+import seedu.address.model.customfields.CustomField;
+import seedu.address.model.customfields.CustomFieldsList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -107,7 +106,7 @@ public class Person implements ReadOnlyPerson {
         return address.get();
     }
 
-    public void setFields(Set<CustomField> replacement){
+    public void setFields(Set<CustomField> replacement) {
         fieldsList.set(new CustomFieldsList(replacement));
     }
 

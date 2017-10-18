@@ -3,8 +3,8 @@ package seedu.address.model.person;
 import java.util.Set;
 
 import javafx.beans.property.ObjectProperty;
-import seedu.address.model.customFields.CustomField;
-import seedu.address.model.customFields.CustomFieldsList;
+import seedu.address.model.customfields.CustomField;
+import seedu.address.model.customfields.CustomFieldsList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 

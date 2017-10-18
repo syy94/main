@@ -1,4 +1,4 @@
-package seedu.address.model.customFields;
+package seedu.address.model.customfields;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,7 +9,13 @@ import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+/**
+ * A list of fields that enforces no nulls and uniqueness between its elements.
+ *
+ * Supports minimal set of list operations for the app's features.
+ *
+ * @see CustomField#equals(Object)
+ */
 public class CustomFieldsList implements Iterable<CustomField> {
     private final ObservableList<CustomField> internalList = FXCollections.observableArrayList();
 
@@ -21,6 +27,11 @@ public class CustomFieldsList implements Iterable<CustomField> {
     public CustomFieldsList() {
     }
 
+    /**
+     * Adds a field to the list.
+     *
+     * @param toAdd
+     */
     public void add(CustomField toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
