@@ -364,6 +364,23 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== List
+
+The `list` command allow user to list the contacts by tag(s).
+The following sequence diagram shows how the `list` operation works:
+image::SDforListPerson.png[width="771"]
+_Figure 2.1.1 : `list` Diagram_
+
+==== Design Considerations
+
+**Aspect:** Implementation of `ListCommandParser` +
+**Alternative 1 (current choice):** Add a class to parse command from `AddressBookParser` +
+**Pros:** A better usage for listing +
+**Cons:** New class will be added in, need to add more test cases. +
+**Alternative 2:** Use `find` command for finding tags +
+**Pros:** Easier to implement as `find` function is already available. +
+**Cons:** If contact's details contains same word as tag, contact will be listed. For example if May mail is mayfriend@hotmail.com but does not contain tag "friend", May will be found even though she does not inclulde tag "friend".
+
 == Documentation
 
 We use asciidoc for writing documentation.
