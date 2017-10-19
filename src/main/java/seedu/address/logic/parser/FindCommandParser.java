@@ -15,13 +15,12 @@ import java.util.stream.Stream;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.PersonContainsKeywordsPredicate;
-import seedu.address.model.person.PersonContainsKeywordsPredicate.FindFields;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PersonContainsKeywordsPredicate;
+import seedu.address.model.person.PersonContainsKeywordsPredicate.FindFields;
 import seedu.address.model.person.Phone;
-
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -39,7 +38,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
 
         if (!(arePrefixesPresent(argMultimap, PREFIX_NAME) || arePrefixesPresent(argMultimap, PREFIX_PHONE)
-        || (arePrefixesPresent(argMultimap, PREFIX_EMAIL)) || arePrefixesPresent(argMultimap, PREFIX_ADDRESS))) {
+            || (arePrefixesPresent(argMultimap, PREFIX_EMAIL)) || arePrefixesPresent(argMultimap, PREFIX_ADDRESS))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
@@ -113,8 +112,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (addresses.isEmpty()) {
             return Optional.empty();
         }
-        List<String> AddressList = addresses.size() == 1 && addresses.contains("") ? Collections.emptyList() : addresses;
-        return Optional.of(ParserUtil.parseAddresses(AddressList));
+        List<String> addressList = addresses.size() == 1 && addresses.contains("")
+                ? Collections.emptyList() : addresses;
+        return Optional.of(ParserUtil.parseAddresses(addressList));
     }
 
     /**

@@ -2,8 +2,8 @@ package seedu.address.model.person;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * Tests that any of {@code ReadOnlyPerson}'s Name, Phone, Email or Address
@@ -19,14 +19,14 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
 
     @Override
     public boolean test(ReadOnlyPerson person) {
-        return ( (findFields.getNameKeywordsStream().anyMatch(keyword
-                -> person.getName().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
+        return ((findFields.getNameKeywordsStream().anyMatch(keyword
+            -> person.getName().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
                 || (findFields.getPhoneKeywordsStream().anyMatch(keyword
-                -> person.getPhone().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
+                    -> person.getPhone().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
                 || (findFields.getEmailKeywordsStream().anyMatch(keyword
-                -> person.getEmail().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
+                    -> person.getEmail().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
                 || (findFields.getAddressKeywordsStream().anyMatch(keyword
-                -> person.getAddress().toString().toLowerCase().contains(keyword.toString().toLowerCase()))));
+                    -> person.getAddress().toString().toLowerCase().contains(keyword.toString().toLowerCase()))));
     }
 
     @Override
@@ -89,15 +89,21 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
             this.emailKeywords = emails;
         }
 
-        public Optional<List<Email>> getEmailKeywords() { return Optional.ofNullable(emailKeywords); }
+        public Optional<List<Email>> getEmailKeywords() {
+            return Optional.ofNullable(emailKeywords);
+        }
 
         public Stream<Email> getEmailKeywordsStream() {
             return this.getEmailKeywords().map(List::stream).orElseGet(Stream::empty);
         }
 
-        public void setAddressKeywords(List<Address> addresses) { this.addressKeywords = addresses; }
+        public void setAddressKeywords(List<Address> addresses) {
+            this.addressKeywords = addresses;
+        }
 
-        public Optional<List<Address>> getAddressKeywords() { return Optional.ofNullable(addressKeywords); }
+        public Optional<List<Address>> getAddressKeywords() {
+            return Optional.ofNullable(addressKeywords);
+        }
 
         public Stream<Address> getAddressKeywordsStream() {
             return this.getAddressKeywords().map(List::stream).orElseGet(Stream::empty);
