@@ -94,27 +94,29 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating persons by other fields: `find`
 
-
-Finds persons whose names, phones, emails, and/or addresses contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
+Finds persons whose field matches any of the given fields, with the exception of tags.
+Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]...`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `Email@Email.com` will match `email@email.com`
 * Any field, with the exception of tags, will be searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The order of the keywords does not matter. e.g. `find n\Hans n\Bo` will match `find n\Bo n\Hans`
+* For name, phone, and address, partial words will also be matched.
+e.g. `find p/9004` will match anyone whose phone number contains `9004`.
+* For email, the given email must also be in the correct form of an email.
+e.g. `find e/gmail` is invalid. `find e\_lee@nus.edu.sg` is valid.
+* Persons matching at least one field will be returned (i.e. `OR` search).
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy 99991234 helloTim@gmail.com` +
-Returns any person having names `Betsy`, the phone number `99991234`, or email address `helloTim@gmail.com`
+* `find n/John` +
+Returns `Johnathan Kim` and `John Doe`
+* `find n/Bet n/9999 e/helloTim@gmail.com` +
+Returns any person having names containing `Bet`, a phone number containing `9999`,
+or email address `helloTim@gmail.com`
 
 === Deleting a person : `delete`
 
@@ -251,17 +253,6 @@ Examples:
 
 * `sort n/ a/`
 Contacts are sorted by name first and then sorted by address.
-
-=== [Coming in v1.5] Locating persons by other fields: `find`
-
-Finds persons whose field matches any of the given fields, with the exception of tags.
-Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]...`
-
-****
-* The search is case insensitive. e.g `Email@Email.com` will match `email@email.com`
-* Partial words will also be matched. e.g. `find p/9004` will match anyone whose phone number contains `9004`.
-* Persons matching at least one field will be returned (i.e. `OR` search).
-****
 
 === [Coming in v1.5] Locating and listing persons by tag and/or group: `find`
 
