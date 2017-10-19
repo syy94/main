@@ -15,10 +15,11 @@ public class FindCommand extends Command {
     public static final String COMMAND_ALIAS = "f";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose name, phone, email, "
-            + "or address contain any of the specified keywords "
-            + "(case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice 91043332 charlie hiji@gmail.com";
+            + "or address contain at least one of the specified keywords by parameter"
+            + "(case-sensitive) and displays them as a list with index numbers."
+            + "Each parameter can be specified any number of times.\n"
+            + "Parameters: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [MORE_PARAMETERS]...\n"
+            + "Example: " + COMMAND_WORD + " n/alice p/910 a/bukit e/pp@pp.com";
 
     private final Predicate<ReadOnlyPerson> predicate;
 
