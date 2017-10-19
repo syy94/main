@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that any of {@code ReadOnlyPerson}'s Name, Phone, Email or Address matches any of the keywords given.
+ * Tests that any of {@code ReadOnlyPerson}'s Name, Phone, Email or Address partially matches any of the keywords given.
  */
 public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
     private final List<String> keywords;
@@ -18,10 +18,10 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
     @Override
     public boolean test(ReadOnlyPerson person) {
         return (keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)
-                || StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword)
-                || StringUtil.containsWordIgnoreCase(person.getEmail().toString(), keyword)
-                || StringUtil.containsWordIgnoreCase(person.getAddress().toString(), keyword)));
+                .anyMatch(keyword -> person.getName().fullName.toLowerCase().contains(keyword.toLowerCase())
+                || person.getPhone().toString().toLowerCase().contains(keyword.toLowerCase())
+                || person.getEmail().toString().toLowerCase().contains(keyword.toLowerCase())
+                || person.getAddress().toString().toLowerCase().contains(keyword.toLowerCase())));
 
     }
 
