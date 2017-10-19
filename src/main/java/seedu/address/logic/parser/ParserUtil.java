@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -53,12 +55,35 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code Collection<String> names} into a {@code List<Name>}
+     */
+    public static List<Name> parseNames(Collection<String> names) throws IllegalValueException {
+        requireNonNull(names);
+        final List<Name> nameList = new ArrayList<>();
+        for (String name : names) {
+            nameList.add(new Name(name));
+        }
+        return nameList;
+    }
+    /**
      * Parses a {@code Optional<String> phone} into an {@code Optional<Phone>} if {@code phone} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
         requireNonNull(phone);
         return phone.isPresent() ? Optional.of(new Phone(phone.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Collection<String> phones} into a {@code List<Phone>}
+     */
+    public static List<Phone> parsePhones(Collection<String> phones) throws IllegalValueException {
+        requireNonNull(phones);
+        final List<Phone> phoneList = new ArrayList<>();
+        for (String phone : phones) {
+            phoneList.add(new Phone(phone));
+        }
+        return phoneList;
     }
 
     /**
@@ -71,12 +96,36 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code Collection<String> addresses} into a {@code List<Address>}
+     */
+    public static List<Address> parseAddresses(Collection<String> addresses) throws IllegalValueException {
+        requireNonNull(addresses);
+        final List<Address> addressList = new ArrayList<>();
+        for (String address : addresses) {
+            addressList.add(new Address(address));
+        }
+        return addressList;
+    }
+
+    /**
      * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         requireNonNull(email);
         return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Collection<String> emails} into a {@code List<Email>}
+     */
+    public static List<Email> parseEmails(Collection<String> emails) throws IllegalValueException {
+        requireNonNull(emails);
+        final List<Email> emailList = new ArrayList<>();
+        for (String email : emails) {
+            emailList.add(new Email(email));
+        }
+        return emailList;
     }
 
     /**
