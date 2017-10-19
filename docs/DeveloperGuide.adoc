@@ -364,6 +364,43 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Feature: Custom Fields
+
+Custom fields is implemented to give the users more control over the data they are keeping about their contacts.
+The main purpose of this feature is idealised to allow users to store data that does not seem to fit the use of tags and groups.
+Some examples of fields could be birthdays, the company the contact works under etc.
+
+==== Variables
+The CustomField class holds 2 variables:
+
+* key : name of the field
+* value : value of the field
+
+==== Design considerations
+During development the use of Hashmap was considered as a way to store these fields, limiting the keys to be unique. However, the user may have a need to store 2 different values under a same key.
+
+=====
+For Example:
+
+* HashMap Method:
+
+ Phone:98765432
+ Phone1:84434663
+
+* HashSet Method:
+
+ Phone:98765432
+ Phone:84434663
+
+From a Ui perspective, the HashSet method may look more aethestically pleasing as compared to the HashMap method.
+
+Therefore, HashSet is used as it is able to allow the user to fully choose which display method they prefer giving them more flexibility.
+
+=====
+
+==== Implementation
+The CustomField class was developed first and added to Person class. Then the necessary classes are created and developed such that it fits into the existing code. The add and edit command are then updated to support this new feature and finally, test cases are updated to check that this feature have been integrated seamlessly with the existing code.
+
 == Documentation
 
 We use asciidoc for writing documentation.
