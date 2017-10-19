@@ -94,7 +94,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by other fields: `find`
+=== [Since v1.2] Locating persons by other fields: `find`
 
 Finds persons whose field matches any of the given fields, with the exception of tags.
 Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]...`
