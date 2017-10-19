@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
  * Tests that any of {@code ReadOnlyPerson}'s Name, Phone, Email or Address
  * partially matches any of the keywords identified by prefixes.
@@ -22,7 +20,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
     @Override
     public boolean test(ReadOnlyPerson person) {
         return ( (findFields.getNameKeywordsStream().anyMatch(keyword
-                -> StringUtil.containsWordIgnoreCase(person.getName().toString(), keyword.toString())))
+                -> person.getName().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
                 || (findFields.getPhoneKeywordsStream().anyMatch(keyword
                 -> person.getPhone().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
                 || (findFields.getEmailKeywordsStream().anyMatch(keyword
