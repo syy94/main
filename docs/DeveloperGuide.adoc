@@ -368,6 +368,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 The `list` command allow user to list the contacts by tag(s).
 The following sequence diagram shows how the `list` operation works:
+
 image::SDforListPerson.png[width="771"]
 _Figure 2.1.1 : `list` Diagram_
 
