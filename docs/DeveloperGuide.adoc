@@ -12,7 +12,7 @@ endif::[]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103AUG2017-F11-B1`      Since: `Sep 2017`      Licence: `MIT`
 
 == Setting up
 
@@ -401,6 +401,25 @@ Therefore, HashSet is used as it is able to allow the user to fully choose which
 ==== Implementation
 The CustomField class was developed first and added to Person class. Then the necessary classes are created and developed such that it fits into the existing code. The add and edit command are then updated to support this new feature and finally, test cases are updated to check that this feature have been integrated seamlessly with the existing code.
 
+=== List
+
+The `list` command allow user to list the contacts by tag(s).
+The following sequence diagram shows how the `list` operation works:
+
+image::SDforListPerson.png[width="691"]
+_Figure 2.1.1 : `list` Diagram_
+
+==== Design Considerations
+
+**Aspect:** Implementation of `ListCommandParser` +
+**Alternative 1 (current choice):** Add a class to parse command from `AddressBookParser` +
+**Pros:** A better usage for listing +
+**Cons:** New class will be added in, need to add more test cases. +
+**Alternative 2:** Use `find` command for finding tags +
+**Pros:** Easier to implement as `find` function is already available. +
+**Cons:** If contact's details contains same word as tag, contact will be listed. For example if May mail is mayfriend@hotmail.com but does not contain tag "friend", May will be found even though she does not inclulde tag "friend".
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
@@ -752,6 +771,9 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 [appendix]
 == User Stories
+**Target user**
+
+Our target user is insurance agents that has lots of contacts. They may need different address book for their different types of clients. If the insurance agents plans on retiring and wants to past the contacts to his/her fellow colleagues, he/she will be able to export the address book and the colleague will be able to import it.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
