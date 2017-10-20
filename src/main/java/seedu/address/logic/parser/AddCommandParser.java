@@ -42,9 +42,9 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         try {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).get();
-            Phone phone = ParserUtil.parsePhone(areValuePresent(argMultimap.getValue(PREFIX_PHONE))).get();
-            Email email = ParserUtil.parseEmail(areValuePresent(argMultimap.getValue(PREFIX_EMAIL))).get();
-            Address address = ParserUtil.parseAddress(areValuePresent(argMultimap.getValue(PREFIX_ADDRESS))).get();
+            Phone phone = ParserUtil.parsePhone(ifValueNotPresent(argMultimap.getValue(PREFIX_PHONE))).get();
+            Email email = ParserUtil.parseEmail(ifValueNotPresent(argMultimap.getValue(PREFIX_EMAIL))).get();
+            Address address = ParserUtil.parseAddress(ifValueNotPresent(argMultimap.getValue(PREFIX_ADDRESS))).get();
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
             ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
@@ -59,7 +59,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Returns null if prefixes contains empty values in the given
      * {@value}.
      */
-    private static Optional<String> areValuePresent(Optional<String> value) {
+    private static Optional<String> ifValueNotPresent(Optional<String> value) {
         value = Optional.of(value.orElse(""));
         return value;
     }

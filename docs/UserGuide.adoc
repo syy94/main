@@ -71,8 +71,22 @@ Examples:
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Shows a list of persons according to the tag given in the address book. +
+Format: `list [TAG]`
+
+****
+* The search is case insensitive. e.g `friends` will match `friends`
+* Only full words will be matched e.g. `Friend` will not match `Friends`
+****
+
+Examples:
+
+* `list Friends` +
+Returns any persons with tag `friends`
+* `'list all` +
+Returns all persons with or without tags
+* `list Friends Colleagues` +
+Returns any persons with tag `friends` or/and `Colleagues`
 
 === Editing a person : `edit`
 
