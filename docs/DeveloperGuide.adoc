@@ -364,7 +364,77 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-=== Feature: Custom Fields
+=== Find
+
+The `find` command was enhanced to allow a more rigorous search. The new find command allows users to search for Persons in the humanDEX using fields such as Name, Email, Phone, and Address.
+It supports partial search and users are required to input fields using prefixes.
+
+==== Implementation
+
+The enhanced `find` command was implemented by first, modifying the parsing mechanism in `FindCommandParser`. After checking whether any of the prefixes exist in the `argMultiMap`, the parser uses four methods to parse each field. An example of the method is as follows: +
+
+[source,java]
+----
+/**
+ * Parses {@code List<String> names} into a {@code List<Name>} if {@code names} is non-empty.
+ * If {@code names} contain only one element which is an empty string, it will be parsed into a
+ * {@code Set<Name>} containing zero names.
+ */
+private Optional<List<Name>> parseNamesForSearch(List<String> names) throws IllegalValueException {
+    assert names != null;
+
+    if (names.isEmpty()) {
+        return Optional.empty();
+    }
+    List<String> nameList = names.size() == 1 && names.contains("") ? Collections.emptyList() : names;
+    return Optional.of(ParserUtil.parseNames(nameList));
+}
+----
+
+The method above returns an Optional so that when a user does not input any name fields to search, the method still returns. ++
+
+These parsed arguments are delivered to the `PersonContainsKeywordsPredicate` (`Predicate`) by creating a `FindFields` class within the `PersonContainsKeywordsPredicate` class. The `FindFields` class uses four lists to store the search inputs for each of the `Name`, `Email`, `Phone`, and `Address` fields, as such: +
+
+[source,java]
+----
+private List<Name> nameKeywords;
+private List<Phone> phoneKeywords;
+private List<Email> emailKeywords;
+private List<Address> addressKeywords;
+----
+
+The class also provides one 'setter' method and two 'getter' methods for each of the fields. The former 'getter' method returns a Optional, while the latter returns a Stream, for various uses. The latter was implemented so that the string of `getNameKeywords().map(List::stream).orElseGet(Stream::empty)` commands do not have to be repeated multiple times. Below is an example of the two 'getter' methods for `Name`: +
+
+[source,java]
+----
+public Optional<List<Name>> getNameKeywords() {
+    return Optional.ofNullable(nameKeywords);
+}
+
+public Stream<Name> getNameKeywordsStream() {
+    return this.getNameKeywords().map(List::stream).orElseGet(Stream::empty);
+}
+----
+
+After a successful parsing, the execution of the `find` command can be continued. To return partial matches for the search command, a different `match` mechanism was used. Instead of using `StringUtil.containsWordIgnoreCase` to check for matches, the new code uses a simple `String.toLowerCase().contains(String.toLowerCase())` method to search for partial matches as well. Below is a line extracted from `PersonContainsKeywordPredicate.java`. +
+
+[source,java]
+----
+(findFields.getNameKeywordsStream().anyMatch(keyword
+                -> person.getName().toString().toLowerCase().contains(keyword.toString().toLowerCase())));
+----
+
+==== Design Considerations
+
+**Aspect:** Parsing of emails as parameters +
+**Alternative 1 (current choice):** Parses and creates email classes with the current validation method. +
+**Pros:** Quick to implement, consistent validation throughout. +
+**Cons:** Does not allow users to search using email suffixes (e.g., `find e/@comp.nus.edu.sg`). +
+**Alternative 2:** Implement an overloaded constructor for `Email` that surpasses validation. +
+**Pros:** Will allow more flexible uses for users. +
+**Cons:** The team needs to agree on whether implementing an overloaded constructor is useful in terms of the entire software. Not having enough uses for the constructor may call for other solutions.
+
+=== Custom Fields
 
 Custom fields is implemented to give the users more control over the data they are keeping about their contacts.
 The main purpose of this feature is idealised to allow users to store data that does not seem to fit the use of tags and groups.
@@ -418,7 +488,6 @@ _Figure 2.1.1 : `list` Diagram_
 **Alternative 2:** Use `find` command for finding tags +
 **Pros:** Easier to implement as `find` function is already available. +
 **Cons:** If contact's details contains same word as tag, contact will be listed. For example if May mail is mayfriend@hotmail.com but does not contain tag "friend", May will be found even though she does not inclulde tag "friend".
-
 
 == Documentation
 
