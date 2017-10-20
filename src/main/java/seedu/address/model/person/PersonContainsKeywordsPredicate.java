@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.customfields.CustomField;
 
 
