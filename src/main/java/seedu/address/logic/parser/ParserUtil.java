@@ -129,6 +129,7 @@ public class ParserUtil {
             emailList.add(new Email(email));
         }
         return emailList;
+    }
     
     /**
      *
