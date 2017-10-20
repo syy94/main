@@ -130,7 +130,7 @@ public class ParserUtil {
         }
         return emailList;
     }
-    
+
     /**
      *
      * Parses {@code Collection<String> fields} into a {@code Set<{@link CustomField}>}.
