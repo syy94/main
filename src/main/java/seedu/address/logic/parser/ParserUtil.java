@@ -12,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.customfields.CustomField;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -35,6 +36,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws IllegalValueException {
@@ -117,6 +119,7 @@ public class ParserUtil {
     }
 
     /**
+     *
      * Parses a {@code Collection<String> emails} into a {@code List<Email>}
      */
     public static List<Email> parseEmails(Collection<String> emails) throws IllegalValueException {
@@ -126,6 +129,24 @@ public class ParserUtil {
             emailList.add(new Email(email));
         }
         return emailList;
+    
+    /**
+     *
+     * Parses {@code Collection<String> fields} into a {@code Set<{@link CustomField}>}.
+     */
+    public static Set<CustomField> parseCustomFields(Collection<String> fields) throws IllegalValueException {
+        requireNonNull(fields);
+
+        final Set<CustomField> fieldSet = new HashSet<>();
+        for (String field : fields) {
+            fieldSet.add(parseCustomField(field));
+        }
+        return fieldSet;
+    }
+
+    private static CustomField parseCustomField(String field) throws IllegalValueException {
+        requireNonNull(field);
+        return new CustomField(field);
     }
 
     /**

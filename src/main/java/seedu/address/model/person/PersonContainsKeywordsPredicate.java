@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import java.util.Set;
+import java.util.function.Predicate;
+
+import seedu.address.model.customfields.CustomField;
+
 
 /**
  * Tests that any of {@code ReadOnlyPerson}'s Name, Phone, Email or Address
@@ -27,6 +32,10 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
                     -> person.getEmail().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
                 || (findFields.getAddressKeywordsStream().anyMatch(keyword
                     -> person.getAddress().toString().toLowerCase().contains(keyword.toString().toLowerCase()))));
+    }
+
+    private boolean customFieldContainsWordIgnoreCase(Set<CustomField> fields, String keyword) {
+        return fields.stream().anyMatch(field -> StringUtil.containsWordIgnoreCase(field.asData(), keyword));
     }
 
     @Override
