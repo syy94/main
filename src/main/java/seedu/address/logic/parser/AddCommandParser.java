@@ -64,7 +64,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Returns null if prefixes contains empty values in the given
      * {@value}.
      */
-    private static Optional<String> ifValueNotPresent(Optional<String> value) {
+    private static Optional<String> areValuePresent(Optional<String> value) {
         value = Optional.of(value.orElse(""));
         return value;
     }
