@@ -25,17 +25,19 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
     @Override
     public boolean test(ReadOnlyPerson person) {
         return ((findFields.getNameKeywordsStream().anyMatch(keyword
-            -> person.getName().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
+            -> StringUtil.containsPartialTextIgnoreCase(person.getName().fullName, keyword.fullName)))
                 || (findFields.getPhoneKeywordsStream().anyMatch(keyword
-                    -> person.getPhone().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
+                    -> StringUtil.containsPartialTextIgnoreCase(person.getPhone().value, keyword.value)))
                 || (findFields.getEmailKeywordsStream().anyMatch(keyword
-                    -> person.getEmail().toString().toLowerCase().contains(keyword.toString().toLowerCase())))
+                    -> StringUtil.containsPartialTextIgnoreCase(person.getEmail().value, keyword.value)))
                 || (findFields.getAddressKeywordsStream().anyMatch(keyword
-                    -> person.getAddress().toString().toLowerCase().contains(keyword.toString().toLowerCase()))));
+                    -> StringUtil.containsPartialTextIgnoreCase(person.getAddress().value, keyword.value)))
+                || (findFields.getFieldsKeywordsStream().anyMatch(keyword
+                -> customFieldContainsWordIgnoreCase(person.getFields(), keyword))));
     }
 
     private boolean customFieldContainsWordIgnoreCase(Set<CustomField> fields, String keyword) {
-        return fields.stream().anyMatch(field -> StringUtil.containsWordIgnoreCase(field.asData(), keyword));
+        return fields.stream().anyMatch(field -> StringUtil.containsPartialTextIgnoreCase(field.toString(), keyword));
     }
 
     @Override
@@ -60,6 +62,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
         private List<Phone> phoneKeywords;
         private List<Email> emailKeywords;
         private List<Address> addressKeywords;
+        private List<String> customFieldKeywords;
 
         public FindFields() {}
 
@@ -68,6 +71,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
             this.phoneKeywords = findFields.phoneKeywords;
             this.emailKeywords = findFields.emailKeywords;
             this.addressKeywords = findFields.addressKeywords;
+            this.customFieldKeywords = findFields.customFieldKeywords;
         }
 
         public void setNameKeywords(List<Name> names) {
@@ -116,6 +120,18 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
 
         public Stream<Address> getAddressKeywordsStream() {
             return this.getAddressKeywords().map(List::stream).orElseGet(Stream::empty);
+        }
+
+        public void setFieldsKeywords(List<String> fields) {
+            this.customFieldKeywords = fields;
+        }
+
+        public Optional<List<String>> getFieldKeywords() {
+            return Optional.ofNullable(customFieldKeywords);
+        }
+
+        public Stream<String> getFieldsKeywordsStream() {
+            return this.getFieldKeywords().map(List::stream).orElseGet(Stream::empty);
         }
     }
 }
