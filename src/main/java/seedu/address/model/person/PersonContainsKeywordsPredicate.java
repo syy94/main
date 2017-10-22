@@ -33,7 +33,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
                 || (findFields.getAddressKeywordsStream().anyMatch(keyword
                     -> StringUtil.containsPartialTextIgnoreCase(person.getAddress().value, keyword.value)))
                 || (findFields.getFieldsKeywordsStream().anyMatch(keyword
-                -> customFieldContainsWordIgnoreCase(person.getFields(), keyword))));
+                    -> customFieldContainsWordIgnoreCase(person.getFields(), keyword))));
     }
 
     private boolean customFieldContainsWordIgnoreCase(Set<CustomField> fields, String keyword) {
