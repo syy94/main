@@ -20,7 +20,23 @@ import seedu.address.model.UserPrefs;
 public class SortCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    
+
+    @Test
+    public void execute_sort_success() throws Exception {
+        SortCommand sortCommand = prepareCommand(model);
+        String expectedMessage = SortCommand.MESSAGE_SORT_SUCCESS;
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.sortFilteredPersonList(model.getFilteredPersonList());
+
+        assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_emptyList_throwsCommandException() {
+        Model emptyModel = new ModelManager(new AddressBook(), new UserPrefs());
+        String expectedMessage = Messages.MESSAGE_EMPTY_PERSON_LIST;
+        assertCommandFailure(prepareCommand(emptyModel), model, expectedMessage);
+    }
 
     /**
      * Generates a new {@code SortCommand} with the Model given.
