@@ -31,7 +31,8 @@ public class Person implements ReadOnlyPerson {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Group group, Set<CustomField> fields, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Group group, Set<CustomField> fields, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, fields, tags);
         this.name = new SimpleObjectProperty<>(name);
         this.phone = new SimpleObjectProperty<>(phone);
