@@ -5,53 +5,53 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Represents a Person's group in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidGroup(String)}
  */
 public class Group {
 
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String MESSAGE_GROUP_CONSTRAINTS =
+            "Person groups should only contain alphanumeric characters and spaces, and it should not be blank";
+    public static final String GROUP_VALIDATION_REGEX = "[\\p{Alnum}]*";
 
-    public final String value;
+    public final String groupName;
 
     /**
-     * Validates given email.
+     * Validates given group.
      *
-     * @throws IllegalValueException if given email address string is invalid.
+     * @throws IllegalValueException if given group address string is invalid.
      */
-    public Group(String email) throws IllegalValueException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!isValidEmail(trimmedEmail) && !trimmedEmail.isEmpty()) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+    public Group(String group) throws IllegalValueException {
+        requireNonNull(group);
+        String trimmedGroup = group.trim();
+        if (!isValidGroup(trimmedGroup)) {
+            throw new IllegalValueException(MESSAGE_GROUP_CONSTRAINTS);
         }
-        this.value = trimmedEmail;
+        this.groupName = trimmedGroup;
     }
 
     /**
-     * Returns if a given string is a valid person email.
+     * Returns if a given string is a valid person group.
      */
-    public static boolean isValidEmail(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+    public static boolean isValidGroup(String test) {
+        return test.matches(GROUP_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return value;
+        return groupName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Group // instanceof handles nulls
-                && this.value.equals(((Group) other).value)); // state check
+                && this.groupName.equals(((Group) other).groupName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return groupName.hashCode();
     }
 
 }

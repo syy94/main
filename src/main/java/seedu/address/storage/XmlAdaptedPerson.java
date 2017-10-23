@@ -57,7 +57,7 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        group = source.getGroup().value;
+        group = source.getGroup().groupName;
         fieldsList = new ArrayList<>();
         for (CustomField field : source.getFields()) {
             fieldsList.add(new XmlAdaptedCustomField(field));
