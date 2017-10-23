@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Observable;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -97,6 +98,16 @@ public class ModelManager extends ComponentManager implements Model {
 
             addressBook.updatePerson(currReadOnlyPerson, newPerson);
         }
+    }
+
+    @Override
+    public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> unsortedList) {
+
+        addressBook.sortPersonsList();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+        return unsortedList;
+
     }
 
     //=========== Filtered Person List Accessors =============================================================
