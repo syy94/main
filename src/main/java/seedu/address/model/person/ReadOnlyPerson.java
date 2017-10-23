@@ -22,6 +22,8 @@ public interface ReadOnlyPerson {
     Email getEmail();
     ObjectProperty<Address> addressProperty();
     Address getAddress();
+    ObjectProperty<Group> groupProperty();
+    Group getGroup();
     ObjectProperty<CustomFieldsList> fieldsListProperty();
     Set<CustomField> getFields();
     ObjectProperty<UniqueTagList> tagProperty();
@@ -37,6 +39,7 @@ public interface ReadOnlyPerson {
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
                 && other.getAddress().equals(this.getAddress())
+                && other.getGroup().equals(this.getGroup())
                 && other.getFields().equals(this.getFields()));
     }
 
@@ -52,10 +55,13 @@ public interface ReadOnlyPerson {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Group: ")
+                .append(getGroup())
+                .append(" Fields: ")
+                .append(getFields())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
 
-        builder.append(" Fields: ").append(getFields());
 
         return builder.toString();
     }
