@@ -489,6 +489,10 @@ _Figure 2.1.1 : `list` Diagram_
 **Pros:** Easier to implement as `find` function is already available. +
 **Cons:** If contact's details contains same word as tag, contact will be listed. For example if May mail is mayfriend@hotmail.com but does not contain tag "friend", May will be found even though she does not inclulde tag "friend".
 
+=== Sort
+
+The `sort` command allows users to sort their contacts by order of alphabetical name.
+
 == Documentation
 
 We use asciidoc for writing documentation.
