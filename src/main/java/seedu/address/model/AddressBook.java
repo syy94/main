@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -72,6 +74,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setTags(new HashSet<>(newData.getTagList()));
         syncMasterTagListWith(persons);
+    }
+
+    /**
+     * Sorts addressbook according to name
+     */
+    public void sortPersonsList() {
+        persons.sortPersons();
     }
 
     //// person-level operations
