@@ -100,12 +100,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> unsortedList) {
+    public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> personsList) {
 
         addressBook.sortPersonsList();
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
-        return unsortedList;
+        return personsList;
 
     }
 
