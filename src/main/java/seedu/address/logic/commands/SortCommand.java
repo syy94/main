@@ -33,7 +33,7 @@ public class SortCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
 
         ObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-        if(lastShownList.isEmpty()) {
+        if (lastShownList.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_EMPTY_PERSON_LIST);
         }
         model.sortFilteredPersonList(lastShownList);
