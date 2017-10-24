@@ -489,6 +489,19 @@ _Figure 2.1.1 : `list` Diagram_
 **Pros:** Easier to implement as `find` function is already available. +
 **Cons:** If contact's details contains same word as tag, contact will be listed. For example if May mail is mayfriend@hotmail.com but does not contain tag "friend", May will be found even though she does not inclulde tag "friend".
 
+=== Edit (Tags)
+At the point of development the precedence of `clearTags`, `+t/` (add tag) and then `-t/` (remove tag) is used.
+
+=====
+Argument:
+
+* If `+t/` > `-t/` > `clearTag/`
+** When the user uses all 3 prefixes, `+t/` and `-t/` will be made redundant and the user have wasted time typing values for `+t/` and `-t/`.
+* If `clearTag/` > `-t/` > `+t/`
+** When the user uses all 3 prefixes, with `+t/` and `-t/` have the same value, the '-t/' will be ignored and `+t/` and `-t/` will not cancel each other out.
+=====
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
