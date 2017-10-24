@@ -58,10 +58,10 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getTags().stream().forEach(
-                s -> sb.append(PREFIX_ADD_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_ADD_TAG + s.tagName + " ")
         );
         person.getFields().stream().forEach(
-                s -> sb.append(PREFIX_CUSTOM_FIELD + s.toString() + " ")
+            s -> sb.append(PREFIX_CUSTOM_FIELD + s.toString() + " ")
         );
         return sb.toString();
     }

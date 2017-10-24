@@ -12,17 +12,13 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_FIELD_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMOVE_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_ADD_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_ADD_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_REMOVE_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_REMOVE_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -30,7 +26,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -179,7 +174,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: invalid remove tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_REMOVE_TAG_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_REMOVE_TAG_DESC,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: invalid field -> rejected */
