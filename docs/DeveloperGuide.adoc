@@ -498,7 +498,7 @@ Argument:
 * If `+t/` > `-t/` > `clearTag/`
 ** When the user uses all 3 prefixes, `+t/` and `-t/` will be made redundant and the user have wasted time typing values for `+t/` and `-t/`.
 * If `clearTag/` > `-t/` > `+t/`
-** When the user uses all 3 prefixes, with `+t/` and `-t/` have the same value, the '-t/' will be ignored and `+t/` and `-t/` will not cancel each other out.
+** When the user uses all 3 prefixes, with `+t/` and `-t/` have the same value, `-t/` will be ignored and `+t/` and `-t/` will not cancel each other out.
 =====
 
 
