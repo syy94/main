@@ -101,6 +101,13 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedPerson = new PersonBuilder(personToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPerson);
 
+        /* Case: checks that edit tag prefix precedence is respected -> tags cleared */
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TAG_REMOVE_DESC_FRIEND + TAG_ADD_DESC_FRIEND
+                + " " + PREFIX_CLEAR_TAG.getPrefix();
+        editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        assertCommandSuccess(command, index, editedPerson);
+
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
