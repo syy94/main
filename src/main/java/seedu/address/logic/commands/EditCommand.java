@@ -2,12 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -38,15 +41,20 @@ public class EditCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the last person listing. "
             + "Existing values will be overwritten by the input values.\n"
+            + PREFIX_CLEAR_TAG + "always takes precedence, followed by " + PREFIX_ADD_TAG + "and finally "
+            + PREFIX_REMOVE_TAG + ".\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_ADD_TAG + "TAG]... "
+            + "[" + PREFIX_REMOVE_TAG + "TAG]... "
+            + PREFIX_CLEAR_TAG + "\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_CLEAR_TAG;
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -102,7 +110,15 @@ public class EditCommand extends UndoableCommand {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<CustomField> updatedFields = editPersonDescriptor.getFieldsList().orElse(personToEdit.getFields());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+
+        final Set<Tag> updatedTags = new HashSet<>();
+
+        if (!editPersonDescriptor.shouldClear()) {
+            updatedTags.addAll(personToEdit.getTags());
+        }
+
+        editPersonDescriptor.getToAdd().ifPresent(updatedTags::addAll);
+        editPersonDescriptor.getToRemove().ifPresent(updatedTags::removeAll);
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedFields, updatedTags);
     }
@@ -135,7 +151,9 @@ public class EditCommand extends UndoableCommand {
         private Email email;
         private Address address;
         private Set<CustomField> fieldsList;
-        private Set<Tag> tags;
+        private boolean clearTags = false;
+        private Set<Tag> toAdd;
+        private Set<Tag> toRemove;
 
         public EditPersonDescriptor() {
         }
@@ -146,7 +164,9 @@ public class EditCommand extends UndoableCommand {
             this.email = toCopy.email;
             this.address = toCopy.address;
             this.fieldsList = toCopy.fieldsList;
-            this.tags = toCopy.tags;
+            this.clearTags = toCopy.clearTags;
+            this.toAdd = toCopy.toAdd;
+            this.toRemove = toCopy.toRemove;
         }
 
         /**
@@ -154,7 +174,7 @@ public class EditCommand extends UndoableCommand {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address,
-                    this.fieldsList, this.tags);
+                    this.fieldsList, this.toAdd, this.toRemove) || clearTags;
         }
 
         public void setName(Name name) {
@@ -197,12 +217,28 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(fieldsList);
         }
 
-        public void setTags(Set<Tag> tags) {
-            this.tags = tags;
+        public Optional<Set<Tag>> getToAdd() {
+            return Optional.ofNullable(toAdd);
         }
 
-        public Optional<Set<Tag>> getTags() {
-            return Optional.ofNullable(tags);
+        public Optional<Set<Tag>> getToRemove() {
+            return Optional.ofNullable(toRemove);
+        }
+
+        public boolean shouldClear() {
+            return clearTags;
+        }
+
+        public void setClearTags(boolean clearTags) {
+            this.clearTags = clearTags;
+        }
+
+        public void setToAdd(Set<Tag> toAdd) {
+            this.toAdd = toAdd;
+        }
+
+        public void setToRemove(Set<Tag> toRemove) {
+            this.toRemove = toRemove;
         }
 
         @Override
@@ -225,7 +261,9 @@ public class EditCommand extends UndoableCommand {
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getFieldsList().equals(e.getFieldsList())
-                    && getTags().equals(e.getTags());
+                    && getToRemove().equals(e.getToRemove())
+                    && getToAdd().equals(e.getToAdd())
+                    && clearTags == e.clearTags;
         }
     }
 }

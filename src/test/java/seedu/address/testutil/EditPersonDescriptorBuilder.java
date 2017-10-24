@@ -33,7 +33,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setFieldsList(person.getFields());
-        descriptor.setTags(person.getTags());
+        descriptor.setToAdd(person.getTags());
     }
 
     /**
@@ -84,16 +84,39 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
-     * that we are building.
-     */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+//    /**
+//     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+//     * that we are building.
+//     */
+//    public EditPersonDescriptorBuilder withTags(String... tags) {
+//        try {
+//            descriptor.setTags(ParserUtil.parseTags(Arrays.asList(tags)));
+//        } catch (IllegalValueException ive) {
+//            throw new IllegalArgumentException("tags are expected to be unique.");
+//        }
+//        return this;
+//    }
+
+    public EditPersonDescriptorBuilder withToAddTags(String... tags) {
         try {
-            descriptor.setTags(ParserUtil.parseTags(Arrays.asList(tags)));
+            descriptor.setToAdd(ParserUtil.parseTags(Arrays.asList(tags)));
         } catch (IllegalValueException ive) {
             throw new IllegalArgumentException("tags are expected to be unique.");
         }
+        return this;
+    }
+
+    public EditPersonDescriptorBuilder withToRemoveTags(String... tags) {
+        try {
+            descriptor.setToRemove(ParserUtil.parseTags(Arrays.asList(tags)));
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("tags are expected to be unique.");
+        }
+        return this;
+    }
+
+    public EditPersonDescriptorBuilder clearTags(boolean shouldClear) {
+            descriptor.setClearTags(shouldClear);
         return this;
     }
 
