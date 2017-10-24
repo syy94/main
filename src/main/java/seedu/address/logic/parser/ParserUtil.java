@@ -143,18 +143,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Collection<String> group} into a {@code List<Group>}
-     */
-    public static List<Group> parseGroups(Collection<String> groups) throws IllegalValueException {
-        requireNonNull(groups);
-        final List<Group> groupList = new ArrayList<>();
-        for (String group : groups) {
-            groupList.add(new Group(group));
-        }
-        return groupList;
-    }
-
-    /**
      *
      * Parses {@code Collection<String> fields} into a {@code Set<{@link CustomField}>}.
      */

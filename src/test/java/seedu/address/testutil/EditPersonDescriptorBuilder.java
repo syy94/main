@@ -32,6 +32,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setGroup(person.getGroup());
         descriptor.setFieldsList(person.getFields());
         descriptor.setTags(person.getTags());
     }
@@ -99,5 +100,17 @@ public class EditPersonDescriptorBuilder {
 
     public EditPersonDescriptor build() {
         return descriptor;
+    }
+
+    /**
+     * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withGroup(String groupHealth) {
+        try {
+            ParserUtil.parseGroup(Optional.of(groupHealth)).ifPresent(descriptor::setGroup);
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("group is expected to be unique.");
+        }
+        return this;
     }
 }

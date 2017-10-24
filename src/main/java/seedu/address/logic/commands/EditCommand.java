@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -44,6 +45,7 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_GROUP + "GROUP] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -149,6 +151,7 @@ public class EditCommand extends UndoableCommand {
             this.phone = toCopy.phone;
             this.email = toCopy.email;
             this.address = toCopy.address;
+            this.group = toCopy.group;
             this.fieldsList = toCopy.fieldsList;
             this.tags = toCopy.tags;
         }
@@ -158,7 +161,7 @@ public class EditCommand extends UndoableCommand {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address,
-                    this.fieldsList, this.tags);
+                    this.group, this.fieldsList, this.tags);
         }
 
         public void setName(Name name) {
@@ -193,7 +196,7 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(address);
         }
 
-        public void setGroup(Group email) {
+        public void setGroup(Group group) {
             this.group = group;
         }
 
@@ -235,6 +238,7 @@ public class EditCommand extends UndoableCommand {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getGroup().equals(e.getGroup())
                     && getAddress().equals(e.getAddress())
                     && getFieldsList().equals(e.getFieldsList())
                     && getTags().equals(e.getTags());
