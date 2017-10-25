@@ -34,7 +34,7 @@ public class SortCommandTest {
     }
 
     @Test
-    public void execute_sort_two_names_success() throws Exception {
+    public void execute_twoNamesList_success() throws Exception {
         AddressBook ab = new AddressBookBuilder().withPerson(getTypicalPersons().get(1))
                 .withPerson(getTypicalPersons().get(0)).build();
         Model modelWithTwoPersons = new ModelManager(ab, new UserPrefs());
