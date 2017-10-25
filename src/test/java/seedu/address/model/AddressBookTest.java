@@ -45,8 +45,6 @@ public class AddressBookTest {
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
         AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
-        System.out.println(newData.getTagList() + "< >"+ addressBook.getTagList());
-        System.out.println(newData.getGroupList() + " "+ addressBook.getGroupList());
         assertEquals(newData, addressBook);
     }
 
