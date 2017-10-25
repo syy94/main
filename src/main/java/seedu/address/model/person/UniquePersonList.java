@@ -100,7 +100,6 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sorts the internal list by name.
      */
-
     public void sortPersons() {
 
         Collections.sort(internalList, new ReadOnlyPersonComparator());
