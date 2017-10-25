@@ -23,7 +23,6 @@ public class ListCommand extends Command {
             + "Example: " + COMMAND_WORD + " friends\n"
             + COMMAND_WORD + " all";;
 
-
     private Predicate<ReadOnlyPerson> predicate = PREDICATE_SHOW_ALL_PERSONS;
 
     public ListCommand(PersonContainsTagsPredicate predicate) {

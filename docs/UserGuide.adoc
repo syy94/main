@@ -90,6 +90,16 @@ Returns all persons with or without tags
 * `list Friends Colleagues` +
 Returns any persons with tag `friends` or/and `Colleagues`
 
+=== [Since v1.3] Sorts and lists all persons : `sort`
+
+Sorts all persons in the address book by their names in alphabetical order. +
+Format: `sort`
+
+****
+* An empty contact list cannot be sorted.
+* A sorted contacts list can be unsorted by using the command `undo`.
+****
+
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -253,11 +263,6 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need to save manually.
 
 == Features v1.5
-
-=== [Coming in v1.5] Sorts and lists all persons : `sort`
-
-Sorts all persons in the address book by their names in alphabetical order. +
-Format: `sort`
 
 === [Coming in v1.5] Sorts and lists all persons using fields : `sort`
 

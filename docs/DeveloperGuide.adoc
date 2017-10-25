@@ -489,6 +489,28 @@ _Figure 2.1.1 : `list` Diagram_
 **Pros:** Easier to implement as `find` function is already available. +
 **Cons:** If contact's details contains same word as tag, contact will be listed. For example if May mail is mayfriend@hotmail.com but does not contain tag "friend", May will be found even though she does not inclulde tag "friend".
 
+=== Sort
+
+The `sort` command allows users to sort their contacts alphabetically by name. It is an undoable command.
+
+=== Implementation
+
+Upon executing the command, the `model` executes `sortFilteredPersonList`, which sorts the AddressBook according to name. +
+
+To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `compare` method. +
+
+The `SortCommand` will be enhanced further in the coming week to support sorting by other fields as well as a combination of multiple fields (e.g. sort by name and phone number).
+
+==== Design Considerations
+
+**Aspect:** Command type of `SortCommand` +
+**Alternative 1 (current choice):** Implement `SortCommand` as an undoable command +
+**Pros:** Better user experience, as users can undo any sort commands executed by mistake. +
+**Cons:** Difficulty in implementation when the `SortCommand` is expanded to support sorting by multiple parameters. +
+**Alternative 2:** Implement `SortCommand` as an ordinary command +
+**Pros:** Easier to implement. +
+**Cons:** When sorting by multiple parameters is enabled, users may wish to revert their address book to the original state after revising the sorted version. Thus not being able to undo a sort will lead to low usability.
+
 == Documentation
 
 We use asciidoc for writing documentation.

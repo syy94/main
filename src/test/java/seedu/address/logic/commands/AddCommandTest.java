@@ -136,6 +136,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> unsortedList) {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
         public void removeTag(Tag tag) {
             fail("This method should not be called.");
         }
