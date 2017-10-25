@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.group;
 
 import static java.util.Objects.requireNonNull;
 
@@ -28,6 +28,10 @@ public class Group {
             throw new IllegalValueException(MESSAGE_GROUP_CONSTRAINTS);
         }
         this.groupName = trimmedGroup;
+    }
+
+    public Group(Group group) throws IllegalValueException {
+        this(group.toString());
     }
 
     /**

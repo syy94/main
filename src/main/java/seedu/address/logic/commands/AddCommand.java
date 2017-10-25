@@ -58,7 +58,6 @@ public class AddCommand extends UndoableCommand {
         } catch (DuplicatePersonException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
     }
 
     @Override
