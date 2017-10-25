@@ -33,7 +33,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setFieldsList(person.getFields());
-        descriptor.setTags(person.getTags());
+        descriptor.setToAdd(person.getTags());
     }
 
     /**
@@ -85,15 +85,36 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} to be added into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditPersonDescriptorBuilder withToAddTags(String... tags) {
         try {
-            descriptor.setTags(ParserUtil.parseTags(Arrays.asList(tags)));
+            descriptor.setToAdd(ParserUtil.parseTags(Arrays.asList(tags)));
         } catch (IllegalValueException ive) {
             throw new IllegalArgumentException("tags are expected to be unique.");
         }
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} to be removed into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withToRemoveTags(String... tags) {
+        try {
+            descriptor.setToRemove(ParserUtil.parseTags(Arrays.asList(tags)));
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("tags are expected to be unique.");
+        }
+        return this;
+    }
+
+    /**
+     * Set whether that the tags should be cleared first.
+     */
+    public EditPersonDescriptorBuilder clearTags(boolean shouldClear) {
+        descriptor.setClearTags(shouldClear);
         return this;
     }
 

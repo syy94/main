@@ -504,6 +504,19 @@ The `SortCommand` will be enhanced further in the coming week to support sorting
 **Pros:** Easier to implement. +
 **Cons:** When sorting by multiple parameters is enabled, users may wish to revert their address book to the original state after revising the sorted version. Thus not being able to undo a sort will lead to low usability.
 
+=== Edit (Tags)
+At the point of development the precedence of `clearTags`, `+t/` (add tag) and then `-t/` (remove tag) is used.
+
+=====
+Argument:
+
+* If `+t/` > `-t/` > `clearTag/`
+** When the user uses all 3 prefixes, `+t/` and `-t/` will be made redundant and the user have wasted time typing values for `+t/` and `-t/`.
+* If `clearTag/` > `-t/` > `+t/`
+** When the user uses all 3 prefixes, with `+t/` and `-t/` have the same value, `-t/` will be ignored and `+t/` and `-t/` will not cancel each other out.
+=====
+
+
 == Documentation
 
 We use asciidoc for writing documentation.

@@ -3,10 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -52,7 +54,11 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_ADD_DESC_FRIEND = " " + PREFIX_ADD_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_REMOVE_DESC_FRIEND = " " + PREFIX_REMOVE_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_ADD_DESC_HUSBAND = " " + PREFIX_ADD_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_REMOVE_DESC_HUSBAND = " " + PREFIX_REMOVE_TAG + VALID_TAG_HUSBAND;
     public static final String FIELD_DESC_SCHOOL = " " + PREFIX_CUSTOM_FIELD + VALID_FIELD_SCHOOL;
     public static final String FIELD_DESC_COMPANY = " " + PREFIX_CUSTOM_FIELD + VALID_FIELD_COMPANY;
 
@@ -60,6 +66,8 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_ADD_TAG_DESC = " " + PREFIX_ADD_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_REMOVE_TAG_DESC = " " + PREFIX_REMOVE_TAG + "hubby*"; // '*' not allowed in tags
 
     // key and value not spearated by ":"
     public static final String INVALID_FIELD_DESC = " " + PREFIX_CUSTOM_FIELD + "School_NUS";
@@ -70,10 +78,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .build();
     }
 
     /**
