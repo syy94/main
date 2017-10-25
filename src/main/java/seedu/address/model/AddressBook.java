@@ -10,10 +10,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Group;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniqueGroupList;
+import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -93,13 +93,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(ReadOnlyPerson p) throws DuplicatePersonException, UniqueGroupList.DuplicateGroupException {
+    public void addPerson(ReadOnlyPerson p) throws DuplicatePersonException {
         Person newPerson = new Person(p);
         syncMasterTagListWith(newPerson);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        syncMasterTagListWith(newPerson);
+        syncMasterGroupListWith(newPerson);
         persons.add(newPerson);
     }
 
@@ -112,6 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      *
      * @see #syncMasterTagListWith(Person)
+     * @see #syncMasterGroupListWith(Person)
      */
     public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedReadOnlyPerson)
             throws DuplicatePersonException, PersonNotFoundException {
