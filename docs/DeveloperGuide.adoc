@@ -429,7 +429,7 @@ The diagram below shows how the enhanced `find` command works. +
 
 === Custom Fields
 
-Custom fields is implemented to give the users more control over the data they are keeping about their contacts.
+The ability for the users to define their own custom fields is implemented to give the users more control over the data they are keeping about their contacts.
 The main purpose of this feature is idealised to allow users to store data that does not seem to fit the use of tags and groups.
 Some examples of fields could be birthdays, the company the contact works under etc.
 
@@ -455,7 +455,7 @@ For Example:
  Phone:98765432
  Phone:84434663
 
-From a Ui perspective, the HashSet method may look more aethestically pleasing as compared to the HashMap method.
+From a UI perspective, the HashSet method may look more aethestically pleasing as compared to the HashMap method.
 
 Therefore, HashSet is used as it is able to allow the user to fully choose which display method they prefer giving them more flexibility.
 
