@@ -37,7 +37,7 @@ public class UniqueGroupList implements Iterable<Group> {
 
         assert CollectionUtil.elementsAreUnique(internalList);
     }
-    
+
     /**
      * Replaces the Groups in this list with those in the argument tag list.
      */
