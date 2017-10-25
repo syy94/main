@@ -37,16 +37,7 @@ public class UniqueGroupList implements Iterable<Group> {
 
         assert CollectionUtil.elementsAreUnique(internalList);
     }
-
-//    /**
-//     * Returns all tags in this list as a Set.
-//     * This set is mutable and change-insulated against the internal list.
-//     */
-//    public Group toSet() {
-//        assert CollectionUtil.elementsAreUnique(internalList);
-//        return (internalList);
-//    }
-
+    
     /**
      * Replaces the Groups in this list with those in the argument tag list.
      */
@@ -63,13 +54,6 @@ public class UniqueGroupList implements Iterable<Group> {
         }
         setGroups(replacement);
     }
-
-//    public void setGroups(UniqueGroupList groups) throws DuplicateGroupException {
-//        groups.internalList.stream()
-//                .filter(group -> !alreadyInside.contains(group))
-//                .forEach(internalList::add);
-//    }
-
     /**
      * Ensures every tag in the argument list exists in this object.
      */
@@ -126,16 +110,6 @@ public class UniqueGroupList implements Iterable<Group> {
                 || (other instanceof UniqueGroupList // instanceof handles nulls
                         && this.internalList.equals(((UniqueGroupList) other).internalList));
     }
-
-//    /**
-//     * Returns true if the element in this list is equal to the elements in {@code other}.
-//     * The elements do not have to be in the same order.
-//     */
-//    public boolean equalsOrderInsensitive(UniqueGroupList other) {
-//        assert CollectionUtil.elementsAreUnique(internalList);
-//        assert CollectionUtil.elementsAreUnique(other.internalList);
-//        return this == other || new HashSet<>(this.internalList).equals(new HashSet<>(other.internalList));
-//    }
 
     @Override
     public int hashCode() {

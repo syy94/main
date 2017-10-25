@@ -99,7 +99,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        groups.add(newPerson.getGroup());
+        syncMasterTagListWith(newPerson);
         persons.add(newPerson);
     }
 
@@ -147,25 +147,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Ensures that every group in this person:
-     *  - exists in the master list {@link #groups}
-     *  - points to a Group object in the master list
-     */
-    private void syncMasterGroupListWith(Person person) {
-        final UniqueGroupList personGroup = new UniqueGroupList(person.getGroup());
-        groups.mergeFrom(personGroup);
-
-//        // Create map with values = tag object references in the master list
-//        // used for checking person tag references
-//        final Group masterTagObjects = personGroup;
-//
-//        // Rebuild the list of person tags to point to the relevant tags in the master tag list.
-//        final Set<Tag> correctTagReferences = new HashSet<>();
-//        personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-//        person.setGroup(groups);
-    }
-
-    /**
      * Ensures that every tag in these persons:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
@@ -173,6 +154,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     private void syncMasterTagListWith(UniquePersonList persons) {
         persons.forEach(this::syncMasterTagListWith);
+    }
+
+    /**
+     * Ensures that every group in this person:
+     *  - exists in the master list {@link #groups}
+     *  - points to a Group object in the master list
+     */
+    private void syncMasterGroupListWith(Person person) {
+        final UniqueGroupList personGroup = new UniqueGroupList(person.getGroup());
+        groups.mergeFrom(personGroup);
     }
 
     /**
@@ -215,7 +206,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags, " + groups.asObservableList().size() + " groups";
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size()
+                +  " tags, " + groups.asObservableList().size() + " groups";
         // TODO: refine later
     }
 
