@@ -371,15 +371,10 @@ It supports partial search and users are required to input fields using prefixes
 
 ==== Implementation
 
-The enhanced `find` command was implemented by first, modifying the parsing mechanism in `FindCommandParser`. After checking whether any of the prefixes exist in the `argMultiMap`, the parser uses four methods to parse each field. An example of the method is as follows: +
+The enhanced `find` command was implemented by first, modifying the parsing mechanism in `FindCommandParser`. After checking whether any of the prefixes exist in the `argMultiMap`, the parser uses four methods to parse each field. An example of a Parser method is as follows: +
 
 [source,java]
 ----
-/**
- * Parses {@code List<String> names} into a {@code List<Name>} if {@code names} is non-empty.
- * If {@code names} contain only one element which is an empty string, it will be parsed into a
- * {@code Set<Name>} containing zero names.
- */
 private Optional<List<Name>> parseNamesForSearch(List<String> names) throws IllegalValueException {
     assert names != null;
 
@@ -391,9 +386,9 @@ private Optional<List<Name>> parseNamesForSearch(List<String> names) throws Ille
 }
 ----
 
-The method above returns an Optional so that when a user does not input any name fields to search, the method still returns. ++
+The method above returns an Optional so that when a user does not input any name fields to search, the method still returns. +
 
-These parsed arguments are delivered to the `PersonContainsKeywordsPredicate` (`Predicate`) by creating a `FindFields` class within the `PersonContainsKeywordsPredicate` class. The `FindFields` class uses four lists to store the search inputs for each of the `Name`, `Email`, `Phone`, and `Address` fields, as such: +
+These parsed arguments are delivered to the `PersonContainsKeywordsPredicate` (`Predicate`) by creating a `FindFields` class within the `PersonContainsKeywordsPredicate` class. For each searchable field, the FindFields class uses a list to store the search inputs. +
 
 [source,java]
 ----
@@ -403,7 +398,7 @@ private List<Email> emailKeywords;
 private List<Address> addressKeywords;
 ----
 
-The class also provides one 'setter' method and two 'getter' methods for each of the fields. The former 'getter' method returns a Optional, while the latter returns a Stream, for various uses. The latter was implemented so that the string of `getNameKeywords().map(List::stream).orElseGet(Stream::empty)` commands do not have to be repeated multiple times. Below is an example of the two 'getter' methods for `Name`: +
+The class also provides one setter and two getter methods for each of the fields. The former getter method returns a Optional, while the latter returns a Stream. The latter was implemented so that `getNameKeywords().map(List::stream).orElseGet(Stream::empty)` does not have to be repeated multiple times. Below is an example of the two 'getter' methods for `Name`: +
 
 [source,java]
 ----
@@ -416,13 +411,11 @@ public Stream<Name> getNameKeywordsStream() {
 }
 ----
 
-After a successful parsing, the execution of the `find` command can be continued. To return partial matches for the search command, a different `match` mechanism was used. Instead of using `StringUtil.containsWordIgnoreCase` to check for matches, the new code uses a simple `String.toLowerCase().contains(String.toLowerCase())` method to search for partial matches as well. Below is a line extracted from `PersonContainsKeywordPredicate.java`. +
+After a successful parsing, the execution of the `find` command can be continued. The `find` command now returns partial matches. +
 
-[source,java]
-----
-(findFields.getNameKeywordsStream().anyMatch(keyword
-                -> person.getName().toString().toLowerCase().contains(keyword.toString().toLowerCase())));
-----
+The diagram below shows how the enhanced `find` command works. +
+
+
 
 ==== Design Considerations
 
@@ -488,6 +481,28 @@ _Figure 2.1.1 : `list` Diagram_
 **Alternative 2:** Use `find` command for finding tags +
 **Pros:** Easier to implement as `find` function is already available. +
 **Cons:** If contact's details contains same word as tag, contact will be listed. For example if May mail is mayfriend@hotmail.com but does not contain tag "friend", May will be found even though she does not inclulde tag "friend".
+
+=== Sort
+
+The `sort` command allows users to sort their contacts alphabetically by name. It is an undoable command.
+
+=== Implementation
+
+Upon executing the command, the `model` executes `sortFilteredPersonList`, which sorts the AddressBook according to name. +
+
+To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `compare` method. +
+
+The `SortCommand` will be enhanced further in the coming week to support sorting by other fields as well as a combination of multiple fields (e.g. sort by name and phone number).
+
+==== Design Considerations
+
+**Aspect:** Command type of `SortCommand` +
+**Alternative 1 (current choice):** Implement `SortCommand` as an undoable command +
+**Pros:** Better user experience, as users can undo any sort commands executed by mistake. +
+**Cons:** Difficulty in implementation when the `SortCommand` is expanded to support sorting by multiple parameters. +
+**Alternative 2:** Implement `SortCommand` as an ordinary command +
+**Pros:** Easier to implement. +
+**Cons:** When sorting by multiple parameters is enabled, users may wish to revert their address book to the original state after revising the sorted version. Thus not being able to undo a sort will lead to low usability.
 
 === Edit (Tags)
 At the point of development the precedence of `clearTags`, `+t/` (add tag) and then `-t/` (remove tag) is used.
