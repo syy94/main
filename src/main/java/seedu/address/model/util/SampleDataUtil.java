@@ -13,6 +13,7 @@ import seedu.address.model.person.Group;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.UniqueGroupList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
@@ -62,6 +63,8 @@ public class SampleDataUtil {
             }
             return sampleAb;
         } catch (DuplicatePersonException e) {
+            throw new AssertionError("sample data cannot contain duplicate persons", e);
+        } catch (UniqueGroupList.DuplicateGroupException e) {
             throw new AssertionError("sample data cannot contain duplicate persons", e);
         }
     }

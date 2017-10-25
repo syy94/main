@@ -10,8 +10,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniqueGroupList;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -26,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
+    private final UniqueGroupList groups;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -37,6 +40,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
+        groups = new UniqueGroupList();
     }
 
     public AddressBook() {}
@@ -59,6 +63,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    public void setGroups(List<? extends Group> persons) {
+        this.groups.setGroups(groups);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -71,7 +79,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         setTags(new HashSet<>(newData.getTagList()));
+        setGroups(newData.getGroupList());
         syncMasterTagListWith(persons);
+        syncMasterGroupListWith(persons);
     }
 
     //// person-level operations
@@ -83,12 +93,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(ReadOnlyPerson p) throws DuplicatePersonException {
+    public void addPerson(ReadOnlyPerson p) throws DuplicatePersonException, UniqueGroupList.DuplicateGroupException {
         Person newPerson = new Person(p);
         syncMasterTagListWith(newPerson);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
+        groups.add(newPerson.getGroup());
         persons.add(newPerson);
     }
 
@@ -108,6 +119,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         Person editedPerson = new Person(editedReadOnlyPerson);
         syncMasterTagListWith(editedPerson);
+        syncMasterGroupListWith(editedPerson);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
@@ -135,6 +147,25 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Ensures that every group in this person:
+     *  - exists in the master list {@link #groups}
+     *  - points to a Group object in the master list
+     */
+    private void syncMasterGroupListWith(Person person) {
+        final UniqueGroupList personGroup = new UniqueGroupList(person.getGroup());
+        groups.mergeFrom(personGroup);
+
+//        // Create map with values = tag object references in the master list
+//        // used for checking person tag references
+//        final Group masterTagObjects = personGroup;
+//
+//        // Rebuild the list of person tags to point to the relevant tags in the master tag list.
+//        final Set<Tag> correctTagReferences = new HashSet<>();
+//        personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
+//        person.setGroup(groups);
+    }
+
+    /**
      * Ensures that every tag in these persons:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
@@ -143,6 +174,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     private void syncMasterTagListWith(UniquePersonList persons) {
         persons.forEach(this::syncMasterTagListWith);
     }
+
+    /**
+     * Ensures that every group in these persons:
+     *  - exists in the master list {@link #tags}
+     *  - points to a Group object in the master list
+     *  @see #syncMasterGroupListWith(Person)
+     */
+    private void syncMasterGroupListWith(UniquePersonList persons) {
+        persons.forEach(this::syncMasterGroupListWith);
+    }
+
+
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
@@ -162,11 +205,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.add(t);
     }
 
+    //// group-level operations
+
+    public void addGroup(Group g) throws UniqueGroupList.DuplicateGroupException {
+        groups.add(g);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags";
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags, " + groups.asObservableList().size() + " groups";
         // TODO: refine later
     }
 
@@ -181,16 +230,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Group> getGroupList() {
+        return groups.asObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
+                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags)
+                && this.groups.equals(((AddressBook) other).groups));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(persons, tags, groups);
     }
 }

@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniqueGroupList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
@@ -57,6 +58,8 @@ public class AddCommand extends UndoableCommand {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicatePersonException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }  catch (UniqueGroupList.DuplicateGroupException e) {
+            throw new AssertionError("sample data cannot contain duplicate persons", e);
         }
 
     }

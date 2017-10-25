@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniqueGroupList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -25,7 +26,7 @@ public interface Model {
     void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException;
 
     /** Adds the given person */
-    void addPerson(ReadOnlyPerson person) throws DuplicatePersonException;
+    void addPerson(ReadOnlyPerson person) throws DuplicatePersonException, UniqueGroupList.DuplicateGroupException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

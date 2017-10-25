@@ -30,6 +30,10 @@ public class Group {
         this.groupName = trimmedGroup;
     }
 
+    public Group(Group group) throws IllegalValueException {
+        this(group.toString());
+    }
+
     /**
      * Returns if a given string is a valid person group.
      */
