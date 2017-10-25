@@ -5,7 +5,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FIELD_SCHOOL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_HEALTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_SAVING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
