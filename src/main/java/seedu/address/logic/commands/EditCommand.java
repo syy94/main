@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -51,6 +52,7 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_ADD_TAG + "TAG]... "
             + "[" + PREFIX_REMOVE_TAG + "TAG]... "
             + PREFIX_CLEAR_TAG + "\n"
+            + "[" + PREFIX_CUSTOM_FIELD + "KEY:VALUE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "

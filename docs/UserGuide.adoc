@@ -61,6 +61,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... [c/CUSTOMFIEILD_
 
 [TIP]
 A person can have any number of tags or custom fields (including 0)
+[TIP]
+A person can be saved with just name and group (including 0)
 
 Examples:
 

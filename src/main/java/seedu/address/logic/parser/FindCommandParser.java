@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -35,10 +36,12 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CUSTOM_FIELD,
+                        PREFIX_ADDRESS);
 
         if (!(arePrefixesPresent(argMultimap, PREFIX_NAME) || arePrefixesPresent(argMultimap, PREFIX_PHONE)
-            || (arePrefixesPresent(argMultimap, PREFIX_EMAIL)) || arePrefixesPresent(argMultimap, PREFIX_ADDRESS))) {
+            || (arePrefixesPresent(argMultimap, PREFIX_EMAIL)) || arePrefixesPresent(argMultimap, PREFIX_ADDRESS)
+            || arePrefixesPresent(argMultimap, PREFIX_CUSTOM_FIELD))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
@@ -49,6 +52,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             parseEmailsForSearch(argMultimap.getAllValues(PREFIX_EMAIL)).ifPresent(fieldsToFind::setEmailKeywords);
             parseAddressesForSearch(argMultimap.getAllValues(PREFIX_ADDRESS))
                     .ifPresent(fieldsToFind::setAddressKeywords);
+            parseCustomFieldsForSearch(argMultimap.getAllValues(PREFIX_CUSTOM_FIELD))
+                    .ifPresent(fieldsToFind::setFieldsKeywords);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
@@ -115,6 +120,22 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> addressList = addresses.size() == 1 && addresses.contains("")
                 ? Collections.emptyList() : addresses;
         return Optional.of(ParserUtil.parseAddresses(addressList));
+    }
+
+    /**
+     * Parses {@code List<String> fields} into a {@code List<CustomField>} if {@code fields} is non-empty.
+     * If {@code fields} contain only one element which is an empty string, it will be parsed into a
+     * {@code List<Address>} containing zero addresses.
+     */
+    private Optional<List<String>> parseCustomFieldsForSearch(List<String> fields) throws IllegalValueException {
+        assert fields != null;
+
+        if (fields.isEmpty()) {
+            return Optional.empty();
+        }
+        List<String> fieldList = fields.size() == 1 && fields.contains("")
+                ? Collections.emptyList() : fields;
+        return Optional.of(fieldList);
     }
 
     /**
