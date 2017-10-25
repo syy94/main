@@ -436,7 +436,7 @@ After a successful parsing, the execution of the `find` command can be continued
 
 === Custom Fields
 
-The ability for the user to define their own custom fields is implemented to give the users more control over the data they are keeping about their contacts.
+The ability for the users to define their own custom fields is implemented to give the users more control over the data they are keeping about their contacts.
 The main purpose of this feature is idealised to allow users to store data that does not seem to fit the use of tags and groups.
 Some examples of fields could be birthdays, the company the contact works under etc.
 
