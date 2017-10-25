@@ -74,7 +74,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         ReadOnlyPerson toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + GROUP_DESC_HEALTH + "   "
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + GROUP_DESC_SAVING + "   "
                 + TAG_DESC_FRIEND + " " + FIELD_DESC_SCHOOL;
         assertCommandSuccess(command, toAdd);
 
@@ -91,7 +91,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a duplicate person -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + GROUP_DESC_HEALTH + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL;
+                + GROUP_DESC_SAVING + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL;
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate person except with different tags -> rejected */
@@ -99,7 +99,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         // This test will fail is a new tag that is not in the model is used, see the bug documented in
         // AddressBook#addPerson(ReadOnlyPerson)
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + GROUP_DESC_HEALTH + FIELD_DESC_SCHOOL + " "  + PREFIX_TAG.getPrefix() + "friends";
+                + GROUP_DESC_SAVING + FIELD_DESC_SCHOOL + " "  + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a person with all fields same as another person in the address book except name -> added */

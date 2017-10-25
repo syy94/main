@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.FIELD_DESC_COMPANY;
 import static seedu.address.logic.commands.CommandTestUtil.FIELD_DESC_SCHOOL;
-import static seedu.address.logic.commands.CommandTestUtil.GROUP_DESC_HEALTH;
 import static seedu.address.logic.commands.CommandTestUtil.GROUP_DESC_SAVING;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FIELD_DESC;
@@ -104,11 +103,11 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags and zero fields
         Person expectedPersonZeroTags = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-                .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withGroup(VALID_GROUP_HEALTH)
+                .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withGroup(VALID_GROUP_SAVING)
                 .withTags().withFields().build();
 
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + GROUP_DESC_HEALTH,
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + GROUP_DESC_SAVING,
                 new AddCommand(expectedPersonZeroTags));
 
 
@@ -172,7 +171,7 @@ public class AddCommandParserTest {
 
         // invalid phone
         assertParseFailure(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + GROUP_DESC_HEALTH + TAG_DESC_HUSBAND
+                + ADDRESS_DESC_BOB + GROUP_DESC_SAVING + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // invalid email

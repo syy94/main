@@ -40,7 +40,7 @@ public class CommandTestUtil {
     public static final String VALID_FIELD_SCHOOL = "school:NUS";
     public static final String VALID_FIELD_COMPANY = "Company:Google";
     public static final String VALID_GROUP_HEALTH = "Health";
-    public static final String VALID_GROUP_SAVING = "Saving";
+    public static final String VALID_GROUP_SAVING = "Savings";
     public static final String VALID_EMPTY = "";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
