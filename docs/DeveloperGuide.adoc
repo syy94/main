@@ -491,7 +491,7 @@ _Figure 2.1.1 : `list` Diagram_
 
 === Group
 
-The `add` command allow user to add group to a person.
+The `add` command allows user to add group to a person.
 Every person will need to have a group.
 
 ==== Design Considerations
