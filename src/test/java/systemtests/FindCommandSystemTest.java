@@ -3,7 +3,11 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FIELD_DANIEL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FIELD_FIND_DANIEL_KEY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FIELD_FIND_DANIEL_VALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -131,6 +135,24 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find address of person in address book -> 1 persons found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DANIEL.getAddress().value;
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find field value of person in address book -> 1 persons found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CUSTOM_FIELD + VALID_FIELD_FIND_DANIEL_VALUE;
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find field key of person in address book -> 1 persons found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CUSTOM_FIELD + VALID_FIELD_FIND_DANIEL_KEY;
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find field key of person in address book -> 1 persons found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CUSTOM_FIELD + VALID_FIELD_DANIEL;
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();

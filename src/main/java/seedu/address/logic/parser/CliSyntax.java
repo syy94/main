@@ -12,6 +12,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_GROUP = new Prefix("g/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_ADD_TAG = new Prefix("+t/");
+    public static final Prefix PREFIX_REMOVE_TAG = new Prefix("-t/");
     public static final Prefix PREFIX_CUSTOM_FIELD = new Prefix("c/");
-
+    public static final Prefix PREFIX_CLEAR_TAG = new Prefix("clearTag/");
 }

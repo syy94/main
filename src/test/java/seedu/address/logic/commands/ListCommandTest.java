@@ -50,7 +50,7 @@ public class ListCommandTest {
     @Test
     public void execute_twoTags_sevenPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 7);
-        ListCommand command = prepareCommand("owesMoney friends");
+        ListCommand command = prepareCommand("owesMoney friend");
         assertCommandSuccess(command, expectedMessage, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 

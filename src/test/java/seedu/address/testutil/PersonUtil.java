@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
@@ -42,6 +43,24 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        );
+        person.getFields().stream().forEach(
+            s -> sb.append(PREFIX_CUSTOM_FIELD + s.toString() + " ")
+        );
+        return sb.toString();
+    }
+
+    /**
+     * Returns the part of command string for the given {@code person}'s details.
+     */
+    public static String getPersonDetailsForEdit(ReadOnlyPerson person) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NAME + person.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
+        person.getTags().stream().forEach(
+            s -> sb.append(PREFIX_ADD_TAG + s.tagName + " ")
         );
         person.getFields().stream().forEach(
             s -> sb.append(PREFIX_CUSTOM_FIELD + s.toString() + " ")

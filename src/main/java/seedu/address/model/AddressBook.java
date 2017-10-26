@@ -84,6 +84,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncMasterGroupListWith(persons);
     }
 
+    /**
+     * Sorts addressbook according to name
+     */
+    public void sortPersonsList() {
+        persons.sortPersons();
+    }
+
     //// person-level operations
 
     /**
