@@ -9,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.ColorUtil;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 
@@ -19,6 +20,7 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     private static final HashMap<String, String> TAG_COLORS = new HashMap<String, String>();
+    private static final HashMap<String, String> GROUP_COLORS = new HashMap<String, String>();
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -35,6 +37,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label group;
+    @FXML
     private Label id;
     @FXML
     private Label phone;
@@ -50,6 +54,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         initTags(person);
+        initGroups(person);
         bindListeners(person);
     }
 
@@ -59,12 +64,14 @@ public class PersonCard extends UiPart<Region> {
      */
     private void bindListeners(ReadOnlyPerson person) {
         name.textProperty().bind(Bindings.convert(person.nameProperty()));
+        group.textProperty().bind(Bindings.convert(person.groupProperty()));
         phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
         address.textProperty().bind(Bindings.convert(person.addressProperty()));
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
             tags.getChildren().clear();
             initTags(person);
+            initGroups(person);
         });
     }
 
@@ -86,6 +93,19 @@ public class PersonCard extends UiPart<Region> {
         }
 
         return TAG_COLORS.get(tag.tagName);
+    }
+
+    private void initGroups(ReadOnlyPerson person) {
+        group.setStyle("-fx-background-color: " + getGroupColor(person.getGroup()));
+    }
+
+    private String getGroupColor(Group group) {
+        //TODO store the group colors for consistent group colors
+        if (!GROUP_COLORS.containsKey(group.groupName)) {
+            GROUP_COLORS.put(group.groupName, ColorUtil.getTagColor());
+        }
+
+        return GROUP_COLORS.get(group.groupName);
     }
 
     @Override

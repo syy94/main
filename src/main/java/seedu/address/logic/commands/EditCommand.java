@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
@@ -21,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.customfields.CustomField;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -53,6 +55,7 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_REMOVE_TAG + "TAG]... "
             + PREFIX_CLEAR_TAG + "\n"
             + "[" + PREFIX_CUSTOM_FIELD + "KEY:VALUE]...\n"
+            + "[" + PREFIX_GROUP + "GROUP] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
@@ -111,6 +114,7 @@ public class EditCommand extends UndoableCommand {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Group updatedGroup = editPersonDescriptor.getGroup().orElse(personToEdit.getGroup());
         Set<CustomField> updatedFields = editPersonDescriptor.getFieldsList().orElse(personToEdit.getFields());
 
         final Set<Tag> updatedTags = new HashSet<>();
@@ -122,7 +126,8 @@ public class EditCommand extends UndoableCommand {
         editPersonDescriptor.getToAdd().ifPresent(updatedTags::addAll);
         editPersonDescriptor.getToRemove().ifPresent(updatedTags::removeAll);
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedFields, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
+                updatedGroup, updatedFields, updatedTags);
     }
 
     @Override
@@ -152,6 +157,7 @@ public class EditCommand extends UndoableCommand {
         private Phone phone;
         private Email email;
         private Address address;
+        private Group group;
         private Set<CustomField> fieldsList;
         private boolean clearTags = false;
         private Set<Tag> toAdd;
@@ -165,6 +171,7 @@ public class EditCommand extends UndoableCommand {
             this.phone = toCopy.phone;
             this.email = toCopy.email;
             this.address = toCopy.address;
+            this.group = toCopy.group;
             this.fieldsList = toCopy.fieldsList;
             this.clearTags = toCopy.clearTags;
             this.toAdd = toCopy.toAdd;
@@ -176,7 +183,7 @@ public class EditCommand extends UndoableCommand {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address,
-                    this.fieldsList, this.toAdd, this.toRemove) || clearTags;
+                    this.group, this.fieldsList, this.toAdd, this.toRemove) || clearTags;
         }
 
         public void setName(Name name) {
@@ -209,6 +216,14 @@ public class EditCommand extends UndoableCommand {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setGroup(Group group) {
+            this.group = group;
+        }
+
+        public Optional<Group> getGroup() {
+            return Optional.ofNullable(group);
         }
 
         public void setFieldsList(Set<CustomField> fieldsList) {
@@ -261,6 +276,7 @@ public class EditCommand extends UndoableCommand {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getGroup().equals(e.getGroup())
                     && getAddress().equals(e.getAddress())
                     && getFieldsList().equals(e.getFieldsList())
                     && getToRemove().equals(e.getToRemove())

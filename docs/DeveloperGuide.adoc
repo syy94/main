@@ -517,6 +517,21 @@ Argument:
 =====
 
 
+=== Group
+
+The `add` command allows user to add group to a person.
+Every person will need to have a group.
+
+==== Design Considerations
+
+**Aspect:** Implementation of Group +
+**Alternative 1 (current choice):** Use the current `add` command for adding of groups. +
+**Pros:** Easier to be done. +
+**Cons:** Need to add <group></group> in <person></person> in addressbook.xml in order to run, will not be able to create an empty group. +
+**Alternative 2:** Create another command for managing groups.  +
+**Pros:** More distinct differentiation of link:#group[group] and link:#tag[tag]. +
+**Cons:** Time comsuming.
+
 == Documentation
 
 We use asciidoc for writing documentation.
