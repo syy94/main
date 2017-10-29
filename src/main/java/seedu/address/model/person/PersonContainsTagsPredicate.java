@@ -20,7 +20,8 @@ public class PersonContainsTagsPredicate implements Predicate<ReadOnlyPerson> {
         return (keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getTags().toString()
                         .replace("[", "").replace("]", "")
-                        .replace(",", ""), keyword)));
+                        .replace(",", ""), keyword)
+                        || StringUtil.containsWordIgnoreCase(person.getGroup().groupName, keyword)));
 
     }
 
