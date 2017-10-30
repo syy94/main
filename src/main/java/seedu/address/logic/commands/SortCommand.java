@@ -1,8 +1,9 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
-import java.util.function.Predicate;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
@@ -19,9 +20,14 @@ public class SortCommand extends UndoableCommand {
     public static final String COMMAND_ALIAS = "st";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts and lists the Persons in the last person listing based on the given field.\n"
+            + ": Sorts and lists the Persons in the last person listing based on the given field. "
+            + "Sorts Persons by name by default if no parameter is given.\n"
             + "Parameters: "
-            + "Example: " + COMMAND_WORD;
+            + "[" + PREFIX_PHONE + "] "
+            + "[" + PREFIX_EMAIL + "] "
+            + "[" + PREFIX_GROUP + "] "
+            + "[" + PREFIX_ADDRESS + "]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_PHONE;
 
     public static final String MESSAGE_SORT_SUCCESS = "Sorted list!";
 
