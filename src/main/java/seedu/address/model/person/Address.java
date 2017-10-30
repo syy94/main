@@ -2,13 +2,15 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class Address implements Comparable<Address>, Comparator<Address> {
 
     public static final String MESSAGE_ADDRESS_CONSTRAINTS =
             "Person addresses can take any values, and it should not be blank";
@@ -39,6 +41,14 @@ public class Address {
      */
     public static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
+    }
+
+    public int compareTo(Address a) {
+        return this.value.compareTo(a.value);
+    }
+
+    public int compare(Address a, Address b) {
+        return a.value.compareTo(b.value);
     }
 
     @Override

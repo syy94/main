@@ -2,13 +2,15 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class Email {
+public class Email implements Comparable<Email>, Comparator<Email> {
 
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
             "Person emails should be 2 alphanumeric/period strings separated by '@'";
@@ -35,6 +37,14 @@ public class Email {
      */
     public static boolean isValidEmail(String test) {
         return test.matches(EMAIL_VALIDATION_REGEX);
+    }
+
+    public int compareTo(Email e) {
+        return this.value.compareTo(e.value);
+    }
+
+    public int compare(Email a, Email b) {
+        return a.value.compareTo(b.value);
     }
 
     @Override

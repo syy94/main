@@ -2,14 +2,15 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
-public class Phone {
-
+public class Phone implements Comparable<Phone>, Comparator<Phone> {
 
     public static final String MESSAGE_PHONE_CONSTRAINTS =
             "Phone numbers can only contain numbers, and should be at least 3 digits long";
@@ -35,6 +36,14 @@ public class Phone {
      */
     public static boolean isValidPhone(String test) {
         return test.matches(PHONE_VALIDATION_REGEX);
+    }
+
+    public int compareTo(Phone p) {
+        return this.value.compareTo(p.value);
+    }
+
+    public int compare(Phone a, Phone b) {
+        return a.value.compareTo(b.value);
     }
 
     @Override
