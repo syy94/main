@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -100,8 +101,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> personsList) {
-        addressBook.sortPersonsList();
+    public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> personsList,
+                                                                 Prefix prefix) {
+        addressBook.sortPersonsList(prefix);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
         return personsList;

@@ -11,6 +11,7 @@ import org.fxmisc.easybind.EasyBind;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -98,11 +99,11 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Sorts the internal list by name.
+     * Sorts the internal list by the field identified by the given prefix.
      */
-    public void sortPersons() {
+    public void sortPersons(Prefix prefixToSortBy) {
 
-        Collections.sort(internalList, new ReadOnlyPersonComparator());
+        Collections.sort(internalList, new ReadOnlyPersonComparator(prefixToSortBy));
         UniquePersonList replacement = new UniquePersonList();
         try {
             replacement.setPersons(internalList);
