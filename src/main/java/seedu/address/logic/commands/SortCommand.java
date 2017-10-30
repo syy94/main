@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -18,15 +19,19 @@ public class SortCommand extends UndoableCommand {
     public static final String COMMAND_ALIAS = "st";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts and lists the Persons in the last person listing.\n"
-            + "Parameters: none"
+            + ": Sorts and lists the Persons in the last person listing based on the given field.\n"
+            + "Parameters: "
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SORT_SUCCESS = "Sorted list!";
 
-    private Predicate<ReadOnlyPerson> predicate = PREDICATE_SHOW_ALL_PERSONS;
+    private Prefix prefixToSortBy;
 
     public SortCommand() {
+    }
+
+    public SortCommand(Prefix prefixToSortBy) {
+        this.prefixToSortBy = prefixToSortBy;
     }
 
     @Override
@@ -36,7 +41,7 @@ public class SortCommand extends UndoableCommand {
         if (lastShownList.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_EMPTY_PERSON_LIST);
         }
-        model.sortFilteredPersonList(lastShownList);
+        model.sortFilteredPersonList(lastShownList, prefixToSortBy);
 
         return new CommandResult(MESSAGE_SORT_SUCCESS);
     }
