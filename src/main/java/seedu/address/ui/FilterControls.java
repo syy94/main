@@ -15,19 +15,21 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
+import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.Logic;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * The UI component that is responsible for processing filter.
+ */
 public class FilterControls extends UiPart<Region> {
 
-    private final Logic logic;
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private ListElementPointer historySnapshot;
-
     private static final String FXML = "FilterControls.fxml";
+    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
+    private final Logic logic;
+    private ListElementPointer historySnapshot;
 
     @FXML
     private ComboBox filterByDropdown;

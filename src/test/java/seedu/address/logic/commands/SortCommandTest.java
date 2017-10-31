@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
