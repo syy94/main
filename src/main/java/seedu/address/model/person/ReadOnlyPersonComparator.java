@@ -28,16 +28,17 @@ public class ReadOnlyPersonComparator implements Comparator<ReadOnlyPerson> {
 
     @Override
     public int compare(ReadOnlyPerson a, ReadOnlyPerson b) {
-        if(compareByPrefix.equals(PREFIX_ADDRESS))
+        if (compareByPrefix.equals(PREFIX_ADDRESS)) {
             return a.getAddress().compareTo(b.getAddress());
-        else if(compareByPrefix.equals(PREFIX_EMAIL))
+        } else if (compareByPrefix.equals(PREFIX_EMAIL)) {
             return a.getEmail().compareTo(b.getEmail());
-        else if(compareByPrefix.equals(PREFIX_PHONE))
+        } else if (compareByPrefix.equals(PREFIX_PHONE)) {
             return a.getPhone().compareTo(b.getPhone());
-        else if(compareByPrefix.equals(PREFIX_GROUP))
+        } else if (compareByPrefix.equals(PREFIX_GROUP)) {
             return a.getGroup().compareTo(b.getGroup());
-        else if(compareByPrefix.equals(PREFIX_NAME))
+        } else if (compareByPrefix.equals(PREFIX_NAME)) {
             return a.getName().compareTo(b.getName());
+        }
 
         return 0;
     }

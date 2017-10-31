@@ -54,16 +54,17 @@ public class FilterControls extends UiPart<Region> {
             String selectedField = filterByDropdown.getSelectionModel().getSelectedItem().toString();
             Prefix prefix = null;
             switch (selectedField) {
-                case "Name": prefix = PREFIX_NAME;
-                    break;
-                case "Address": prefix = PREFIX_ADDRESS;
-                    break;
-                case "Phone": prefix = PREFIX_PHONE;
-                    break;
-                case "Email": prefix = PREFIX_EMAIL;
-                    break;
-                case "Group": prefix = PREFIX_GROUP;
-                    break;
+            case "Name": prefix = PREFIX_NAME;
+                break;
+            case "Address": prefix = PREFIX_ADDRESS;
+                break;
+            case "Phone": prefix = PREFIX_PHONE;
+                break;
+            case "Email": prefix = PREFIX_EMAIL;
+                break;
+            case "Group": prefix = PREFIX_GROUP;
+                break;
+            default: prefix = PREFIX_NAME;
             }
             try {
                 CommandResult commandResult = logic.execute("sort " + prefix);

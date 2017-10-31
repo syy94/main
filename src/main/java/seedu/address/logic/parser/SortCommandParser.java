@@ -22,17 +22,18 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty() || trimmedArgs.equalsIgnoreCase(PREFIX_NAME.toString()))
+        if (trimmedArgs.isEmpty() || trimmedArgs.equalsIgnoreCase(PREFIX_NAME.toString())) {
             return new SortCommand(PREFIX_NAME);
-        else if(trimmedArgs.equalsIgnoreCase(PREFIX_ADDRESS.toString()))
+        } else if (trimmedArgs.equalsIgnoreCase(PREFIX_ADDRESS.toString())) {
             return new SortCommand(PREFIX_ADDRESS);
-        else if(trimmedArgs.equalsIgnoreCase(PREFIX_EMAIL.toString()))
+        } else if (trimmedArgs.equalsIgnoreCase(PREFIX_EMAIL.toString())) {
             return new SortCommand(PREFIX_EMAIL);
-        else if(trimmedArgs.equalsIgnoreCase(PREFIX_PHONE.toString()))
+        } else if (trimmedArgs.equalsIgnoreCase(PREFIX_PHONE.toString())) {
             return new SortCommand(PREFIX_PHONE);
-        else if(trimmedArgs.equalsIgnoreCase(PREFIX_GROUP.toString()))
+        } else if (trimmedArgs.equalsIgnoreCase(PREFIX_GROUP.toString())) {
             return new SortCommand(PREFIX_GROUP);
-        else
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
     }
 }
