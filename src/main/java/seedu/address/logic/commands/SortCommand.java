@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ public class SortCommand extends UndoableCommand {
             + ": Sorts and lists the Persons in the last person listing based on the given field. "
             + "Sorts Persons by name by default if no parameter is given.\n"
             + "Parameters: "
+            + "[" + PREFIX_NAME + "] "
             + "[" + PREFIX_PHONE + "] "
             + "[" + PREFIX_EMAIL + "] "
             + "[" + PREFIX_GROUP + "] "
