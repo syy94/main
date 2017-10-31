@@ -45,6 +45,7 @@ public class MainWindow extends UiPart<Region> {
     private PersonDetailsPanel personDetailsPanel;
     private Config config;
     private UserPrefs prefs;
+    private FilterControls filterControls;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -66,6 +67,9 @@ public class MainWindow extends UiPart<Region> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane filterControlsPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
@@ -138,6 +142,9 @@ public class MainWindow extends UiPart<Region> {
 
         personDetailsPanel = new PersonDetailsPanel();
         personDetailsPlaceholder.getChildren().add(personDetailsPanel.getRoot());
+
+        filterControls = new FilterControls(logic);
+        filterControlsPlaceholder.getChildren().add(filterControls.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
