@@ -3,6 +3,28 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.combo-box {
+    -fx-background: white;
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell {
+    -fx-background: white;
+    -fx-background-color: transparent;
+}
+
+.combo-box-base {
+    -fx-background-color: #eee;
+}
+
+.combo-box-base:hover {
+    -fx-background-color: #dcdcdc;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #dadada;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
