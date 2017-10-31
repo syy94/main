@@ -137,7 +137,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> unsortedList, Prefix prefix) {
+        public ObservableList<ReadOnlyPerson> sortFilteredPersonList(
+                ObservableList<ReadOnlyPerson> unsortedList, Prefix prefix) {
             fail("This method should not be called.");
             return null;
         }
