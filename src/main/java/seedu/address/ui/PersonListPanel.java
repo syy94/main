@@ -14,8 +14,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.PasswordAcceptedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.storage.SecurityManager;
 
 /**
  * Panel containing the list of persons.
@@ -27,10 +29,17 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<PersonCard> personListView;
 
+    private ObservableList<ReadOnlyPerson> personList;
+
     public PersonListPanel(ObservableList<ReadOnlyPerson> personList) {
         super(FXML);
-        setConnections(personList);
         registerAsAnEventHandler(this);
+
+        this.personList = personList;
+        if (!SecurityManager.passExists()) {
+            setConnections(personList);
+            registerAsAnEventHandler(this);
+        }
     }
 
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
@@ -85,4 +94,9 @@ public class PersonListPanel extends UiPart<Region> {
         }
     }
 
+    @Subscribe
+    private void handlePasswordAcceptedEvent(PasswordAcceptedEvent event) {
+        setConnections(personList);
+        registerAsAnEventHandler(this);
+    }
 }
