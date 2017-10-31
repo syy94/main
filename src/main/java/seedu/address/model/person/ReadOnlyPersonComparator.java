@@ -7,11 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Comparator;
+
 import seedu.address.logic.parser.Prefix;
 
 /**
- * A comparator for comparing two ReadOnlyPerson objects by a given field identified the prefix.
- * Compares by Name by default.
+ * A comparator for comparing two {@code ReadOnlyPerson} objects by a given field identified the given {@code Prefix}.
  */
 public class ReadOnlyPersonComparator implements Comparator<ReadOnlyPerson> {
 
@@ -21,6 +21,9 @@ public class ReadOnlyPersonComparator implements Comparator<ReadOnlyPerson> {
         this.compareByPrefix = compareByPrefix;
     }
 
+    /**
+     * Returns a {@code ReadOnlyPersonComparator} with the given {@code Prefix}.
+     */
     public ReadOnlyPersonComparator compareByPrefix(Prefix compareByPrefix) {
         this.compareByPrefix = compareByPrefix;
         return this;
