@@ -484,15 +484,13 @@ _Figure 2.1.1 : `list` Diagram_
 
 === Sort
 
-The `sort` command allows users to sort their contacts alphabetically by name. It is an undoable command.
+The `sort` command allows users to sort their contacts by any given field, with the exception of `Tag`. It is an undoable command.
 
 === Implementation
 
-Upon executing the command, the `model` executes `sortFilteredPersonList`, which sorts the AddressBook according to name. +
+Upon executing the command, the `model` executes `sortFilteredPersonList`, which sorts the AddressBook according to the given field. +
 
-To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `compare` method. +
-
-The `SortCommand` will be enhanced further in the coming week to support sorting by other fields as well as a combination of multiple fields (e.g. sort by name and phone number).
+To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `compare` method, that holds a static `Prefix` variable to compare two `ReadOnlyPerson` objects by. +
 
 ==== Design Considerations
 
