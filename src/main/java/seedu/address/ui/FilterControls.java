@@ -1,3 +1,4 @@
+//@@author-sofarsophie
 package seedu.address.ui;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -93,3 +94,4 @@ public class FilterControls extends UiPart<Region> {
         historySnapshot.add("");
     }
 }
+//@@author

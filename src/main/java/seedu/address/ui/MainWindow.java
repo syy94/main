@@ -143,8 +143,10 @@ public class MainWindow extends UiPart<Region> {
         personDetailsPanel = new PersonDetailsPanel();
         personDetailsPlaceholder.getChildren().add(personDetailsPanel.getRoot());
 
+        //@@author-sofarsophie
         filterControls = new FilterControls(logic);
         filterControlsPlaceholder.getChildren().add(filterControls.getRoot());
+        //@@author
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

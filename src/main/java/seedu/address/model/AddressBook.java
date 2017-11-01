@@ -85,12 +85,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncMasterGroupListWith(persons);
     }
 
+    //@@author-sofarsophie
     /**
      * Sorts addressbook according to field identified by the given prefix.
      */
     public void sortPersonsList(Prefix prefix) {
         persons.sortPersons(prefix);
     }
+    //@@author
 
     //// person-level operations
 

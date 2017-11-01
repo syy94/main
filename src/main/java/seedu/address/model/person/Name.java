@@ -44,6 +44,7 @@ public class Name implements Comparable<Name>, Comparator<Name> {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+    //@@author-sofarsophie
     public int compareTo(Name n) {
         return this.fullName.compareTo(n.fullName);
     }
@@ -51,6 +52,7 @@ public class Name implements Comparable<Name>, Comparator<Name> {
     public int compare(Name a, Name b) {
         return a.fullName.compareTo(b.fullName);
     }
+    //@@author
 
     @Override
     public String toString() {

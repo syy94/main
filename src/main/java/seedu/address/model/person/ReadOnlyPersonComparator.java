@@ -1,3 +1,4 @@
+//@@author-sofarsophie
 package seedu.address.model.person;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -47,3 +48,4 @@ public class ReadOnlyPersonComparator implements Comparator<ReadOnlyPerson> {
     }
 
 }
+//@@author

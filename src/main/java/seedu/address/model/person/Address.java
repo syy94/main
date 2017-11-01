@@ -43,6 +43,7 @@ public class Address implements Comparable<Address>, Comparator<Address> {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
+    //@@author-sofarsophie
     public int compareTo(Address a) {
         return this.value.compareTo(a.value);
     }
@@ -50,6 +51,7 @@ public class Address implements Comparable<Address>, Comparator<Address> {
     public int compare(Address a, Address b) {
         return a.value.compareTo(b.value);
     }
+    //@@author
 
     @Override
     public String toString() {

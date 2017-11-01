@@ -1,3 +1,4 @@
+//@@author-sofarsophie
 package seedu.address.testutil;
 
 import java.util.Arrays;
@@ -73,3 +74,4 @@ public class FindFieldsBuilder {
         return fieldsToFind;
     }
 }
+//@@author

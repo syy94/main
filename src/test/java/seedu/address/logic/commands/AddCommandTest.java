@@ -136,6 +136,7 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
 
+        //@@author-sofarsophie
         @Override
         public ObservableList<ReadOnlyPerson> sortFilteredPersonList(
                 ObservableList<ReadOnlyPerson> unsortedList, Prefix prefix) {
@@ -147,6 +148,7 @@ public class AddCommandTest {
         public void removeTag(Tag tag) {
             fail("This method should not be called.");
         }
+        //@@author
     }
 
     /**

@@ -3,6 +3,7 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+/*@@author-sofarsophie*/
 .combo-box {
     -fx-background: white;
     -fx-background-color: transparent;
@@ -24,6 +25,7 @@
 .combo-box-popup .list-view .list-cell:hover {
     -fx-background-color: #dadada;
 }
+/*@@author*/
 
 .label {
     -fx-font-size: 11pt;
