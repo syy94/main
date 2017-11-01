@@ -37,9 +37,13 @@ public class PersonListPanel extends UiPart<Region> {
 
         this.personList = personList;
         if (!SecurityManager.passExists()) {
-            setConnections(personList);
-            registerAsAnEventHandler(this);
+            init();
         }
+    }
+
+    private void init(){
+        setConnections(personList);
+        registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
@@ -96,7 +100,7 @@ public class PersonListPanel extends UiPart<Region> {
 
     @Subscribe
     private void handlePasswordAcceptedEvent(PasswordAcceptedEvent event) {
-        setConnections(personList);
-        registerAsAnEventHandler(this);
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Password Accepted. Showing Persons"));
+        init();
     }
 }

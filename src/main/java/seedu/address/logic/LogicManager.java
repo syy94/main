@@ -5,9 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PasswordAcceptedEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -42,15 +40,15 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        if(isLocked){
+        if (isLocked) {
             try {
                 isLocked = !SecurityManager.unlock(commandText);
             } catch (IOException e) {
                 throw new CommandException("Unable to open password file");
             }
-            if(isLocked){
+            if (isLocked) {
                 return new CommandResult("Wrong Password");
-            } else{
+            } else {
                 return new CommandResult("Welcome");
             }
         }
