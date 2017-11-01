@@ -16,4 +16,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_REMOVE_TAG = new Prefix("-t/");
     public static final Prefix PREFIX_CUSTOM_FIELD = new Prefix("c/");
     public static final Prefix PREFIX_CLEAR_TAG = new Prefix("clearTag/");
+    public static final Prefix PREFIX_PASS = new Prefix("pwd/");
+    public static final Prefix PREFIX_NEW_PASS = new Prefix("new/");
+    public static final Prefix PREFIX_CLEAR_PASS = new Prefix("clearPwd/");
 }

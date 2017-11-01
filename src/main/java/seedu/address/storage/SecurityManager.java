@@ -28,11 +28,15 @@ public class SecurityManager {
     }
 
     public static boolean unlock(String pass) throws IOException {
-        boolean isUnlocked = getPass().equals(pass);
+        boolean isUnlocked = checkPass(pass);
         if (isUnlocked) {
             EventsCenter.getInstance().post(new PasswordAcceptedEvent());
         }
         return isUnlocked;
+    }
+
+    public static boolean checkPass(String pass) throws IOException {
+        return getPass().equals(pass);
     }
 
     public static void removePass() {
