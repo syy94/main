@@ -480,7 +480,7 @@ _Figure 2.1.1 : `list` Diagram_
 **Cons:** New class will be added in, need to add more test cases. +
 **Alternative 2:** Use `find` command for finding tags +
 **Pros:** Easier to implement as `find` function is already available. +
-**Cons:** If contact's details contains same word as tag, contact will be listed. For example if May mail is mayfriend@hotmail.com but does not contain tag "friend", May will be found even though she does not inclulde tag "friend".
+**Cons:** If contact's details contains same word as tag, contact will be listed. For example if May's mail is mayfriend@example.com but does not contain tag "friend", May will be found even though she does not include tag "friend".
 
 === Sort
 
@@ -527,10 +527,10 @@ Every person will need to have a group.
 **Aspect:** Implementation of Group +
 **Alternative 1 (current choice):** Use the current `add` command for adding of groups. +
 **Pros:** Easier to be done. +
-**Cons:** Need to add <group></group> in <person></person> in addressbook.xml in order to run, will not be able to create an empty group. +
+**Cons:** Will not be able to create an empty group. +
 **Alternative 2:** Create another command for managing groups.  +
 **Pros:** More distinct differentiation of link:#group[group] and link:#tag[tag]. +
-**Cons:** Time comsuming.
+**Cons:** Time consuming.
 
 == Documentation
 

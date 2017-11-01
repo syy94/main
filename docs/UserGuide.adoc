@@ -74,10 +74,10 @@ Examples:
 === Listing all persons : `list`
 
 Shows a list of persons according to the tag given in the address book. +
-Format: `list [TAG]`
+Format: `list [TAG] [GROUP]`
 
 ****
-* The search is case insensitive. e.g `friends` will match `friends`
+* The search is case insensitive. e.g `Friends` will match `friends`,
 * Only full words will be matched e.g. `Friend` will not match `Friends`
 ****
 
@@ -86,9 +86,11 @@ Examples:
 * `list Friends` +
 Returns any persons with tag `friends`
 * `'list all` +
-Returns all persons with or without tags
+Returns all persons with or without tags and groups
 * `list Friends Colleagues` +
 Returns any persons with tag `friends` or/and `Colleagues`
+* `list Friends Savings` +
+Returns any persons with tag `friends` or/and group `Savings`
 
 === [Since v1.3] Sorts and lists all persons : `sort`
 
@@ -314,15 +316,6 @@ Examples:
 
 * `edit 1 p/12341234` +
 `edit_history 1` (prints: `phone number changed from ******** to 12341234`
-
-=== [Coming in v1.5] Creating groups : `create`
-
-Creates a group and adds contacts, identified by indices from the last persons listing, to the group.
-Format: `create GROUP_NAME [INDEX] [MORE_INDICES]...`
-
-***
-* An empty group with no persons can be created.
-***
 
 === [Coming in v1.5] Setting a password to humanDEX : `set_password`
 
