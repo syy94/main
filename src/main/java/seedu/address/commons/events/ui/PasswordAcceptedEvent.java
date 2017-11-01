@@ -1,8 +1,10 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-
-public class PasswordAcceptedEvent extends BaseEvent{
+/**
+ * Represents the password is accepted.
+ */
+public class PasswordAcceptedEvent extends BaseEvent {
     /**
      * All Events should have a clear unambiguous custom toString message so that feedback message creation
      * stays consistent and reusable.

@@ -11,6 +11,9 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.PasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new PasswordCommand object
+ */
 public class PasswordCommandParser implements Parser<PasswordCommand> {
     /**
      * Parses {@code userInput} into a command and returns it.
@@ -32,7 +35,7 @@ public class PasswordCommandParser implements Parser<PasswordCommand> {
 
             requireNonNull(newPass);
 
-            if(newPass.length() == 0){
+            if (newPass.length() == 0) {
                 throw new ParseException("New Password Cannot be empty!");
             }
 

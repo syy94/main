@@ -31,7 +31,7 @@ public class ResultDisplay extends UiPart<Region> {
         super(FXML);
         resultDisplay.textProperty().bind(displayed);
         registerAsAnEventHandler(this);
-        if(SecurityManager.passExists()){
+        if (SecurityManager.passExists()) {
             displayed.setValue("Enter Password:");
         }
     }

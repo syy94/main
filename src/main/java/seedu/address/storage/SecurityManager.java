@@ -1,3 +1,4 @@
+
 package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
@@ -9,6 +10,9 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.PasswordAcceptedEvent;
 import seedu.address.commons.util.FileUtil;
 
+/**
+ * Accesses and edits the password.
+ */
 public class SecurityManager {
     private static String path = "data/pass";
 
@@ -16,6 +20,9 @@ public class SecurityManager {
         SecurityManager.path = path;
     }
 
+    /**
+     * Saves password
+     */
     public static void savePass(String pass) throws IOException {
         requireNonNull(pass);
         final File passFile = new File(path);
@@ -27,6 +34,9 @@ public class SecurityManager {
         }
     }
 
+    /**
+     * Checks if given password is correct and posts and event to enable the application features.
+     */
     public static boolean unlock(String pass) throws IOException {
         boolean isUnlocked = checkPass(pass);
         if (isUnlocked) {
@@ -35,10 +45,16 @@ public class SecurityManager {
         return isUnlocked;
     }
 
+    /**
+     * Checks if given password is correct.
+     */
     public static boolean checkPass(String pass) throws IOException {
         return getPass().equals(pass);
     }
 
+    /**
+     * removes the need for password on applications start.
+     */
     public static void removePass() {
         final File passFile = new File(path);
         if (FileUtil.isFileExists(passFile)) {
@@ -46,12 +62,20 @@ public class SecurityManager {
         }
     }
 
+    /**
+     * Checks if there is a password.
+     */
     public static boolean passExists() {
         final File passFile = new File(path);
 
         return FileUtil.isFileExists(passFile);
     }
 
+    /**
+     * Retrieves the Password.
+     *
+     * @throws IOException
+     */
     private static String getPass() throws IOException {
         final File file = new File(path);
         return FileUtil.readFromFile(file);

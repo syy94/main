@@ -1,23 +1,18 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_PASS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_PASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 
 import java.io.IOException;
 
+import seedu.address.logic.commands.CommandMode.PasswordMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.storage.SecurityManager;
 
+/**
+ * Adds, removes or edit password for the application.
+ */
 public class PasswordCommand extends Command {
 
     public static final String COMMAND_WORD = "password";
@@ -41,9 +36,9 @@ public class PasswordCommand extends Command {
     public static final String MESSAGE_NO_PASS_TO_CLEAR = "No existing password to clear";
     public static final String MESSAGE_NO_PASS_TO_CHANGE = "No existing password to change";
 
-    final Mode mode;
+    final PasswordMode mode;
 
-    public PasswordCommand(Mode mode) {
+    public PasswordCommand(PasswordMode mode) {
         this.mode = mode;
     }
 
@@ -62,25 +57,10 @@ public class PasswordCommand extends Command {
         }
     }
 
-    public static abstract class Mode {
-        private String pass;
-
-        public Mode(String pass) {
-            this.pass = pass;
-        }
-
-        public String getPass() {
-            return pass;
-        }
-
-        protected boolean passExists() {
-            return SecurityManager.passExists();
-        }
-
-        public abstract CommandResult execute() throws IOException;
-    }
-
-    public static class SetPass extends Mode {
+    /**
+     * PasswordMode to set Password
+     */
+    public static class SetPass extends PasswordMode {
         public SetPass(String pass) {
             super(pass);
         }
@@ -96,7 +76,10 @@ public class PasswordCommand extends Command {
         }
     }
 
-    public static class ClearPass extends Mode {
+    /**
+     * PasswordMode to clear Password
+     */
+    public static class ClearPass extends PasswordMode {
         public ClearPass(String pass) {
             super(pass);
         }
@@ -116,7 +99,10 @@ public class PasswordCommand extends Command {
         }
     }
 
-    public static class ChangePass extends Mode {
+    /**
+     * PasswordMode to change Password
+     */
+    public static class ChangePass extends PasswordMode {
 
         private String newPass;
 

@@ -41,7 +41,7 @@ public class PersonListPanel extends UiPart<Region> {
         }
     }
 
-    private void init(){
+    private void init() {
         setConnections(personList);
         registerAsAnEventHandler(this);
     }
