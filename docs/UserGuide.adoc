@@ -100,7 +100,8 @@ Format: `sort [n/] [p/] [e/] [a/] [g/]...`
 * If no parameter is given, sorts list by the contacts' names in alphabetical order.
 * An empty contact list cannot be sorted.
 * A sorted contacts list can be unsorted by using the command `undo`.
-* Sort can also be done by using the filter dropdown above the persons list.
+* Sort can also be done by using the filter dropdown above the persons list, as follows: +
+image::sort-filter-controls.png[width="300"]
 ***
 
 Examples:
