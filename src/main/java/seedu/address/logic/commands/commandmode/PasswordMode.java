@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.CommandMode;
+package seedu.address.logic.commands.commandmode;
 
 import java.io.IOException;
 

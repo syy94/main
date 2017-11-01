@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASS;
 
 import java.io.IOException;
 
-import seedu.address.logic.commands.CommandMode.PasswordMode;
+import seedu.address.logic.commands.commandmode.PasswordMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.storage.SecurityManager;
 
