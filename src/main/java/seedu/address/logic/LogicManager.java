@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.storage.SecurityManager;
 
 /**
  * The main LogicManager of the app.
@@ -24,16 +26,35 @@ public class LogicManager extends ComponentManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final UndoRedoStack undoRedoStack;
 
+    private boolean isLocked;
+
     public LogicManager(Model model) {
         this.model = model;
         this.history = new CommandHistory();
         this.addressBookParser = new AddressBookParser();
         this.undoRedoStack = new UndoRedoStack();
+        this.isLocked = SecurityManager.passExists();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        //@@author syy94
+        if (isLocked) {
+            try {
+                isLocked = !SecurityManager.unlock(commandText);
+            } catch (IOException e) {
+                throw new CommandException("Unable to open password file");
+            }
+            if (isLocked) {
+                return new CommandResult("Wrong Password");
+            } else {
+                return new CommandResult("Welcome");
+            }
+        }
+        //@@author
+
         try {
             Command command = addressBookParser.parseCommand(commandText);
             command.setData(model, history, undoRedoStack);
