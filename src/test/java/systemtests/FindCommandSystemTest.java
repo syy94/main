@@ -139,6 +139,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
+        //@@author syy94
         /* Case: find field value of person in address book -> 1 persons found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_CUSTOM_FIELD + VALID_FIELD_FIND_DANIEL_VALUE;
         ModelHelper.setFilteredList(expectedModel, DANIEL);
@@ -151,11 +152,12 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find field key of person in address book -> 1 persons found */
+        /* Case: find field key and value of person in address book -> 1 persons found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_CUSTOM_FIELD + VALID_FIELD_DANIEL;
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+        //@@author
 
         /* Case: find tags of person in address book -> Invalid command format */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());

@@ -17,7 +17,7 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.util.ColorUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
-
+//@@author syy94
 /**
  * Panel containing the details of the selected person.
  */

@@ -115,6 +115,7 @@ public class EditCommand extends UndoableCommand {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Group updatedGroup = editPersonDescriptor.getGroup().orElse(personToEdit.getGroup());
+        //@@author syy94
         Set<CustomField> updatedFields = editPersonDescriptor.getFieldsList().orElse(personToEdit.getFields());
 
         final Set<Tag> updatedTags = new HashSet<>();
@@ -125,6 +126,7 @@ public class EditCommand extends UndoableCommand {
 
         editPersonDescriptor.getToAdd().ifPresent(updatedTags::addAll);
         editPersonDescriptor.getToRemove().ifPresent(updatedTags::removeAll);
+        //@@author
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
                 updatedGroup, updatedFields, updatedTags);
@@ -228,6 +230,7 @@ public class EditCommand extends UndoableCommand {
         }
         //@@author
 
+        //@@author syy94
         public void setFieldsList(Set<CustomField> fieldsList) {
             this.fieldsList = fieldsList;
         }
@@ -259,6 +262,7 @@ public class EditCommand extends UndoableCommand {
         public void setToRemove(Set<Tag> toRemove) {
             this.toRemove = toRemove;
         }
+        //@@author
 
         @Override
         public boolean equals(Object other) {
