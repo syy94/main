@@ -14,12 +14,12 @@ endif::[]
 
 Too many clients on hand? Not enough time to save their details?
 
-Welcome to *humanDEX*! This is an addressbook specially made for all insurance agent!
+Welcome to *humanDEX*! This is an addressbook specially made for insurance agents who need an efficient application for managing their long list of clients and colleagues!
 
 humanDEX helps you to manage your contact in a more flexible way!
 In the current version (v1.4). It allows you to create your own field! Add a contact just with his/her name and group! You will also be able to sort according to their details!
 
-In future version of humanDEX, we aim to make contacts exchange much easier by exporting contact list and clients will be able to save your number when you save theirs!
+In future version of humanDEX, we aim to make contacts exchange much easier by exporting contact list and clients/colleagues will be able to save your number when you save theirs!
 
 == Site Map
 
