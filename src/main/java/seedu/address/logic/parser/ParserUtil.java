@@ -57,6 +57,7 @@ public class ParserUtil {
         return name.isPresent() ? Optional.of(new Name(name.get())) : Optional.empty();
     }
 
+    //@@author sofarsophie
     /**
      * Parses a {@code Collection<String> names} into a {@code List<Name>}
      */
@@ -68,6 +69,7 @@ public class ParserUtil {
         }
         return nameList;
     }
+    //@@author
 
     /**
      * Parses a {@code Optional<String> phone} into an {@code Optional<Phone>} if {@code phone} is present.
@@ -78,6 +80,7 @@ public class ParserUtil {
         return phone.isPresent() ? Optional.of(new Phone(phone.get())) : Optional.empty();
     }
 
+    //@@author sofarsophie
     /**
      * Parses a {@code Collection<String> phones} into a {@code List<Phone>}
      */
@@ -89,6 +92,7 @@ public class ParserUtil {
         }
         return phoneList;
     }
+    //@@author
 
     /**
      * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
@@ -99,6 +103,7 @@ public class ParserUtil {
         return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.empty();
     }
 
+    //@@author sofarsophie
     /**
      * Parses a {@code Collection<String> addresses} into a {@code List<Address>}
      */
@@ -110,6 +115,7 @@ public class ParserUtil {
         }
         return addressList;
     }
+    //@@author
 
     /**
      * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
@@ -120,6 +126,7 @@ public class ParserUtil {
         return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
     }
 
+    //@@author sofarsophie
     /**
      *
      * Parses a {@code Collection<String> emails} into a {@code List<Email>}
@@ -132,7 +139,9 @@ public class ParserUtil {
         }
         return emailList;
     }
+    //@@author
 
+    //@@author kengying
     /**
      * Parses a {@code Optional<String> group} into an {@code Optional<Group>} if {@code group} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
@@ -141,6 +150,7 @@ public class ParserUtil {
         requireNonNull(group);
         return group.isPresent() ? Optional.of(new Group(group.get())) : Optional.empty();
     }
+    //@@author
 
     /**
      *

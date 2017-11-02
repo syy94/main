@@ -2,13 +2,16 @@ package seedu.address.model.group;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author kengying
 /**
  * Represents a Person's group in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidGroup(String)}
  */
-public class Group {
+public class Group implements Comparable<Group>, Comparator<Group> {
 
     public static final String MESSAGE_GROUP_CONSTRAINTS =
             "Person groups should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -39,6 +42,14 @@ public class Group {
      */
     public static boolean isValidGroup(String test) {
         return test.matches(GROUP_VALIDATION_REGEX);
+    }
+
+    public int compareTo(Group g) {
+        return this.groupName.compareTo(g.groupName);
+    }
+
+    public int compare(Group a, Group b) {
+        return a.groupName.compareTo(b.groupName);
     }
 
     @Override

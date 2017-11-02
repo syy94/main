@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlValue;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.group.Group;
 
+//@@author kengying
 /**
  * JAXB-friendly adapted version of the Group.
  */

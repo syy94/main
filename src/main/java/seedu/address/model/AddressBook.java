@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.person.Person;
@@ -63,9 +64,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    //@@author kengying
     public void setGroups(List<? extends Group> persons) {
         this.groups.setGroups(groups);
     }
+    //@@author
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -84,12 +87,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncMasterGroupListWith(persons);
     }
 
+    //@@author sofarsophie
     /**
-     * Sorts addressbook according to name
+     * Sorts addressbook according to field identified by the given prefix.
      */
-    public void sortPersonsList() {
-        persons.sortPersons();
+    public void sortPersonsList(Prefix prefix) {
+        persons.sortPersons(prefix);
     }
+    //@@author
 
     //// person-level operations
 
@@ -164,6 +169,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.forEach(this::syncMasterTagListWith);
     }
 
+    //@@author kengying
     /**
      * Ensures that every group in this person:
      *  - exists in the master list {@link #groups}
@@ -183,8 +189,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private void syncMasterGroupListWith(UniquePersonList persons) {
         persons.forEach(this::syncMasterGroupListWith);
     }
-
-
+    //@@ author
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
@@ -204,11 +209,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.add(t);
     }
 
+    //@@author kengying
     //// group-level operations
-
     public void addGroup(Group g) throws UniqueGroupList.DuplicateGroupException {
         groups.add(g);
     }
+    //@@author
 
     //// util methods
 
@@ -229,10 +235,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return tags.asObservableList();
     }
 
+    //@@author kengying
     @Override
     public ObservableList<Group> getGroupList() {
         return groups.asObservableList();
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {

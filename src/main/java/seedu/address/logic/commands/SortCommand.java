@@ -1,12 +1,16 @@
+//@@author sofarsophie
 package seedu.address.logic.commands;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
-import java.util.function.Predicate;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -18,15 +22,25 @@ public class SortCommand extends UndoableCommand {
     public static final String COMMAND_ALIAS = "st";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts and lists the Persons in the last person listing.\n"
-            + "Parameters: none"
-            + "Example: " + COMMAND_WORD;
+            + ": Sorts and lists the Persons in the last person listing based on the given field. "
+            + "Sorts Persons by name by default if no parameter is given.\n"
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "] "
+            + "[" + PREFIX_PHONE + "] "
+            + "[" + PREFIX_EMAIL + "] "
+            + "[" + PREFIX_GROUP + "] "
+            + "[" + PREFIX_ADDRESS + "]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_PHONE;
 
     public static final String MESSAGE_SORT_SUCCESS = "Sorted list!";
 
-    private Predicate<ReadOnlyPerson> predicate = PREDICATE_SHOW_ALL_PERSONS;
+    private Prefix prefixToSortBy;
 
     public SortCommand() {
+    }
+
+    public SortCommand(Prefix prefixToSortBy) {
+        this.prefixToSortBy = prefixToSortBy;
     }
 
     @Override
@@ -36,7 +50,7 @@ public class SortCommand extends UndoableCommand {
         if (lastShownList.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_EMPTY_PERSON_LIST);
         }
-        model.sortFilteredPersonList(lastShownList);
+        model.sortFilteredPersonList(lastShownList, prefixToSortBy);
 
         return new CommandResult(MESSAGE_SORT_SUCCESS);
     }
@@ -46,3 +60,4 @@ public class SortCommand extends UndoableCommand {
         return true;
     }
 }
+//@@author

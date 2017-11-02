@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -135,8 +136,10 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
 
+        //@@author sofarsophie
         @Override
-        public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> unsortedList) {
+        public ObservableList<ReadOnlyPerson> sortFilteredPersonList(
+                ObservableList<ReadOnlyPerson> unsortedList, Prefix prefix) {
             fail("This method should not be called.");
             return null;
         }
@@ -145,6 +148,7 @@ public class AddCommandTest {
         public void removeTag(Tag tag) {
             fail("This method should not be called.");
         }
+        //@@author
     }
 
     /**

@@ -74,10 +74,10 @@ Examples:
 === Listing all persons : `list`
 
 Shows a list of persons according to the tag given in the address book. +
-Format: `list [TAG]`
+Format: `list [TAG] [GROUP]`
 
 ****
-* The search is case insensitive. e.g `friends` will match `friends`
+* The search is case insensitive. e.g `Friends` will match `friends`,
 * Only full words will be matched e.g. `Friend` will not match `Friends`
 ****
 
@@ -86,19 +86,32 @@ Examples:
 * `list Friends` +
 Returns any persons with tag `friends`
 * `'list all` +
-Returns all persons with or without tags
+Returns all persons with or without tags and groups
 * `list Friends Colleagues` +
 Returns any persons with tag `friends` or/and `Colleagues`
+* `list Friends Savings` +
+Returns any persons with tag `friends` or/and group `Savings`
 
-=== [Since v1.3] Sorts and lists all persons : `sort`
+=== [Since v1.3] [Since v1.4] Sorts and lists all persons using fields : `sort`
 
-Sorts all persons in the address book by their names in alphabetical order. +
-Format: `sort`
+Sorts all persons in the address book by the given parameter in lexicographic order. +
+Format: `sort [n/] [p/] [e/] [a/] [g/]...`
 
-****
+***
+* Sorts list based on one given parameter from: Name, Phone, Email, Address, or Group.
+* If no parameter is given, sorts list by the contacts' names in alphabetical order.
 * An empty contact list cannot be sorted.
 * A sorted contacts list can be unsorted by using the command `undo`.
-****
+* Sort can also be done by using the filter dropdown above the persons list, as follows: +
+image::sort-filter-controls.png[width="300"]
+***
+
+Examples:
+
+* `sort p/`
+Sorts contacts by phone number.
+* `sort`, `sort n/`
+Sorts contacts by name.
 
 === Editing a person : `edit`
 
@@ -272,20 +285,6 @@ There is no need to save manually.
 
 == Features v1.5
 
-=== [Coming in v1.5] Sorts and lists all persons using fields : `sort`
-
-Sorts all persons in the address book by the given parameter(s) in lexicographic order. +
-Format: `sort [n/] [p/] [e/] [a/] [t/]...`
-
-***
-* If more than one parameter is given, address book will sort by the first parameter first, then the next, and so on.
-***
-
-Examples:
-
-* `sort n/ a/`
-Contacts are sorted by name first and then sorted by address.
-
 === [Coming in v1.5] Locating and listing persons by tag and/or group: `find`
 
 Finds persons who belongs to at least one of the given tags and/or groups. +
@@ -297,23 +296,6 @@ Format: `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...`
 * Persons matching at least one tag or group will be returned (i.e. `OR` search). e.g. `t/Friend t/NUS g/Google` will return `John Smith ... t/friend g/google` and `Sarah Li ... t/NUS`
 ****
 
-=== [Coming in v1.5] Deleting one or more field(s) of a person : `delete`
-
-Deletes the specified field(s) from the person identified by the index number used in the last person listing. +
-Format: `delete INDEX [p/] [e/] [a/] [t/TAG]...`
-
-***
-* Name cannot be deleted.
-* Tag(s) to be deleted must be specified. However, other fields do not have to be specified.
-***
-
-Examples:
-
-* `delete 1 p/ e/` +
-Deletes phone and email of person index 1.
-* `delete 2 a/ t/friend` +
-Deletes address and 'friend' tag of person index 2.
-
 === [Coming in v1.5] Listing the edit history of a contact : `edit_history`
 
 Lists all edit history of the person, identified by the index number used in the last person listing, in reverse chronological order. +
@@ -323,15 +305,6 @@ Examples:
 
 * `edit 1 p/12341234` +
 `edit_history 1` (prints: `phone number changed from ******** to 12341234`
-
-=== [Coming in v1.5] Creating groups : `create`
-
-Creates a group and adds contacts, identified by indices from the last persons listing, to the group.
-Format: `create GROUP_NAME [INDEX] [MORE_INDICES]...`
-
-***
-* An empty group with no persons can be created.
-***
 
 === [Coming in v1.5] Setting a password to humanDEX : `password`
 
@@ -372,12 +345,12 @@ Format: `switch NAME`
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... [c/CUSTOMFIEILD_KEY:CUSTOMFIELD_VALUE]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague c/School:NUS`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [-t/TAG]... [+t/TAG]... [clearTag/]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find by Name* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
@@ -386,14 +359,13 @@ e.g. `find p/99991234`
 * *Find by Tag or Group* : `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...` +
 e.g. `find t/friend`
 * *List* : `list`
+e.g. `list Group Car`
 * *Sort (by name)* : `sort`
 * *Sort* : `sort [n/] [p/] [e/] [a/] [t/]...` +
 e.g. `sort n/ a/`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *Delete Field* : `delete INDEX [p/] [e/] [a/] [t/TAG]...` +
-e.g. `delete 4 p/ a/ t/friend`
 * *History* : `history`
 * *Edit History* : `edit_history INDEX` +
 e.g. `edit_history 1`

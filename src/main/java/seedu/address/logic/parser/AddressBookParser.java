@@ -74,13 +74,17 @@ public class AddressBookParser {
         case FindCommand.COMMAND_ALIAS:
             return new FindCommandParser().parse(arguments);
 
+        //@@ author kengying
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:
             return new ListCommandParser().parse(arguments);
+        //@@ author
 
+            //@@author sofarsophie
         case SortCommand.COMMAND_WORD:
         case SortCommand.COMMAND_ALIAS:
-            return new SortCommand();
+            return new SortCommandParser().parse(arguments);
+            //@@author
 
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:
