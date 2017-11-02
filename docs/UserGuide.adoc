@@ -290,23 +290,6 @@ Format: `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...`
 * Persons matching at least one tag or group will be returned (i.e. `OR` search). e.g. `t/Friend t/NUS g/Google` will return `John Smith ... t/friend g/google` and `Sarah Li ... t/NUS`
 ****
 
-=== [Coming in v1.5] Deleting one or more field(s) of a person : `delete`
-
-Deletes the specified field(s) from the person identified by the index number used in the last person listing. +
-Format: `delete INDEX [p/] [e/] [a/] [t/TAG]...`
-
-***
-* Name cannot be deleted.
-* Tag(s) to be deleted must be specified. However, other fields do not have to be specified.
-***
-
-Examples:
-
-* `delete 1 p/ e/` +
-Deletes phone and email of person index 1.
-* `delete 2 a/ t/friend` +
-Deletes address and 'friend' tag of person index 2.
-
 === [Coming in v1.5] Listing the edit history of a contact : `edit_history`
 
 Lists all edit history of the person, identified by the index number used in the last person listing, in reverse chronological order. +
@@ -371,14 +354,13 @@ e.g. `find p/99991234`
 * *Find by Tag or Group* : `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...` +
 e.g. `find t/friend`
 * *List* : `list`
+e.g. `list Group Car`
 * *Sort (by name)* : `sort`
 * *Sort* : `sort [n/] [p/] [e/] [a/] [t/]...` +
 e.g. `sort n/ a/`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *Delete Field* : `delete INDEX [p/] [e/] [a/] [t/TAG]...` +
-e.g. `delete 4 p/ a/ t/friend`
 * *History* : `history`
 * *Edit History* : `edit_history INDEX` +
 e.g. `edit_history 1`
