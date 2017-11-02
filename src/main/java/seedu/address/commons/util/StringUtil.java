@@ -41,6 +41,7 @@ public class StringUtil {
         return false;
     }
 
+    //@@author syy94
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case and partial words are accepted.
@@ -65,6 +66,7 @@ public class StringUtil {
 
         return preppedSentence.contains(preppedWord);
     }
+    //@@author
 
     /**
      * Returns a detailed message of the t, including the stack trace.

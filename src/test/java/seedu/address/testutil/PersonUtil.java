@@ -44,12 +44,15 @@ public class PersonUtil {
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+        //@@author syy94
         person.getFields().stream().forEach(
             s -> sb.append(PREFIX_CUSTOM_FIELD + s.toString() + " ")
         );
+        //@@author
         return sb.toString();
     }
 
+    //@@author syy94
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
@@ -68,4 +71,5 @@ public class PersonUtil {
         );
         return sb.toString();
     }
+    //@@author
 }

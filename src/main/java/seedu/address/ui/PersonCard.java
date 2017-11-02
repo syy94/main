@@ -19,8 +19,12 @@ import seedu.address.model.tag.Tag;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    //@@author syy94
     private static final HashMap<String, String> TAG_COLORS = new HashMap<String, String>();
+    //@@author
+    //@@author kengying
     private static final HashMap<String, String> GROUP_COLORS = new HashMap<String, String>();
+    //@@author
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -53,8 +57,12 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
+        //@@author syy94
         initTags(person);
+        //@@author
+        //@@author kengying
         initGroups(person);
+        //@@author
         bindListeners(person);
     }
 
@@ -75,6 +83,7 @@ public class PersonCard extends UiPart<Region> {
         });
     }
 
+    //@@author syy94
     /**
      * Creates and add the tags belonging to the person
      */
@@ -94,6 +103,7 @@ public class PersonCard extends UiPart<Region> {
 
         return TAG_COLORS.get(tag.tagName);
     }
+    //@@author
 
     //@@author kengying
     private void initGroups(ReadOnlyPerson person) {

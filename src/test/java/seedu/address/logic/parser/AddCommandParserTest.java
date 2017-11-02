@@ -88,6 +88,7 @@ public class AddCommandParserTest {
                         + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL,
                 new AddCommand(expectedPersonMultipleTags));
 
+        //@@author syy94
         // multiple fields - all accepted
         Person expectedPersonMultipleFields = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withGroup(VALID_GROUP_SAVING)
@@ -96,6 +97,7 @@ public class AddCommandParserTest {
                         + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GROUP_DESC_SAVING
                         + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL + FIELD_DESC_COMPANY,
                 new AddCommand(expectedPersonMultipleFields));
+        //@@author
     }
 
     @Test
@@ -106,7 +108,7 @@ public class AddCommandParserTest {
                 .withTags().withFields().build();
 
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + GROUP_DESC_SAVING,
+                        + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + GROUP_DESC_SAVING,
                 new AddCommand(expectedPersonZeroTags));
 
 
@@ -151,7 +153,7 @@ public class AddCommandParserTest {
         String expectedNameMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, AddCommand.COMMAND_WORD  + PHONE_DESC_BOB
+        assertParseFailure(parser, AddCommand.COMMAND_WORD + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GROUP_DESC_SAVING, expectedNameMessage);
 
         String expectedGroupMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
@@ -191,7 +193,7 @@ public class AddCommandParserTest {
 
         // invalid group
         assertParseFailure(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB  + INVALID_GROUP_DESC + VALID_TAG_FRIEND, Group.MESSAGE_GROUP_CONSTRAINTS);
+                + ADDRESS_DESC_BOB + INVALID_GROUP_DESC + VALID_TAG_FRIEND, Group.MESSAGE_GROUP_CONSTRAINTS);
         //@@author
 
         // two invalid values, only first invalid value reported

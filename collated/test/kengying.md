@@ -1,5 +1,5 @@
 # kengying
-###### /java/seedu/address/logic/commands/ListCommandTest.java
+###### \java\seedu\address\logic\commands\ListCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -84,7 +84,7 @@ public class ListCommandTest {
 
 }
 ```
-###### /java/seedu/address/logic/parser/AddCommandParserTest.java
+###### \java\seedu\address\logic\parser\AddCommandParserTest.java
 ``` java
         // invalid field
         assertParseFailure(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -93,9 +93,9 @@ public class ListCommandTest {
 
         // invalid group
         assertParseFailure(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB  + INVALID_GROUP_DESC + VALID_TAG_FRIEND, Group.MESSAGE_GROUP_CONSTRAINTS);
+                + ADDRESS_DESC_BOB + INVALID_GROUP_DESC + VALID_TAG_FRIEND, Group.MESSAGE_GROUP_CONSTRAINTS);
 ```
-###### /java/seedu/address/logic/parser/AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_list() throws Exception {
@@ -113,7 +113,7 @@ public class ListCommandTest {
         assertEquals(new ListCommand(new PersonContainsTagsPredicate(keywords)), command);
     }
 ```
-###### /java/seedu/address/model/AddressBookTest.java
+###### \java\seedu\address\model\AddressBookTest.java
 ``` java
     @Test
     public void getGroupList_modifyList_throwsUnsupportedOperationException() {
@@ -121,14 +121,14 @@ public class ListCommandTest {
         addressBook.getGroupList().remove(0);
     }
 ```
-###### /java/seedu/address/model/AddressBookTest.java
+###### \java\seedu\address\model\AddressBookTest.java
 ``` java
         @Override
         public ObservableList<Group> getGroupList() {
             return groups;
         }
 ```
-###### /java/seedu/address/testutil/EditPersonDescriptorBuilder.java
+###### \java\seedu\address\testutil\EditPersonDescriptorBuilder.java
 ``` java
     /**
      * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
@@ -142,7 +142,7 @@ public class ListCommandTest {
         return this;
     }
 ```
-###### /java/seedu/address/testutil/PersonBuilder.java
+###### \java\seedu\address\testutil\PersonBuilder.java
 ``` java
     /**
      * Sets the {@code Group} of the {@code Person} that we are building.
@@ -156,7 +156,7 @@ public class ListCommandTest {
         return this;
     }
 ```
-###### /java/systemtests/EditCommandSystemTest.java
+###### \java\systemtests\EditCommandSystemTest.java
 ``` java
         /* Case: invalid group -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_GROUP_DESC,

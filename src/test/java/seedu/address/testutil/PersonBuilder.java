@@ -126,6 +126,7 @@ public class PersonBuilder {
     }
     //@@author
 
+    //@@author syy94
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
@@ -137,6 +138,7 @@ public class PersonBuilder {
         }
         return this;
     }
+    //@@author
 
     public Person build() {
         return this.person;

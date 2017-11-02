@@ -125,6 +125,7 @@ public class Person implements ReadOnlyPerson {
     }
     //@@author
 
+    //@@author syy94
     public void setFields(Set<CustomField> replacement) {
         fieldsList.set(new CustomFieldsList(replacement));
     }
@@ -138,6 +139,7 @@ public class Person implements ReadOnlyPerson {
     public Set<CustomField> getFields() {
         return Collections.unmodifiableSet(fieldsList.get().toSet());
     }
+    //@@author
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

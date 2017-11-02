@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.ReadOnlyPerson;
-
+//@@author syy94
 /**
  * Represents a field as created by the user in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidField(String)}

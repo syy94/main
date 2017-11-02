@@ -123,6 +123,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         return Optional.of(ParserUtil.parseAddresses(addressList));
     }
 
+    //@@author syy94
     /**
      * Parses {@code List<String> fields} into a {@code List<CustomField>} if {@code fields} is non-empty.
      * If {@code fields} contain only one element which is an empty string, it will be parsed into a
@@ -138,6 +139,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ? Collections.emptyList() : fields;
         return Optional.of(fieldList);
     }
+    //@@author
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

@@ -53,6 +53,7 @@
       <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
     </VBox>
 
+    <!-- @@author syy94 -->
     <VBox>
         <StackPane fx:id="personDetailsPlaceholder" prefWidth="340">
           <padding>
@@ -66,6 +67,7 @@
         </padding>
       </StackPane>
     </VBox>
+    <!-- @@author -->
   </SplitPane>
 
   <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

@@ -152,6 +152,7 @@ public class ParserUtil {
     }
     //@@author
 
+    //@@author syy94
     /**
      *
      * Parses {@code Collection<String> fields} into a {@code Set<{@link CustomField}>}.
@@ -170,6 +171,7 @@ public class ParserUtil {
         requireNonNull(field);
         return new CustomField(field);
     }
+    //@@author
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
