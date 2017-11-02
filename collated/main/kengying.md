@@ -1,5 +1,5 @@
 # kengying
-###### /java/seedu/address/logic/commands/EditCommand.java
+###### \java\seedu\address\logic\commands\EditCommand.java
 ``` java
         public void setGroup(Group group) {
             this.group = group;
@@ -9,7 +9,7 @@
             return Optional.ofNullable(group);
         }
 ```
-###### /java/seedu/address/logic/commands/ListCommand.java
+###### \java\seedu\address\logic\commands\ListCommand.java
 ``` java
 /**
  * Lists all persons in the address book to the user.
@@ -50,7 +50,7 @@ public class ListCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AddCommandParser.java
+###### \java\seedu\address\logic\parser\AddCommandParser.java
 ``` java
     /**
      * Returns null if prefixes contains empty values in the given
@@ -61,7 +61,7 @@ public class ListCommand extends Command {
         return value;
     }
 ```
-###### /java/seedu/address/logic/parser/ListCommandParser.java
+###### \java\seedu\address\logic\parser\ListCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -89,7 +89,7 @@ public class ListCommandParser implements Parser<ListCommand> {
 
 }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     /**
      * Parses a {@code Optional<String> group} into an {@code Optional<Group>} if {@code group} is present.
@@ -100,13 +100,13 @@ public class ListCommandParser implements Parser<ListCommand> {
         return group.isPresent() ? Optional.of(new Group(group.get())) : Optional.empty();
     }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     public void setGroups(List<? extends Group> persons) {
         this.groups.setGroups(groups);
     }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Ensures that every group in this person:
@@ -148,21 +148,21 @@ public class ListCommandParser implements Parser<ListCommand> {
     }
 
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     //// group-level operations
     public void addGroup(Group g) throws UniqueGroupList.DuplicateGroupException {
         groups.add(g);
     }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     @Override
     public ObservableList<Group> getGroupList() {
         return groups.asObservableList();
     }
 ```
-###### /java/seedu/address/model/group/Group.java
+###### \java\seedu\address\model\group\Group.java
 ``` java
 /**
  * Represents a Person's group in the address book.
@@ -228,7 +228,7 @@ public class Group implements Comparable<Group>, Comparator<Group> {
 
 }
 ```
-###### /java/seedu/address/model/group/UniqueGroupList.java
+###### \java\seedu\address\model\group\UniqueGroupList.java
 ``` java
 /**
  * A list of tags that enforces no nulls and uniqueness between its elements.
@@ -347,7 +347,7 @@ public class UniqueGroupList implements Iterable<Group> {
 
 }
 ```
-###### /java/seedu/address/model/person/Person.java
+###### \java\seedu\address\model\person\Person.java
 ``` java
     public void setGroup(Group group) {
         this.group.set(requireNonNull(group));
@@ -363,7 +363,7 @@ public class UniqueGroupList implements Iterable<Group> {
         return group.get();
     }
 ```
-###### /java/seedu/address/model/person/PersonContainsTagsPredicate.java
+###### \java\seedu\address\model\person\PersonContainsTagsPredicate.java
 ``` java
 /**
  * Tests that any of {@code ReadOnlyPerson}'s Name, Phone, Email or Address matches any of the keywords given.
@@ -392,12 +392,12 @@ public class PersonContainsTagsPredicate implements Predicate<ReadOnlyPerson> {
                 && this.keywords.equals(((PersonContainsTagsPredicate) other).keywords)); // state check
     }
 ```
-###### /java/seedu/address/model/person/ReadOnlyPerson.java
+###### \java\seedu\address\model\person\ReadOnlyPerson.java
 ``` java
     ObjectProperty<Group> groupProperty();
     Group getGroup();
 ```
-###### /java/seedu/address/model/ReadOnlyAddressBook.java
+###### \java\seedu\address\model\ReadOnlyAddressBook.java
 ``` java
     /**
      * Returns an unmodifiable view of the tags list.
@@ -405,7 +405,7 @@ public class PersonContainsTagsPredicate implements Predicate<ReadOnlyPerson> {
      */
     ObservableList<Group> getGroupList();
 ```
-###### /java/seedu/address/storage/XmlAdaptedGroup.java
+###### \java\seedu\address\storage\XmlAdaptedGroup.java
 ``` java
 /**
  * JAXB-friendly adapted version of the Group.
@@ -441,7 +441,7 @@ public class XmlAdaptedGroup {
 
 }
 ```
-###### /java/seedu/address/storage/XmlSerializableAddressBook.java
+###### \java\seedu\address\storage\XmlSerializableAddressBook.java
 ``` java
     @Override
     public ObservableList<Group> getGroupList() {
@@ -457,7 +457,15 @@ public class XmlAdaptedGroup {
         return FXCollections.unmodifiableObservableList(tags);
     }
 ```
-###### /java/seedu/address/ui/PersonCard.java
+###### \java\seedu\address\ui\PersonCard.java
+``` java
+    private static final HashMap<String, String> GROUP_COLORS = new HashMap<String, String>();
+```
+###### \java\seedu\address\ui\PersonCard.java
+``` java
+        initGroups(person);
+```
+###### \java\seedu\address\ui\PersonCard.java
 ``` java
     private void initGroups(ReadOnlyPerson person) {
         group.setStyle("-fx-background-color: " + getGroupColor(person.getGroup()));
@@ -471,4 +479,18 @@ public class XmlAdaptedGroup {
 
         return GROUP_COLORS.get(group.groupName);
     }
+```
+###### \resources\view\DarkTheme.css
+``` css
+VBox .cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #EAECEE;
+}
+
+VBox .cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #EAECEE;
+}
 ```
