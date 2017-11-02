@@ -133,6 +133,7 @@ public class ParserUtil {
         return emailList;
     }
 
+    //@@author kengying
     /**
      * Parses a {@code Optional<String> group} into an {@code Optional<Group>} if {@code group} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
@@ -141,6 +142,7 @@ public class ParserUtil {
         requireNonNull(group);
         return group.isPresent() ? Optional.of(new Group(group.get())) : Optional.empty();
     }
+    //@@author
 
     /**
      *

@@ -22,10 +22,12 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Tag> getTagList();
 
+    //@@author kengying
     /**
      * Returns an unmodifiable view of the tags list.
      * This list will not contain any duplicate tags.
      */
     ObservableList<Group> getGroupList();
+    //@@author
 
 }

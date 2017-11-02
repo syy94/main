@@ -72,11 +72,13 @@ public class AddressBookTest {
         addressBook.getTagList().remove(0);
     }
 
+    //@@author kengying
     @Test
     public void getGroupList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getGroupList().remove(0);
     }
+    //@@author
 
     /**
      * A stub ReadOnlyAddressBook whose persons, tags and groups lists can violate interface constraints.
@@ -102,10 +104,12 @@ public class AddressBookTest {
             return tags;
         }
 
+        //@@author kengying
         @Override
         public ObservableList<Group> getGroupList() {
             return groups;
         }
+        //@@author
     }
 
 }

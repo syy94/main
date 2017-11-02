@@ -95,6 +95,7 @@ public class PersonCard extends UiPart<Region> {
         return TAG_COLORS.get(tag.tagName);
     }
 
+    //@@author kengying
     private void initGroups(ReadOnlyPerson person) {
         group.setStyle("-fx-background-color: " + getGroupColor(person.getGroup()));
     }
@@ -107,6 +108,7 @@ public class PersonCard extends UiPart<Region> {
 
         return GROUP_COLORS.get(group.groupName);
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {
