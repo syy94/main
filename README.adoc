@@ -2,6 +2,8 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
+https://travis-ci.org/CS2103AUG2017-F11-B1/main[image:https://travis-ci.org/CS2103AUG2017-F11-B1/main.svg?branch=master[Build Status]]
+
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
@@ -10,17 +12,14 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but also can be done using the CLI (Command Line Interface).
-* This application is intended for users who needs to keep track of many contacts.
-* It is *written in OOP fashion*.
-* What's different from https://github.com/se-edu/addressbook-level4[other address books]:
-** A more sophisticated GUI that includes a list  panel and an in-built Map.
-** The ability to store contacts online and retrieve them on any device.
-** A better system to group the user's contacts with multiple Address Books, Groups and tags.
-** More fluid and powerful CLI Commands.
-** Export contacts to a file.
-** Share Contacts to another user's Address Books.
-** Power users can enable CLI through Preferences.
+Too many clients on hand? Not enough time to save their details?
+
+Welcome to *humanDEX*! This is an addressbook specially made for insurance agents who need an efficient application for managing their long list of clients and colleagues!
+
+humanDEX helps you to manage your contact in a more flexible way!
+In the current version (v1.4). It allows you to create your own field! Add a contact just with his/her name and group! You will also be able to sort according to their details!
+
+In future version of humanDEX, we aim to make contacts exchange much easier by exporting contact list and clients/colleagues will be able to save your number when you save theirs!
 
 == Site Map
 
