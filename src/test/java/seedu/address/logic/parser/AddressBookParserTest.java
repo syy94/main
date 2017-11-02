@@ -162,6 +162,7 @@ public class AddressBookParserTest {
         }
     }
 
+    //@@author kengying
     @Test
     public void parseCommand_list() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
@@ -177,6 +178,7 @@ public class AddressBookParserTest {
                 ListCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new ListCommand(new PersonContainsTagsPredicate(keywords)), command);
     }
+    //@@author
 
     @Test
     public void parseCommand_select() throws Exception {
