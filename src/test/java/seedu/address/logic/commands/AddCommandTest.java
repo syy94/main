@@ -136,7 +136,7 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
 
-        //@@author-sofarsophie
+        //@@author sofarsophie
         @Override
         public ObservableList<ReadOnlyPerson> sortFilteredPersonList(
                 ObservableList<ReadOnlyPerson> unsortedList, Prefix prefix) {

@@ -134,7 +134,7 @@ public class CommandTestUtil {
     public static void showFirstPersonOnly(Model model) {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        //@@author-sofarsophie
+        //@@author sofarsophie
         PersonContainsKeywordsPredicate.FindFields fieldsToFind = new FindFieldsBuilder().withName(splitName[0])
                 .build();
         model.updateFilteredPersonList(new PersonContainsKeywordsPredicate(fieldsToFind));

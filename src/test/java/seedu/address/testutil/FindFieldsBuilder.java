@@ -1,4 +1,4 @@
-//@@author-sofarsophie
+//@@author sofarsophie
 package seedu.address.testutil;
 
 import java.util.Arrays;

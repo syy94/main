@@ -65,7 +65,7 @@ public class PersonContainsKeywordsPredicateTest {
         predicate = new PersonContainsKeywordsPredicate(mixedCaseFields);
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        //@@author-sofarsophie
+        //@@author sofarsophie
         // Keywords match phone, email and address, but does not match name
         PersonContainsKeywordsPredicate.FindFields differentMatchFields = new FindFieldsBuilder().withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main").withAddress("Street").build();

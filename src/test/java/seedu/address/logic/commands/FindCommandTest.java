@@ -78,7 +78,7 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code FindCommand}.
      */
     private FindCommand prepareCommand(String userInput) {
-        //@@author-sofarsophie
+        //@@author sofarsophie
         PersonContainsKeywordsPredicate.FindFields fields = new FindFieldsBuilder().withName(userInput
                 .split("\\s+")).build();
         FindCommand command =

@@ -47,7 +47,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> unsortedList, Prefix prefix);
 
     /** Removes the specified tag from everyone in the AddressBook. */

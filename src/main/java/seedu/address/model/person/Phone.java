@@ -38,7 +38,7 @@ public class Phone implements Comparable<Phone>, Comparator<Phone> {
         return test.matches(PHONE_VALIDATION_REGEX);
     }
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     public int compareTo(Phone p) {
         return this.value.compareTo(p.value);
     }

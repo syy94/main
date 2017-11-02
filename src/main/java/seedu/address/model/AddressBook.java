@@ -85,7 +85,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncMasterGroupListWith(persons);
     }
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     /**
      * Sorts addressbook according to field identified by the given prefix.
      */

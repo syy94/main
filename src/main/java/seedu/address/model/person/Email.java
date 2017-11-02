@@ -39,7 +39,7 @@ public class Email implements Comparable<Email>, Comparator<Email> {
         return test.matches(EMAIL_VALIDATION_REGEX);
     }
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     public int compareTo(Email e) {
         return this.value.compareTo(e.value);
     }

@@ -98,7 +98,7 @@ public class UniquePersonList implements Iterable<Person> {
         setPersons(replacement);
     }
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     /**
      * Sorts the internal list by the field identified by the given prefix.
      */

@@ -57,7 +57,7 @@ public class ParserUtil {
         return name.isPresent() ? Optional.of(new Name(name.get())) : Optional.empty();
     }
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     /**
      * Parses a {@code Collection<String> names} into a {@code List<Name>}
      */
@@ -80,7 +80,7 @@ public class ParserUtil {
         return phone.isPresent() ? Optional.of(new Phone(phone.get())) : Optional.empty();
     }
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     /**
      * Parses a {@code Collection<String> phones} into a {@code List<Phone>}
      */
@@ -103,7 +103,7 @@ public class ParserUtil {
         return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.empty();
     }
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     /**
      * Parses a {@code Collection<String> addresses} into a {@code List<Address>}
      */
@@ -126,7 +126,7 @@ public class ParserUtil {
         return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
     }
 
-    //@@author-sofarsophie
+    //@@author sofarsophie
     /**
      *
      * Parses a {@code Collection<String> emails} into a {@code List<Email>}

@@ -77,7 +77,7 @@ public class AddressBookParser {
         case ListCommand.COMMAND_ALIAS:
             return new ListCommandParser().parse(arguments);
 
-            //@@author-sofarsophie
+            //@@author sofarsophie
         case SortCommand.COMMAND_WORD:
         case SortCommand.COMMAND_ALIAS:
             return new SortCommandParser().parse(arguments);
