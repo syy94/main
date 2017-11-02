@@ -54,7 +54,7 @@ public class SecurityManager {
     }
 
     /**
-     * removes the need for password on applications start.
+     * removes the need for password on application start.
      */
     public static void removePass() {
         final File passFile = new File(path);
