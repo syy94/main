@@ -532,6 +532,47 @@ Every person will need to have a group.
 **Pros:** More distinct differentiation of link:#group[group] and link:#tag[tag]. +
 **Cons:** Time comsuming.
 
+=== Passwords
+
+As of v1.4, passwords can be of any string. This feature will be improved to check for stronger passwords and encrypting the saved password such that no one can just open the
+text file and reading the password. Until a better way of storing local passwords are found, the password will exist as a non-hidden file.
+
+The modes of this command is decided by the existence of the prefixes. Only the `pwd/` prefix is mandatory.
+* Set requires: `pwd/` prefix.
+* Remove requires: `pwd/` and `clearPwd/` prefix.
+* Change requires: `pwd/` and `new/` prefix.
+
+No password recovery is supported. If the password is forgotted during development, go to the data folder and delete the `pass` file.
+
+==== Pseudo-codes +
+
+Pseudo-codes for how the application reacts if there is a password.
+
+* PersonListPanel, LogicManager and ResultDisplay checks if password exists. If it does, go into locked mode else, operate as usual.
+* Locked mode
+. Result Display will prompt user to enter the password
+. LogicManager will assume any text in the CommandBox is the password
+. If password entered is correct, a PasswordAcceptedEvent will be posted and PersonListPanel and LogicManager will resume operating in their normal mode.
+. If password entered is incorrect, just prompt the user to enter the password again.
+
+==== Design Consideration
+
+**Aspect:** Structure of command
+**Alternative 1 (current choice):** Use a single command with multiple modes. +
+**Pros:** Easier to program. +
+**Cons:** Multiple 3 subclasses in CommandPassword +
+**Alternative 2:** Different Commands for different modes.  +
+**Pros:** More distinct differentiation various modes +
+**Cons:** Time comsuming and user needs to remember multiple commands.
+
+==== Improvements
+
+- Password storage
+. Set the `data/pass` file to be hidden.
+. Store the password in database.xml as an encrypted string.
+- Security
+* Encrypt the database.xml so that passwords will not be redundant.
+
 == Documentation
 
 We use asciidoc for writing documentation.
