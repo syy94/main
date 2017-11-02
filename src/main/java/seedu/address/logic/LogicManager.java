@@ -40,6 +40,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        //@@author syy94
         if (isLocked) {
             try {
                 isLocked = !SecurityManager.unlock(commandText);
@@ -52,6 +53,8 @@ public class LogicManager extends ComponentManager implements Logic {
                 return new CommandResult("Welcome");
             }
         }
+        //@@author
+
         try {
             Command command = addressBookParser.parseCommand(commandText);
             command.setData(model, history, undoRedoStack);

@@ -35,16 +35,20 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         registerAsAnEventHandler(this);
 
+        //@@author syy94
         this.personList = personList;
         if (!SecurityManager.passExists()) {
             init();
         }
+        //@@author
     }
 
+    //@@author syy94
     private void init() {
         setConnections(personList);
         registerAsAnEventHandler(this);
     }
+    //@@author
 
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
         ObservableList<PersonCard> mappedList = EasyBind.map(
@@ -98,9 +102,11 @@ public class PersonListPanel extends UiPart<Region> {
         }
     }
 
+    //@@author syy94
     @Subscribe
     private void handlePasswordAcceptedEvent(PasswordAcceptedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Password Accepted. Showing Persons"));
         init();
     }
+    //@@author
 }

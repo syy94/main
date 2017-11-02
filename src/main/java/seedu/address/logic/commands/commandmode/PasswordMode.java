@@ -5,6 +5,7 @@ import java.io.IOException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.storage.SecurityManager;
 
+//@@author syy94
 /**
  * Represents the modes that PasswordCommand is able to do
  */
@@ -25,3 +26,4 @@ public abstract class PasswordMode {
 
     public abstract CommandResult execute() throws IOException;
 }
+

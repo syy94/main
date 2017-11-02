@@ -10,6 +10,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.PasswordAcceptedEvent;
 import seedu.address.commons.util.FileUtil;
 
+//@@author syy94
 /**
  * Accesses and edits the password.
  */
