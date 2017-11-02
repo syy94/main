@@ -183,6 +183,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + GROUP_DESC_SAVING + INVALID_TAG_DESC
                 + VALID_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
+        //@@author kengying
         // invalid field
         assertParseFailure(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + GROUP_DESC_SAVING + INVALID_FIELD_DESC
@@ -191,6 +192,7 @@ public class AddCommandParserTest {
         // invalid group
         assertParseFailure(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB  + INVALID_GROUP_DESC + VALID_TAG_FRIEND, Group.MESSAGE_GROUP_CONSTRAINTS);
+        //@@author
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_BOB + INVALID_EMAIL_DESC

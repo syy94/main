@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author kengying
 /**
  * Represents a Person's group in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidGroup(String)}

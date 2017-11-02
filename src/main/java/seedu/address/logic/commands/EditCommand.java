@@ -218,6 +218,7 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(address);
         }
 
+        //@@author kengying
         public void setGroup(Group group) {
             this.group = group;
         }
@@ -225,6 +226,7 @@ public class EditCommand extends UndoableCommand {
         public Optional<Group> getGroup() {
             return Optional.ofNullable(group);
         }
+        //@@author
 
         public void setFieldsList(Set<CustomField> fieldsList) {
             this.fieldsList = fieldsList;

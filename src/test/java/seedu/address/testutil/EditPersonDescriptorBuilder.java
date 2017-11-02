@@ -123,6 +123,7 @@ public class EditPersonDescriptorBuilder {
         return descriptor;
     }
 
+    //@@author kengying
     /**
      * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
      */
@@ -134,4 +135,5 @@ public class EditPersonDescriptorBuilder {
         }
         return this;
     }
+    //@@author
 }

@@ -196,9 +196,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_FIELD_DESC,
                 CustomField.MESSAGE_FIELD_CONSTRAINTS);
 
+        //@@author kengying
         /* Case: invalid group -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_GROUP_DESC,
                 Group.MESSAGE_GROUP_CONSTRAINTS);
+        //@@author
 
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));

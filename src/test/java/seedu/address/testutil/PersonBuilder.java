@@ -112,6 +112,7 @@ public class PersonBuilder {
         return this;
     }
 
+    //@@author kengying
     /**
      * Sets the {@code Group} of the {@code Person} that we are building.
      */
@@ -123,6 +124,7 @@ public class PersonBuilder {
         }
         return this;
     }
+    //@@author
 
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
