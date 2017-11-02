@@ -1,3 +1,5 @@
+//@@author sofarsophie
+
 package seedu.address.model.person;
 
 import java.util.List;
@@ -135,3 +137,4 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
         }
     }
 }
+//@@author

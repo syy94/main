@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.person.Person;
@@ -84,12 +85,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncMasterGroupListWith(persons);
     }
 
+    //@@author sofarsophie
     /**
-     * Sorts addressbook according to name
+     * Sorts addressbook according to field identified by the given prefix.
      */
-    public void sortPersonsList() {
-        persons.sortPersons();
+    public void sortPersonsList(Prefix prefix) {
+        persons.sortPersons(prefix);
     }
+    //@@author
 
     //// person-level operations
 

@@ -24,6 +24,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         FindFields fieldsToFind = new FindFieldsBuilder().withName("Alice", "Bob").build();
+        //@@author sofarsophie
         FindCommand expectedFindCommand =
                 new FindCommand(new PersonContainsKeywordsPredicate(fieldsToFind));
         assertParseSuccess(parser, FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "Alice"
@@ -32,6 +33,7 @@ public class FindCommandParserTest {
         // multiple whitespaces before and after keyword
         assertParseSuccess(parser, FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "\n Alice \t"
                 + " " + PREFIX_NAME + "   \t \t Bob", expectedFindCommand);
+        //@@author
     }
 
 }
