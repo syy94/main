@@ -97,14 +97,15 @@ Returns any persons with tag `friends` or/and group `Savings`
 Sorts all persons in the address book by the given parameter in lexicographic order. +
 Format: `sort [n/] [p/] [e/] [a/] [g/]...`
 
-***
+****
 * Sorts list based on one given parameter from: Name, Phone, Email, Address, or Group.
 * If no parameter is given, sorts list by the contacts' names in alphabetical order.
 * An empty contact list cannot be sorted.
 * A sorted contacts list can be unsorted by using the command `undo`.
-* Sort can also be done by using the filter dropdown above the persons list, as follows: +
-image::sort-filter-controls.png[width="300"]
-***
+* Sort can also be done by using the filter dropdown above the persons list, as follows:
+****
+
+image::sort-filter-controls.png[width="600"]
 
 Examples:
 
