@@ -18,7 +18,8 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SEARCH_TERM + " : List all persons\n"
             + "Example: " + COMMAND_WORD +  " " + SEARCH_TERM + "\n"
-            + ListTagCommand.MESSAGE_USAGE;
+            + ListTagCommand.MESSAGE_USAGE + "\n"
+            + ListGroupCommand.MESSAGE_USAGE;
 
     private Predicate<ReadOnlyPerson> predicate = PREDICATE_SHOW_ALL_PERSONS;
 

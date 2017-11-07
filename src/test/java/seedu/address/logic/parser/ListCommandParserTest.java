@@ -26,6 +26,7 @@ public class ListCommandParserTest {
 
         assertParseSuccess(parser, "all", expectedListCommand);
         assertParseSuccess(parser, "tags", expectedListCommand);
+        assertParseSuccess(parser, "groups", expectedListCommand);
 
     }
 

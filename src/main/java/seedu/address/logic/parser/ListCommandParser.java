@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListGroupCommand;
 import seedu.address.logic.commands.ListTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -19,17 +20,20 @@ public class ListCommandParser implements Parser<ListCommand> {
      */
     public ListCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-        } else if (trimmedArgs.equalsIgnoreCase("all")) {
+//        if (trimmedArgs.isEmpty()) {
+//            throw new ParseException(
+//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+//        } else
+            if (trimmedArgs.equalsIgnoreCase("all")) {
             return new ListCommand();
         } else if (trimmedArgs.equalsIgnoreCase("tags")) {
             return new ListTagCommand();
+        } else if (trimmedArgs.equalsIgnoreCase("groups")){
+          return new ListGroupCommand();
         } else {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE,
-                            ListTagCommand.MESSAGE_USAGE));
+                            ListTagCommand.MESSAGE_USAGE, ListGroupCommand.MESSAGE_SUCCESS));
         }
 
     }
