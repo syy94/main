@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.model.person.PersonContainsTagsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 
 //@@author kengying
@@ -15,20 +15,13 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_ALIAS = "l";
+    public static final String SEARCH_TERM = "all";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all persons whose tags "
-            + "contain any of the specified keywords\n"
-            + "or list all persons with or without tags"
-            + "(case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: TAG [TAG]\n"
-            + "Example: " + COMMAND_WORD + " friends\n"
-            + COMMAND_WORD + " all";;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SEARCH_TERM + " : List all persons\n"
+            + "Example: " + COMMAND_WORD +  " " + SEARCH_TERM + "\n"
+            + ListTagCommand.MESSAGE_USAGE;
 
     private Predicate<ReadOnlyPerson> predicate = PREDICATE_SHOW_ALL_PERSONS;
-
-    public ListCommand(PersonContainsTagsPredicate predicate) {
-        this.predicate = predicate;
-    }
 
     public ListCommand() {
     }

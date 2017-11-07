@@ -2,11 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.PersonContainsTagsPredicate;
 
 //@@author kengying
 /**
@@ -27,10 +25,13 @@ public class ListCommandParser implements Parser<ListCommand> {
         } else if (trimmedArgs.equalsIgnoreCase("all")) {
             return new ListCommand();
         }
+        else if(trimmedArgs.equalsIgnoreCase("tags")){
+            return new ListTagCommand();
+        } else {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE, ListTagCommand.MESSAGE_USAGE));
+        }
 
-        String[] keywords = trimmedArgs.split("\\s+");
-
-        return new ListCommand(new PersonContainsTagsPredicate(Arrays.asList(keywords)));
     }
 
 }

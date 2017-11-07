@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -53,5 +54,7 @@ public interface Model {
     /** Removes the specified tag from everyone in the AddressBook. */
     void removeTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
     //@@author
+
+    List<Tag> getTagList();
 
 }

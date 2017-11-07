@@ -3,9 +3,13 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -100,6 +104,24 @@ public class ModelManager extends ComponentManager implements Model {
             addressBook.updatePerson(currReadOnlyPerson, newPerson);
         }
     }
+
+    //@@author kengying
+    @Override
+    public List<Tag> getTagList() {
+        List<Tag> listTagsWithDuplicates = new ArrayList<>();
+
+        filteredPersons.forEach(persons -> listTagsWithDuplicates.addAll((persons.getTags())));
+
+        List<Tag> listTags = listTagsWithDuplicates.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        listTags.sort(Comparator.comparing(Tag::toString));
+
+
+        return listTags;
+    }
+    //@@author
 
     @Override
     public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> personsList,
