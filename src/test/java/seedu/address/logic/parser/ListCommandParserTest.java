@@ -4,14 +4,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.person.PersonContainsTagsPredicate;
 
-public class LogicCommandParserTest {
+//@@author kengying
+public class ListCommandParserTest {
 
     private ListCommandParser parser = new ListCommandParser();
 
@@ -23,12 +21,21 @@ public class LogicCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        ListCommand expectedListCommand =
-                new ListCommand(new PersonContainsTagsPredicate(Arrays.asList("Friends")));
-        assertParseSuccess(parser, "Friends", expectedListCommand);
+        ListCommand expectedListCommand = new ListCommand();
 
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, "Friends", expectedListCommand);
+        assertParseSuccess(parser, "all", expectedListCommand);
+        assertParseSuccess(parser, "tags", expectedListCommand);
+
+    }
+
+    @Test
+    public void parse_invalidArgs_returnsFindCommand() {
+        // no leading and trailing whitespaces
+        ListCommand expectedListCommand = new ListCommand();
+
+        assertParseFailure(parser, "random", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "all tags", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+
     }
 
 }

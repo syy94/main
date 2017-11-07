@@ -24,12 +24,12 @@ public class ListCommandParser implements Parser<ListCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         } else if (trimmedArgs.equalsIgnoreCase("all")) {
             return new ListCommand();
-        }
-        else if(trimmedArgs.equalsIgnoreCase("tags")){
+        } else if (trimmedArgs.equalsIgnoreCase("tags")) {
             return new ListTagCommand();
         } else {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE, ListTagCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE,
+                            ListTagCommand.MESSAGE_USAGE));
         }
 
     }
