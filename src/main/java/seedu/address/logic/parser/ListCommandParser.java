@@ -20,16 +20,13 @@ public class ListCommandParser implements Parser<ListCommand> {
      */
     public ListCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-//        if (trimmedArgs.isEmpty()) {
-//            throw new ParseException(
-//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-//        } else
+
         if (trimmedArgs.equalsIgnoreCase("all")) {
             return new ListCommand();
         } else if (trimmedArgs.equalsIgnoreCase("tags")) {
             return new ListTagCommand();
         } else if (trimmedArgs.equalsIgnoreCase("groups")) {
-          return new ListGroupCommand();
+            return new ListGroupCommand();
         } else {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE,
