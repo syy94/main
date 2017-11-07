@@ -39,9 +39,9 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
                 || (findFields.getFieldsKeywordsStream().anyMatch(keyword
                     -> customFieldContainsWordIgnoreCase(person.getFields(), keyword)))
                 || (findFields.getGroupsKeywordsStream().anyMatch(keyword
-                -> StringUtil.containsPartialTextIgnoreCase(person.getGroup().groupName, keyword.groupName)))
+                    -> StringUtil.containsPartialTextIgnoreCase(person.getGroup().groupName, keyword.groupName)))
                 || (findFields.getTagsKeywordsStream().anyMatch(keyword
-                -> tagContainsWordIgnoreCase(person.getTags(), keyword))));
+                    -> tagContainsWordIgnoreCase(person.getTags(), keyword))));
     }
 
     private boolean customFieldContainsWordIgnoreCase(Set<CustomField> fields, String keyword) {
@@ -65,7 +65,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
                 && this.findFields.getAddressKeywords().equals(((PersonContainsKeywordsPredicate) other)
                         .findFields.getAddressKeywords())
                 && this.findFields.getGroupsKeywords().equals(((PersonContainsKeywordsPredicate) other)
-                .findFields.getGroupsKeywords()));// state check
+                        .findFields.getGroupsKeywords())); // state check
     }
 
     /**
