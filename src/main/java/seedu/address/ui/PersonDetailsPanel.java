@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -13,17 +12,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.PersonEditedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.util.ColorUtil;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.tag.Tag;
 //@@author syy94
+
 /**
  * Panel containing the details of the selected person.
  */
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
-    private static final HashMap<String, String> TAG_COLORS = new HashMap<String, String>();
+    private static final String LOG_IGNORED = "Currently not showing edited Person. Panel not updated";
+    private static final String LOG_CHANGED = "Panel updated with new Person";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -48,19 +49,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
     @FXML
     private VBox fields;
 
-    //TODO Empty View
     public PersonDetailsPanel() {
         super(FXML);
-        registerAsAnEventHandler(this);
-    }
-
-    public PersonDetailsPanel(ReadOnlyPerson person, int displayedIndex) {
-        super(FXML);
-        this.person = person;
-        id.setText(displayedIndex + ". ");
-        initTags(person);
-        initFields(person);
-        bindListeners(person);
         registerAsAnEventHandler(this);
     }
 
@@ -71,18 +61,14 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void bindListeners(ReadOnlyPerson person) {
         name.textProperty().bind(Bindings.convert(person.nameProperty()));
         group.textProperty().bind(Bindings.convert(person.groupProperty()));
-        group.setStyle("-fx-background-color: Blue");
+        group.setStyle("-fx-background-color: " + ColorUtil.getUniqueHsbColorForObject(person.getGroup()));
         phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
         address.textProperty().bind(Bindings.convert(person.addressProperty()));
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
 
-        person.fieldsListProperty().addListener((observable, oldValue, newValue) -> {
-            regenerateFields(person);
-        });
+        person.fieldsListProperty().addListener((observable, oldValue, newValue) -> regenerateFields(person));
 
-        person.tagProperty().addListener((observable, oldValue, newValue) -> {
-            regenerateTags(person);
-        });
+        person.tagProperty().addListener((observable, oldValue, newValue) -> regenerateTags(person));
     }
 
     /**
@@ -91,7 +77,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> {
             final Label label = new Label(tag.tagName);
-            label.setStyle("-fx-background-color: " + getTagColor(tag));
+            label.setStyle("-fx-background-color: " + ColorUtil.getUniqueHsbColorForObject(tag));
             tags.getChildren().add(label);
         });
     }
@@ -102,17 +88,9 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void initFields(ReadOnlyPerson person) {
         person.getFields().forEach(field -> {
             final Label label = new Label(field.key + ": " + field.value);
+            label.getStyleClass().add("cell_small_label");
             fields.getChildren().add(label);
         });
-    }
-
-    private String getTagColor(Tag tag) {
-        //TODO store the tag colors for consistent tag colors
-        if (!TAG_COLORS.containsKey(tag.tagName)) {
-            TAG_COLORS.put(tag.tagName, ColorUtil.getTagColor());
-        }
-
-        return TAG_COLORS.get(tag.tagName);
     }
 
     @Override
@@ -123,7 +101,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof PersonDetailsPanel)) {
             return false;
         }
 
@@ -154,5 +132,16 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setPerson(event.getNewSelection().person);
+    }
+
+    @Subscribe
+    private void handlePersonEditedEvent(PersonEditedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.getOldPerson().equals(person)) {
+            setPerson(event.getNewPerson());
+            logger.info(LOG_CHANGED);
+        } else {
+            logger.info(LOG_IGNORED);
+        }
     }
 }

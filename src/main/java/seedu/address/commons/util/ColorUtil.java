@@ -1,8 +1,10 @@
 package seedu.address.commons.util;
 
+import java.util.HashMap;
 import java.util.Random;
 
 //@@author syy94
+
 /**
  * From JavaFX docs, the CSS supports HSB color model instead of HSL color model.
  * <p>
@@ -14,6 +16,23 @@ import java.util.Random;
  */
 public class ColorUtil {
     private static Random random = new Random();
+    private static final HashMap<String, String> USED_COLORS = new HashMap<>();
+
+    /**
+     * Generate a random Color in HSB format for CSS. This color will then be bounded to the object.
+     * Calling this method with the same Object will return the existing color.
+     *
+     * @param object Object to get Colors for
+     * @return String of color in HSB format for CSS. eg. hsb (360, 35%, 50%)
+     */
+    public static String getUniqueHsbColorForObject(Object object) {
+        final String identifier = object.toString();
+        if (!USED_COLORS.containsKey(identifier)) {
+            USED_COLORS.put(identifier, getTagColor());
+        }
+
+        return USED_COLORS.get(identifier);
+    }
 
     public static String getTagColor() {
         return "hsb(" + getHue() + "," + getSaturation() + "%,"
@@ -21,17 +40,17 @@ public class ColorUtil {
     }
 
     private static int getHue() {
-        //full spectrum of colors (in Degrees)
-        return random.nextInt(360);
+        //0 to 360 degrees. Full spectrum of colors in 5 degrees increments.
+        return random.nextInt(72) * 5;
     }
 
     private static int getSaturation() {
-        //60 to 95%
+        //60 to 95% Saturation
         return random.nextInt(35) + 60;
     }
 
     private static int getBrightness() {
-        //50 to 75%
+        //50 to 75% Brightness
         return random.nextInt(25) + 50;
     }
 }

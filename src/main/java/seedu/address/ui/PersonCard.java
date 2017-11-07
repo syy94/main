@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.HashMap;
-
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,9 +7,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.ColorUtil;
-import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -19,12 +15,6 @@ import seedu.address.model.tag.Tag;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    //@@author syy94
-    private static final HashMap<String, String> TAG_COLORS = new HashMap<String, String>();
-    //@@author
-    //@@author kengying
-    private static final HashMap<String, String> GROUP_COLORS = new HashMap<String, String>();
-    //@@author
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -90,33 +80,15 @@ public class PersonCard extends UiPart<Region> {
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> {
             final Label label = new Label(tag.tagName);
-            label.setStyle("-fx-background-color: " + getTagColor(tag));
+            label.setStyle("-fx-background-color: " + ColorUtil.getUniqueHsbColorForObject(tag));
             tags.getChildren().add(label);
         });
-    }
-
-    private String getTagColor(Tag tag) {
-        //TODO store the tag colors for consistent tag colors
-        if (!TAG_COLORS.containsKey(tag.tagName)) {
-            TAG_COLORS.put(tag.tagName, ColorUtil.getTagColor());
-        }
-
-        return TAG_COLORS.get(tag.tagName);
     }
     //@@author
 
     //@@author kengying
     private void initGroups(ReadOnlyPerson person) {
-        group.setStyle("-fx-background-color: " + getGroupColor(person.getGroup()));
-    }
-
-    private String getGroupColor(Group group) {
-        //TODO store the group colors for consistent group colors
-        if (!GROUP_COLORS.containsKey(group.groupName)) {
-            GROUP_COLORS.put(group.groupName, ColorUtil.getTagColor());
-        }
-
-        return GROUP_COLORS.get(group.groupName);
+        group.setStyle("-fx-background-color: " + ColorUtil.getUniqueHsbColorForObject(person.getGroup()));
     }
     //@@author
 
