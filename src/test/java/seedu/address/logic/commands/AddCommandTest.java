@@ -22,6 +22,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -154,6 +155,12 @@ public class AddCommandTest {
         //@@author kengying
         @Override
         public List<Tag> getTagList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public List<Group> getGroupList() {
             fail("This method should not be called.");
             return null;
         }
