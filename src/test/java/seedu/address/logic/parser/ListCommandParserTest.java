@@ -15,7 +15,8 @@ public class ListCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -33,8 +34,10 @@ public class ListCommandParserTest {
         // no leading and trailing whitespaces
         ListCommand expectedListCommand = new ListCommand();
 
-        assertParseFailure(parser, "random", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "all tags", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "random", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "all tags", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListCommand.MESSAGE_USAGE));
 
     }
 

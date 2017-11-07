@@ -153,7 +153,7 @@ public class AddCommandTest {
 
         //@@author kengying
         @Override
-        public List<Tag> getTagList(){
+        public List<Tag> getTagList() {
             fail("This method should not be called.");
             return null;
         }
