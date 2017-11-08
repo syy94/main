@@ -5,11 +5,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_PASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASS;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import seedu.address.logic.commands.commandmode.PasswordMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.storage.SecurityManager;
 //@@author syy94
+
 /**
  * Adds, removes or edit password for the application.
  */
@@ -35,6 +37,9 @@ public class PasswordCommand extends Command {
     public static final String MESSAGE_PASS_NOT_CHANGED = "Password not changed.";
     public static final String MESSAGE_NO_PASS_TO_CLEAR = "No existing password to clear";
     public static final String MESSAGE_NO_PASS_TO_CHANGE = "No existing password to change";
+    public static final String MESSAGE_NO_SUCH_ALGORITHM = "NoSuchAlgorithmException should not be reached. \n"
+            + "Contact the developers at: \n"
+            + "https://github.com/CS2103AUG2017-F11-B1/main/issues";
 
     final PasswordMode mode;
 
@@ -54,6 +59,8 @@ public class PasswordCommand extends Command {
             return mode.execute();
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+        } catch (NoSuchAlgorithmException e) {
+            throw new CommandException(MESSAGE_NO_SUCH_ALGORITHM);
         }
     }
 
@@ -66,7 +73,7 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException {
             if (passExists()) {
                 return new CommandResult(MESSAGE_PASS_EXISTS);
             } else {
@@ -85,7 +92,7 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException {
             if (passExists()) {
                 if (SecurityManager.checkPass(getPass())) {
                     SecurityManager.removePass();
@@ -112,7 +119,7 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException {
             if (passExists()) {
                 if (SecurityManager.checkPass(getPass())) {
                     SecurityManager.savePass(newPass);

@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.PasswordCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -46,6 +48,8 @@ public class LogicManager extends ComponentManager implements Logic {
                 isLocked = !SecurityManager.unlock(commandText);
             } catch (IOException e) {
                 throw new CommandException("Unable to open password file");
+            } catch (NoSuchAlgorithmException e) {
+                throw new CommandException(PasswordCommand.MESSAGE_NO_SUCH_ALGORITHM);
             }
             if (isLocked) {
                 return new CommandResult("Wrong Password");
