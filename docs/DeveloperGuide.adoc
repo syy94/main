@@ -364,6 +364,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::find[]
 === Find
 
 The `find` command was enhanced to allow a more rigorous search. The new find command allows users to search for Persons in the humanDEX using fields such as Name, Email, Phone, and Address.
@@ -482,6 +483,7 @@ _Figure 2.1.1 : `list` Diagram_
 **Pros:** Easier to implement as `find` function is already available. +
 **Cons:** If contact's details contains same word as tag, contact will be listed. For example if May's mail is mayfriend@example.com but does not contain tag "friend", May will be found even though she does not include tag "friend".
 
+// tag::sort[]
 === Sort
 
 The `sort` command allows users to sort their contacts by any given field, with the exception of `Tag`. It is an undoable command.
