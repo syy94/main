@@ -100,6 +100,7 @@ Format: `sort [n/] [p/] [e/] [a/] [g/]...`
 ****
 * Sorts list based on one given parameter from: Name, Phone, Email, Address, or Group.
 * If no parameter is given, sorts list by the contacts' names in alphabetical order.
+* Cannot sort using multiple parameters.
 * An empty contact list cannot be sorted.
 * A sorted contacts list can be unsorted by using the command `undo`.
 * Sort can also be done by using the filter dropdown above the persons list, as follows:
