@@ -427,6 +427,7 @@ The diagram below shows how the enhanced `find` command works. +
 **Alternative 2:** Implement an overloaded constructor for `Email` that surpasses validation. +
 **Pros:** Will allow more flexible uses for users. +
 **Cons:** The team needs to agree on whether implementing an overloaded constructor is useful in terms of the entire software. Not having enough uses for the constructor may call for other solutions.
+// end::find[]
 
 === Custom Fields
 
@@ -503,6 +504,7 @@ To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `
 **Alternative 2:** Implement `SortCommand` as an ordinary command +
 **Pros:** Easier to implement. +
 **Cons:** When sorting by multiple parameters is enabled, users may wish to revert their address book to the original state after revising the sorted version. Thus not being able to undo a sort will lead to low usability.
+// end::sort[]
 
 === Edit (Tags)
 At the point of development the precedence of `clearTags`, `+t/` (add tag) and then `-t/` (remove tag) is used.
