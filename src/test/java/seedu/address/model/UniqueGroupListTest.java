@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.group.UniqueGroupList;
-import seedu.address.model.tag.UniqueTagList;
 
 //@@author kengying
 public class UniqueGroupListTest {
