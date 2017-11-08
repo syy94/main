@@ -155,7 +155,7 @@
     -fx-text-fill: #010504;
 }
 
-//@@author kengying
+/*@@author kengying*/
 VBox .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
@@ -167,7 +167,7 @@ VBox .cell_small_label {
     -fx-font-size: 13px;
     -fx-text-fill: #EAECEE;
 }
-//@@author
+/*@@author*/
 
 .anchor-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
