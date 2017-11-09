@@ -265,7 +265,9 @@ Format: `clear`
 
 === [Since v1.4] Setting Passwords: `password`
 
-Sets, removes or changes password.
+Sets, removes or changes password required to use the application. Once a password is set, upon restarting humanDEX, the user will be required to
+enter the password in order to access humanDex. If the password is forgotten refer to the Developer Guide to rectify the problem.
+
 Format:
 
 * Add: `password pwd/PASSWORD`
