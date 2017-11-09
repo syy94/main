@@ -427,7 +427,9 @@ The diagram below shows how the enhanced `find` command works. +
 **Pros:** Will allow more flexible uses for users. +
 **Cons:** The team needs to agree on whether implementing an overloaded constructor is useful in terms of the entire software. Not having enough uses for the constructor may call for other solutions.
 
-=== Custom Fields
+// tag::customfield[]
+
+=== [Since v1.3] Custom Fields
 
 The ability for the users to define their own custom fields is implemented to give the users more control over the data they are keeping about their contacts.
 The main purpose of this feature is idealised to allow users to store data that does not seem to fit the use of tags and groups.
@@ -463,6 +465,8 @@ Therefore, HashSet is used as it is able to allow the user to fully choose which
 
 ==== Implementation
 The CustomField class was developed first and added to Person class. Then the necessary classes are created and developed such that it fits into the existing code. The add and edit command are then updated to support this new feature and finally, test cases are updated to check that this feature have been integrated seamlessly with the existing code.
+
+// end::customfield[]
 
 === List
 
@@ -502,7 +506,18 @@ To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `
 **Pros:** Easier to implement. +
 **Cons:** When sorting by multiple parameters is enabled, users may wish to revert their address book to the original state after revising the sorted version. Thus not being able to undo a sort will lead to low usability.
 
-=== Edit (Tags)
+// tag::editindividual[]
+=== [Since v1.3] Edit (Individual Tags)
+
+==== Method
+With the additional 3 prefixes, input from the prefixes `+t/` and `-t/` are stored into sets `toAdd` and `toRemove` in the
+`EditPersonDescriptor` class. If the `clearTag/` prefix exists, the `EditPersonDescriptor` class will also take note of it.
+
+During the execute() method, a new `Set<Tags>` will be created and if `clearTag/` does not exist, the new `Set<Tags>` will then
+add all existing tags from the `personToEdit`. Then it will continue to add all the `Tags` in the `toAdd` and then remove
+all the tags in the Set `toRemove`.
+
+==== Tag Precedence
 At the point of development the precedence of `clearTags`, `+t/` (add tag) and then `-t/` (remove tag) is used.
 
 =====
@@ -514,6 +529,7 @@ Argument:
 ** When the user uses all 3 prefixes, with `+t/` and `-t/` have the same value, `-t/` will be ignored and `+t/` and `-t/` will not cancel each other out.
 =====
 
+// end::editindividual[]
 
 === Group
 
@@ -530,19 +546,22 @@ Every person will need to have a group.
 **Pros:** More distinct differentiation of link:#group[group] and link:#tag[tag]. +
 **Cons:** Time consuming.
 
+// tag::password[]
+
 === Passwords
 
 As of v1.4, passwords can be of any string. This feature will be improved to check for stronger passwords and encrypting the saved password such that no one can just open the
 text file and reading the password. Until a better way of storing local passwords are found, the password will exist as a non-hidden file.
 
 The modes of this command is decided by the existence of the prefixes. Only the `pwd/` prefix is mandatory.
+
 * Set requires: `pwd/` prefix.
 * Remove requires: `pwd/` and `clearPwd/` prefix.
 * Change requires: `pwd/` and `new/` prefix.
 
 No password recovery is supported. If the password is forgotted during development, go to the data folder and delete the `pass` file.
 
-==== Pseudo-codes +
+==== Implementation +
 
 Pseudo-codes for how the application reacts if there is a password.
 
@@ -556,6 +575,7 @@ Pseudo-codes for how the application reacts if there is a password.
 ==== Design Consideration
 
 **Aspect:** Structure of command
+
 **Alternative 1 (current choice):** Use a single command with multiple modes. +
 **Pros:** Easier to program. +
 **Cons:** Multiple 3 subclasses in CommandPassword +
@@ -570,6 +590,8 @@ Pseudo-codes for how the application reacts if there is a password.
 . Store the password in database.xml as an encrypted string.
 - Security
 * Encrypt the database.xml so that passwords will not be redundant.
+
+// end::password[]
 
 == Documentation
 
