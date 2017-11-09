@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASS;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+import seedu.address.commons.exceptions.WrongPasswordException;
 import seedu.address.logic.commands.commandmode.PasswordMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.storage.SecurityManager;
@@ -73,9 +74,9 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException, NoSuchAlgorithmException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException {
             if (passExists()) {
-                return new CommandResult(MESSAGE_PASS_EXISTS);
+                throw new CommandException(MESSAGE_PASS_EXISTS);
             } else {
                 SecurityManager.savePass(getPass());
                 return new CommandResult(MESSAGE_SET_PASS);
@@ -92,16 +93,16 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException, NoSuchAlgorithmException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException {
             if (passExists()) {
-                if (SecurityManager.checkPass(getPass())) {
-                    SecurityManager.removePass();
-                    return new CommandResult(MESSAGE_CLEARED_PASS);
-                } else {
-                    return new CommandResult(MESSAGE_WRONG_PASS);
+                try {
+                    SecurityManager.removePass(getPass());
+                } catch (WrongPasswordException e) {
+                    throw new CommandException(MESSAGE_WRONG_PASS);
                 }
+                return new CommandResult(MESSAGE_CLEARED_PASS);
             } else {
-                return new CommandResult(MESSAGE_NO_PASS_TO_CLEAR);
+                throw new CommandException(MESSAGE_NO_PASS_TO_CLEAR);
             }
         }
     }
@@ -119,13 +120,13 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException, NoSuchAlgorithmException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException {
             if (passExists()) {
                 if (SecurityManager.checkPass(getPass())) {
                     SecurityManager.savePass(newPass);
                     return new CommandResult(MESSAGE_CHANGED_PASS);
                 } else {
-                    return new CommandResult(MESSAGE_WRONG_PASS + "\n" + MESSAGE_PASS_NOT_CHANGED);
+                    throw new CommandException(MESSAGE_WRONG_PASS + "\n" + MESSAGE_PASS_NOT_CHANGED);
                 }
             } else {
                 return new CommandResult(MESSAGE_NO_PASS_TO_CHANGE);

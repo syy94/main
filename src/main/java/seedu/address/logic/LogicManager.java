@@ -42,22 +42,14 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        //@@author syy94
         if (isLocked) {
-            try {
-                isLocked = !SecurityManager.unlock(commandText);
-            } catch (IOException e) {
-                throw new CommandException("Unable to open password file");
-            } catch (NoSuchAlgorithmException e) {
-                throw new CommandException(PasswordCommand.MESSAGE_NO_SUCH_ALGORITHM);
-            }
+            tryUnlock(commandText);
             if (isLocked) {
-                return new CommandResult("Wrong Password");
+                throw new CommandException(PasswordCommand.MESSAGE_WRONG_PASS);
             } else {
                 return new CommandResult("Welcome");
             }
         }
-        //@@author
 
         try {
             Command command = addressBookParser.parseCommand(commandText);
@@ -69,6 +61,21 @@ public class LogicManager extends ComponentManager implements Logic {
             history.add(commandText);
         }
     }
+
+    //@@author syy94
+    /**
+     * Takes in a password and checks with SecurityManager if the application should be unlocked.
+     */
+    private void tryUnlock(String commandText) throws CommandException {
+        try {
+            isLocked = !SecurityManager.unlock(commandText);
+        } catch (IOException e) {
+            throw new CommandException("Unable to open password file");
+        } catch (NoSuchAlgorithmException e) {
+            throw new CommandException(PasswordCommand.MESSAGE_NO_SUCH_ALGORITHM);
+        }
+    }
+    //@@author
 
     @Override
     public ObservableList<ReadOnlyPerson> getFilteredPersonList() {

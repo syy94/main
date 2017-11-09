@@ -12,6 +12,7 @@ import java.util.Base64;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.PasswordAcceptedEvent;
+import seedu.address.commons.exceptions.WrongPasswordException;
 import seedu.address.commons.util.FileUtil;
 
 //@@author syy94
@@ -71,12 +72,17 @@ public class SecurityManager {
     }
 
     /**
-     * removes the need for password on application start.
+     * Removes the need for password on application start after checking if the user knows the existing password.
      */
-    public static void removePass() {
-        final File passFile = new File(path);
-        if (FileUtil.isFileExists(passFile)) {
-            passFile.delete();
+    public static void removePass(String existingPass) throws IOException, NoSuchAlgorithmException,
+            WrongPasswordException {
+        if (checkPass(existingPass)) {
+            final File passFile = new File(path);
+            if (FileUtil.isFileExists(passFile)) {
+                passFile.delete();
+            }
+        } else {
+            throw new WrongPasswordException();
         }
     }
 
