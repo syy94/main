@@ -150,6 +150,19 @@ public class ParserUtil {
         requireNonNull(group);
         return group.isPresent() ? Optional.of(new Group(group.get())) : Optional.empty();
     }
+
+    /**
+     *
+     * Parses a {@code Collection<String> group} into a {@code List<Group>}
+     */
+    public static List<Group> parseGroup(Collection<String> groups) throws IllegalValueException {
+        requireNonNull(groups);
+        final List<Group> groupList = new ArrayList<>();
+        for (String group : groups) {
+            groupList.add(new Group(group));
+        }
+        return groupList;
+    }
     //@@author
 
     //@@author syy94

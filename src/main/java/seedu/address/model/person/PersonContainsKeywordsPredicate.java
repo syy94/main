@@ -10,6 +10,8 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.customfields.CustomField;
+import seedu.address.model.group.Group;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -35,11 +37,19 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
                 || (findFields.getAddressKeywordsStream().anyMatch(keyword
                     -> StringUtil.containsPartialTextIgnoreCase(person.getAddress().value, keyword.value)))
                 || (findFields.getFieldsKeywordsStream().anyMatch(keyword
-                    -> customFieldContainsWordIgnoreCase(person.getFields(), keyword))));
+                    -> customFieldContainsWordIgnoreCase(person.getFields(), keyword)))
+                || (findFields.getGroupsKeywordsStream().anyMatch(keyword
+                    -> StringUtil.containsPartialTextIgnoreCase(person.getGroup().groupName, keyword.groupName)))
+                || (findFields.getTagsKeywordsStream().anyMatch(keyword
+                    -> tagContainsWordIgnoreCase(person.getTags(), keyword))));
     }
 
     private boolean customFieldContainsWordIgnoreCase(Set<CustomField> fields, String keyword) {
         return fields.stream().anyMatch(field -> StringUtil.containsPartialTextIgnoreCase(field.toString(), keyword));
+    }
+
+    private boolean tagContainsWordIgnoreCase(Set<Tag> tags, String keyword) {
+        return tags.stream().anyMatch(tag -> StringUtil.containsPartialTextIgnoreCase(tag.toString(), keyword));
     }
 
     @Override
@@ -53,7 +63,9 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
                 && this.findFields.getEmailKeywords().equals(((PersonContainsKeywordsPredicate) other)
                         .findFields.getEmailKeywords())
                 && this.findFields.getAddressKeywords().equals(((PersonContainsKeywordsPredicate) other)
-                        .findFields.getAddressKeywords())); // state check
+                        .findFields.getAddressKeywords())
+                && this.findFields.getGroupsKeywords().equals(((PersonContainsKeywordsPredicate) other)
+                        .findFields.getGroupsKeywords())); // state check
     }
 
     /**
@@ -65,6 +77,8 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
         private List<Email> emailKeywords;
         private List<Address> addressKeywords;
         private List<String> customFieldKeywords;
+        private List<Group> groupKeywords;
+        private List<String> tagKeywords;
 
         public FindFields() {}
 
@@ -74,6 +88,8 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
             this.emailKeywords = findFields.emailKeywords;
             this.addressKeywords = findFields.addressKeywords;
             this.customFieldKeywords = findFields.customFieldKeywords;
+            this.groupKeywords = findFields.groupKeywords;
+            this.tagKeywords = findFields.tagKeywords;
         }
 
         public void setNameKeywords(List<Name> names) {
@@ -110,6 +126,30 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
 
         public Stream<Email> getEmailKeywordsStream() {
             return this.getEmailKeywords().map(List::stream).orElseGet(Stream::empty);
+        }
+
+        public void setGroupKeywords(List<Group> group) {
+            this.groupKeywords = group;
+        }
+
+        public Optional<List<Group>> getGroupsKeywords() {
+            return Optional.ofNullable(groupKeywords);
+        }
+
+        public Stream<Group> getGroupsKeywordsStream() {
+            return this.getGroupsKeywords().map(List::stream).orElseGet(Stream::empty);
+        }
+
+        public void setTagKeywords(List<String> tags) {
+            this.tagKeywords = tags;
+        }
+
+        public Optional<List<String>> getTagKeywords() {
+            return Optional.ofNullable(tagKeywords);
+        }
+
+        public Stream<String> getTagsKeywordsStream() {
+            return this.getTagKeywords().map(List::stream).orElseGet(Stream::empty);
         }
 
         public void setAddressKeywords(List<Address> addresses) {

@@ -32,7 +32,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
-import seedu.address.model.person.PersonContainsTagsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.FindFieldsBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -165,18 +164,12 @@ public class AddressBookParserTest {
     //@@author kengying
     @Test
     public void parseCommand_list() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        ListCommand command = (ListCommand) parser.parseCommand(
-                ListCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new ListCommand(new PersonContainsTagsPredicate(keywords)), command);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " all") instanceof ListCommand);
     }
 
     @Test
     public void parseCommandAlias_list() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        ListCommand command = (ListCommand) parser.parseCommand(
-                ListCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new ListCommand(new PersonContainsTagsPredicate(keywords)), command);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS + " all") instanceof ListCommand);
     }
     //@@author
 

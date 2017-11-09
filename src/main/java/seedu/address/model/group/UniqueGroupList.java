@@ -13,7 +13,7 @@ import seedu.address.commons.util.CollectionUtil;
 
 //@@author kengying
 /**
- * A list of tags that enforces no nulls and uniqueness between its elements.
+ * A list of groups that enforces no nulls and uniqueness between its elements.
  *
  * Supports minimal set of list operations for the app's features.
  *
@@ -24,12 +24,12 @@ public class UniqueGroupList implements Iterable<Group> {
     private final ObservableList<Group> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs empty TagList.
+     * Constructs empty GroupList.
      */
     public UniqueGroupList() {}
 
     /**
-     * Creates a UniqueTagList using given tags.
+     * Creates a UniqueGroupList using given groups.
      * Enforces no nulls.
      */
     public UniqueGroupList(Group groups) {
@@ -40,7 +40,7 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
-     * Replaces the Groups in this list with those in the argument tag list.
+     * Replaces the Groups in this list with those in the argument group list.
      */
     public void setGroups(UniqueGroupList groups) {
         requireAllNonNull(groups);
@@ -56,7 +56,7 @@ public class UniqueGroupList implements Iterable<Group> {
         setGroups(replacement);
     }
     /**
-     * Ensures every tag in the argument list exists in this object.
+     * Ensures every group in the argument list exists in this object.
      */
     public void mergeFrom(UniqueGroupList from) {
         final UniqueGroupList alreadyInside = this;
@@ -76,9 +76,9 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
-     * Adds a Tag to the list.
+     * Adds a Group to the list.
      *
-     * @throws DuplicateGroupException if the Group to add is a duplicate of an existing Tag in the list.
+     * @throws DuplicateGroupException if the Group to add is a duplicate of an existing Group in the list.
      */
     public void add(Group toAdd) throws DuplicateGroupException {
         requireNonNull(toAdd);

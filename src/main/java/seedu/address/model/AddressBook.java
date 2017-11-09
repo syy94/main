@@ -235,12 +235,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return tags.asObservableList();
     }
 
-    //@@author kengying
     @Override
     public ObservableList<Group> getGroupList() {
         return groups.asObservableList();
     }
-    //@@author
 
     @Override
     public boolean equals(Object other) {
