@@ -12,26 +12,20 @@
 ###### \java\seedu\address\logic\commands\ListCommand.java
 ``` java
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons/groups/tags in the address book to the user.
  */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_ALIAS = "l";
+    public static final String SEARCH_TERM = "all";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all persons whose tags "
-            + "contain any of the specified keywords\n"
-            + "or list all persons with or without tags"
-            + "(case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: TAG [TAG]\n"
-            + "Example: " + COMMAND_WORD + " friends\n"
-            + COMMAND_WORD + " all";;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SEARCH_TERM + " : List all persons\n"
+            + "Example: " + COMMAND_WORD +  " " + SEARCH_TERM + "\n"
+            + ListTagCommand.MESSAGE_USAGE + "\n"
+            + ListGroupCommand.MESSAGE_USAGE;
 
     private Predicate<ReadOnlyPerson> predicate = PREDICATE_SHOW_ALL_PERSONS;
-
-    public ListCommand(PersonContainsTagsPredicate predicate) {
-        this.predicate = predicate;
-    }
 
     public ListCommand() {
     }
@@ -50,10 +44,59 @@ public class ListCommand extends Command {
     }
 }
 ```
+###### \java\seedu\address\logic\commands\ListGroupCommand.java
+``` java
+
+/**
+ * Lists all group in the address book to the user.
+ */
+public class ListGroupCommand extends ListCommand {
+
+    public static final String SEARCH_TERM = "groups";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SEARCH_TERM + " : List all groups\n"
+            + "Example: " + COMMAND_WORD +  " " + SEARCH_TERM;
+
+    public static final String MESSAGE_SUCCESS = "List all groups: ";
+
+    @Override
+    public CommandResult execute() {
+        List<Group> listGroups = model.getGroupList();
+        System.out.println(listGroups);
+        return new CommandResult(String.format(MESSAGE_SUCCESS + " "
+                + listGroups.toString().replaceAll("[\\[\\]]", "")));
+    }
+
+}
+```
+###### \java\seedu\address\logic\commands\ListTagCommand.java
+``` java
+
+/**
+ * Lists all tags in the address book to the user.
+ */
+public class ListTagCommand extends ListCommand {
+
+    public static final String SEARCH_TERM = "tags";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SEARCH_TERM + " : List all tags\n"
+            + "Example: " + COMMAND_WORD +  " " + SEARCH_TERM;
+
+    public static final String MESSAGE_SUCCESS = "List all tags: ";
+
+    @Override
+    public CommandResult execute() {
+        List<Tag> listTags = model.getTagList();
+        System.out.println(listTags);
+        return new CommandResult(String.format(MESSAGE_SUCCESS + " " + listTags.toString().replaceAll("[\\[\\]]", "")));
+    }
+
+}
+```
 ###### \java\seedu\address\logic\parser\AddCommandParser.java
 ``` java
     /**
-     * Returns null if prefixes contains empty values in the given
+     * Returns "" if prefixes contains empty values in the given
      * {@value}.
      */
     private static Optional<String> areValuePresent(Optional<String> value) {
@@ -61,30 +104,67 @@ public class ListCommand extends Command {
         return value;
     }
 ```
+###### \java\seedu\address\logic\parser\FindCommandParser.java
+``` java
+    /**
+     * Parses {@code List<String> group} into a {@code List<Group>} if {@code group} is non-empty.
+     * If {@code group} contain only one element which is an empty string, it will be parsed into a
+     * {@code List<Group>} containing zero groups.
+     */
+    private Optional<List<Group>> parseGroupForSearch(List<String> group) throws IllegalValueException {
+        assert group != null;
+
+        if (group.isEmpty()) {
+            return Optional.empty();
+        }
+        List<String> groupList = group.size() == 1 && group.contains("")
+                ? Collections.emptyList() : group;
+        return Optional.of(ParserUtil.parseGroup(groupList));
+    }
+
+    /**
+     * Parses {@code List<String> tags} into a {@code List<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code List<String>} containing zero tags.
+     */
+    private Optional<List<String>> parseTagForSearch(List<String> tags) throws IllegalValueException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        List<String> tagList = tags.size() == 1 && tags.contains("")
+                ? Collections.emptyList() : tags;
+        return Optional.of(tagList);
+    }
+```
 ###### \java\seedu\address\logic\parser\ListCommandParser.java
 ``` java
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new ListCommand object
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns an FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ListCommand
+     * and returns an ListCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ListCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-        } else if (trimmedArgs.equalsIgnoreCase("all")) {
+
+        if (trimmedArgs.equalsIgnoreCase("all")) {
             return new ListCommand();
+        } else if (trimmedArgs.equalsIgnoreCase("tags")) {
+            return new ListTagCommand();
+        } else if (trimmedArgs.equalsIgnoreCase("groups")) {
+            return new ListGroupCommand();
+        } else {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE,
+                            ListTagCommand.MESSAGE_USAGE, ListGroupCommand.MESSAGE_SUCCESS));
         }
 
-        String[] keywords = trimmedArgs.split("\\s+");
-
-        return new ListCommand(new PersonContainsTagsPredicate(Arrays.asList(keywords)));
     }
 
 }
@@ -98,6 +178,19 @@ public class ListCommandParser implements Parser<ListCommand> {
     public static Optional<Group> parseGroup(Optional<String> group) throws IllegalValueException {
         requireNonNull(group);
         return group.isPresent() ? Optional.of(new Group(group.get())) : Optional.empty();
+    }
+
+    /**
+     *
+     * Parses a {@code Collection<String> group} into a {@code List<Group>}
+     */
+    public static List<Group> parseGroup(Collection<String> groups) throws IllegalValueException {
+        requireNonNull(groups);
+        final List<Group> groupList = new ArrayList<>();
+        for (String group : groups) {
+            groupList.add(new Group(group));
+        }
+        return groupList;
     }
 ```
 ###### \java\seedu\address\model\AddressBook.java
@@ -153,13 +246,6 @@ public class ListCommandParser implements Parser<ListCommand> {
     //// group-level operations
     public void addGroup(Group g) throws UniqueGroupList.DuplicateGroupException {
         groups.add(g);
-    }
-```
-###### \java\seedu\address\model\AddressBook.java
-``` java
-    @Override
-    public ObservableList<Group> getGroupList() {
-        return groups.asObservableList();
     }
 ```
 ###### \java\seedu\address\model\group\Group.java
@@ -231,7 +317,7 @@ public class Group implements Comparable<Group>, Comparator<Group> {
 ###### \java\seedu\address\model\group\UniqueGroupList.java
 ``` java
 /**
- * A list of tags that enforces no nulls and uniqueness between its elements.
+ * A list of groups that enforces no nulls and uniqueness between its elements.
  *
  * Supports minimal set of list operations for the app's features.
  *
@@ -242,12 +328,12 @@ public class UniqueGroupList implements Iterable<Group> {
     private final ObservableList<Group> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs empty TagList.
+     * Constructs empty GroupList.
      */
     public UniqueGroupList() {}
 
     /**
-     * Creates a UniqueTagList using given tags.
+     * Creates a UniqueGroupList using given groups.
      * Enforces no nulls.
      */
     public UniqueGroupList(Group groups) {
@@ -258,7 +344,7 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
-     * Replaces the Groups in this list with those in the argument tag list.
+     * Replaces the Groups in this list with those in the argument group list.
      */
     public void setGroups(UniqueGroupList groups) {
         requireAllNonNull(groups);
@@ -274,7 +360,7 @@ public class UniqueGroupList implements Iterable<Group> {
         setGroups(replacement);
     }
     /**
-     * Ensures every tag in the argument list exists in this object.
+     * Ensures every group in the argument list exists in this object.
      */
     public void mergeFrom(UniqueGroupList from) {
         final UniqueGroupList alreadyInside = this;
@@ -294,9 +380,9 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
-     * Adds a Tag to the list.
+     * Adds a Group to the list.
      *
-     * @throws DuplicateGroupException if the Group to add is a duplicate of an existing Tag in the list.
+     * @throws DuplicateGroupException if the Group to add is a duplicate of an existing Group in the list.
      */
     public void add(Group toAdd) throws DuplicateGroupException {
         requireNonNull(toAdd);
@@ -347,63 +433,44 @@ public class UniqueGroupList implements Iterable<Group> {
 
 }
 ```
-###### \java\seedu\address\model\person\Person.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
-    public void setGroup(Group group) {
-        this.group.set(requireNonNull(group));
+    @Override
+    public List<Tag> getTagList() {
+        List<Tag> listTagsWithDuplicates = new ArrayList<>();
+
+        filteredPersons.forEach(persons -> listTagsWithDuplicates.addAll(persons.getTags()));
+
+        List<Tag> listTags = listTagsWithDuplicates.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        listTags.sort(Comparator.comparing(Tag::toString));
+
+
+        return listTags;
     }
 
     @Override
-    public ObjectProperty<Group> groupProperty() {
-        return group;
-    }
+    public List<Group> getGroupList() {
+        ObservableList<ReadOnlyPerson> personList = addressBook.getPersonList();
+        List<Group> listGroupWithDuplicates = new ArrayList<>();
+        for (int i = 0; i < personList.size(); i++) {
+            ReadOnlyPerson currReadOnlyPerson = personList.get(i);
 
-    @Override
-    public Group getGroup() {
-        return group.get();
-    }
-```
-###### \java\seedu\address\model\person\PersonContainsTagsPredicate.java
-``` java
-/**
- * Tests that any of {@code ReadOnlyPerson}'s Name, Phone, Email or Address matches any of the keywords given.
- */
-public class PersonContainsTagsPredicate implements Predicate<ReadOnlyPerson> {
-    private final List<String> keywords;
+            Person newPerson = new Person(currReadOnlyPerson);
+            listGroupWithDuplicates.add(newPerson.getGroup());
+        }
 
-    public PersonContainsTagsPredicate(List<String> keywords) {
-        this.keywords = keywords;
-    }
+        List<Group> listGroups = listGroupWithDuplicates.stream()
+                .distinct()
+                .collect(Collectors.toList());
 
-    @Override
-    public boolean test(ReadOnlyPerson person) {
-        return (keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getTags().toString()
-                        .replace("[", "").replace("]", "")
-                        .replace(",", ""), keyword)
-                        || StringUtil.containsWordIgnoreCase(person.getGroup().groupName, keyword)));
+        listGroups.sort(Comparator.comparing(Group::toString));
 
-    }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof PersonContainsTagsPredicate // instanceof handles nulls
-                && this.keywords.equals(((PersonContainsTagsPredicate) other).keywords)); // state check
+        return listGroups;
     }
-```
-###### \java\seedu\address\model\person\ReadOnlyPerson.java
-``` java
-    ObjectProperty<Group> groupProperty();
-    Group getGroup();
-```
-###### \java\seedu\address\model\ReadOnlyAddressBook.java
-``` java
-    /**
-     * Returns an unmodifiable view of the tags list.
-     * This list will not contain any duplicate tags.
-     */
-    ObservableList<Group> getGroupList();
 ```
 ###### \java\seedu\address\storage\XmlAdaptedGroup.java
 ``` java
@@ -459,25 +526,8 @@ public class XmlAdaptedGroup {
 ```
 ###### \java\seedu\address\ui\PersonCard.java
 ``` java
-    private static final HashMap<String, String> GROUP_COLORS = new HashMap<String, String>();
-```
-###### \java\seedu\address\ui\PersonCard.java
-``` java
-        initGroups(person);
-```
-###### \java\seedu\address\ui\PersonCard.java
-``` java
     private void initGroups(ReadOnlyPerson person) {
-        group.setStyle("-fx-background-color: " + getGroupColor(person.getGroup()));
-    }
-
-    private String getGroupColor(Group group) {
-        //TODO store the group colors for consistent group colors
-        if (!GROUP_COLORS.containsKey(group.groupName)) {
-            GROUP_COLORS.put(group.groupName, ColorUtil.getTagColor());
-        }
-
-        return GROUP_COLORS.get(group.groupName);
+        group.setStyle("-fx-background-color: " + ColorUtil.getUniqueHsbColorForObject(person.getGroup()));
     }
 ```
 ###### \resources\view\DarkTheme.css

@@ -54,6 +54,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::adding-a-person-code-add-code[]
+
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -71,6 +73,10 @@ Examples:
 * `add n/Henry Harry g/Savings`
 * `add n/Tim Tom p/12356923 a/Timmy street g/Holiday`
 
+// end::adding-a-person-code-add-code[]
+
+// tag::listing-all-persons-code-list-code[]
+
 === Listing all persons : `list`
 
 list all, shows all person in humanDEX +
@@ -83,6 +89,8 @@ Examples:
 * `list all`
 * `list tags`
 * `list groups`
+
+// end::listing-all-persons-code-list-code[]
 
 // tag::sort[]
 === [Since v1.3] [Since v1.4] Sorts and lists all persons using fields : `sort`

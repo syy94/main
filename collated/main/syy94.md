@@ -1,4 +1,44 @@
 # syy94
+###### \java\seedu\address\commons\events\model\PersonEditedEvent.java
+``` java
+
+/**
+ * Represents that a Person was edited successfully.
+ */
+public class PersonEditedEvent extends BaseEvent {
+    private ReadOnlyPerson old;
+    private ReadOnlyPerson newPerson;
+
+    public PersonEditedEvent(ReadOnlyPerson old, ReadOnlyPerson newPerson) {
+        assert assertIfNonNull(old, newPerson);
+        this.old = old;
+        this.newPerson = newPerson;
+    }
+
+    public ReadOnlyPerson getOldPerson() {
+        return old;
+    }
+
+    public ReadOnlyPerson getNewPerson() {
+        return newPerson;
+    }
+
+    private boolean assertIfNonNull(ReadOnlyPerson... persons) {
+        return Arrays.stream(persons).allMatch(Objects::nonNull);
+    }
+
+    /**
+     * All Events should have a clear unambiguous custom toString message so that feedback message creation
+     * stays consistent and reusable.
+     * <p>
+     * For example, the event manager post method will call any posted event's toString and print it in the console.
+     */
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+}
+```
 ###### \java\seedu\address\commons\events\ui\PasswordAcceptedEvent.java
 ``` java
 /**
@@ -19,6 +59,7 @@ public class PasswordAcceptedEvent extends BaseEvent {
 ```
 ###### \java\seedu\address\commons\util\ColorUtil.java
 ``` java
+
 /**
  * From JavaFX docs, the CSS supports HSB color model instead of HSL color model.
  * <p>
@@ -30,6 +71,23 @@ public class PasswordAcceptedEvent extends BaseEvent {
  */
 public class ColorUtil {
     private static Random random = new Random();
+    private static final HashMap<String, String> USED_COLORS = new HashMap<>();
+
+    /**
+     * Generate a random Color in HSB format for CSS. This color will then be bounded to the object.
+     * Calling this method with the same Object will return the existing color.
+     *
+     * @param object Object to get Colors for
+     * @return String of color in HSB format for CSS. eg. hsb (360, 35%, 50%)
+     */
+    public static String getUniqueHsbColorForObject(Object object) {
+        final String identifier = object.toString();
+        if (!USED_COLORS.containsKey(identifier)) {
+            USED_COLORS.put(identifier, getTagColor());
+        }
+
+        return USED_COLORS.get(identifier);
+    }
 
     public static String getTagColor() {
         return "hsb(" + getHue() + "," + getSaturation() + "%,"
@@ -37,17 +95,17 @@ public class ColorUtil {
     }
 
     private static int getHue() {
-        //full spectrum of colors (in Degrees)
-        return random.nextInt(360);
+        //0 to 360 degrees. Full spectrum of colors in 5 degrees increments.
+        return random.nextInt(72) * 5;
     }
 
     private static int getSaturation() {
-        //60 to 95%
+        //60 to 95% Saturation
         return random.nextInt(35) + 60;
     }
 
     private static int getBrightness() {
-        //50 to 75%
+        //50 to 75% Brightness
         return random.nextInt(25) + 50;
     }
 }
@@ -99,7 +157,7 @@ public abstract class PasswordMode {
         return SecurityManager.passExists();
     }
 
-    public abstract CommandResult execute() throws IOException;
+    public abstract CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException;
 }
 
 ```
@@ -152,6 +210,7 @@ public abstract class PasswordMode {
 ```
 ###### \java\seedu\address\logic\commands\PasswordCommand.java
 ``` java
+
 /**
  * Adds, removes or edit password for the application.
  */
@@ -161,7 +220,8 @@ public class PasswordCommand extends Command {
     public static final String COMMAND_ALIAS = "pwd";
 
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds, removes or changes passwords.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds, removes or changes the password required to use "
+            + "the application.\n"
             + "Set Password: " + COMMAND_WORD + " " + PREFIX_PASS + "PASS\n"
             + "Change Password: " + COMMAND_WORD + " " + PREFIX_PASS + "PASS" + " " + PREFIX_NEW_PASS + "NEW_PASS\n"
             + "Clear Password: " + COMMAND_WORD + " " + PREFIX_PASS + "PASS" + " " + PREFIX_CLEAR_PASS;
@@ -177,6 +237,9 @@ public class PasswordCommand extends Command {
     public static final String MESSAGE_PASS_NOT_CHANGED = "Password not changed.";
     public static final String MESSAGE_NO_PASS_TO_CLEAR = "No existing password to clear";
     public static final String MESSAGE_NO_PASS_TO_CHANGE = "No existing password to change";
+    public static final String MESSAGE_NO_SUCH_ALGORITHM = "NoSuchAlgorithmException should not be reached. \n"
+            + "Contact the developers at: \n"
+            + "https://github.com/CS2103AUG2017-F11-B1/main/issues";
 
     final PasswordMode mode;
 
@@ -196,6 +259,8 @@ public class PasswordCommand extends Command {
             return mode.execute();
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+        } catch (NoSuchAlgorithmException e) {
+            throw new CommandException(MESSAGE_NO_SUCH_ALGORITHM);
         }
     }
 
@@ -208,9 +273,9 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException {
             if (passExists()) {
-                return new CommandResult(MESSAGE_PASS_EXISTS);
+                throw new CommandException(MESSAGE_PASS_EXISTS);
             } else {
                 SecurityManager.savePass(getPass());
                 return new CommandResult(MESSAGE_SET_PASS);
@@ -227,16 +292,16 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException {
             if (passExists()) {
-                if (SecurityManager.checkPass(getPass())) {
-                    SecurityManager.removePass();
-                    return new CommandResult(MESSAGE_CLEARED_PASS);
-                } else {
-                    return new CommandResult(MESSAGE_WRONG_PASS);
+                try {
+                    SecurityManager.removePass(getPass());
+                } catch (WrongPasswordException e) {
+                    throw new CommandException(MESSAGE_WRONG_PASS);
                 }
+                return new CommandResult(MESSAGE_CLEARED_PASS);
             } else {
-                return new CommandResult(MESSAGE_NO_PASS_TO_CLEAR);
+                throw new CommandException(MESSAGE_NO_PASS_TO_CLEAR);
             }
         }
     }
@@ -254,13 +319,13 @@ public class PasswordCommand extends Command {
         }
 
         @Override
-        public CommandResult execute() throws IOException {
+        public CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException {
             if (passExists()) {
                 if (SecurityManager.checkPass(getPass())) {
                     SecurityManager.savePass(newPass);
                     return new CommandResult(MESSAGE_CHANGED_PASS);
                 } else {
-                    return new CommandResult(MESSAGE_WRONG_PASS + "\n" + MESSAGE_PASS_NOT_CHANGED);
+                    throw new CommandException(MESSAGE_WRONG_PASS + "\n" + MESSAGE_PASS_NOT_CHANGED);
                 }
             } else {
                 return new CommandResult(MESSAGE_NO_PASS_TO_CHANGE);
@@ -271,18 +336,18 @@ public class PasswordCommand extends Command {
 ```
 ###### \java\seedu\address\logic\LogicManager.java
 ``` java
-        if (isLocked) {
-            try {
-                isLocked = !SecurityManager.unlock(commandText);
-            } catch (IOException e) {
-                throw new CommandException("Unable to open password file");
-            }
-            if (isLocked) {
-                return new CommandResult("Wrong Password");
-            } else {
-                return new CommandResult("Welcome");
-            }
+    /**
+     * Takes in a password and checks with SecurityManager if the application should be unlocked.
+     */
+    private void tryUnlock(String commandText) throws CommandException {
+        try {
+            isLocked = !SecurityManager.unlock(commandText);
+        } catch (IOException e) {
+            throw new CommandException("Unable to open password file");
+        } catch (NoSuchAlgorithmException e) {
+            throw new CommandException(PasswordCommand.MESSAGE_NO_SUCH_ALGORITHM);
         }
+    }
 ```
 ###### \java\seedu\address\logic\parser\AddressBookParser.java
 ``` java
@@ -305,7 +370,7 @@ public class PasswordCommand extends Command {
     /**
      * Parses {@code List<String> fields} into a {@code List<CustomField>} if {@code fields} is non-empty.
      * If {@code fields} contain only one element which is an empty string, it will be parsed into a
-     * {@code List<Address>} containing zero addresses.
+     * {@code List<String>} containing zero CustomField.
      */
     private Optional<List<String>> parseCustomFieldsForSearch(List<String> fields) throws IllegalValueException {
         assert fields != null;
@@ -466,34 +531,47 @@ public class CustomField {
 ```
 ###### \java\seedu\address\storage\SecurityManager.java
 ``` java
+
 /**
  * Accesses and edits the password.
  */
 public class SecurityManager {
     private static String path = "data/pass";
 
-    public static void setPath(String path) {
+    public static void setPasswordStoragePath(String path) {
         SecurityManager.path = path;
     }
 
     /**
      * Saves password
      */
-    public static void savePass(String pass) throws IOException {
+    public static void savePass(String pass) throws IOException, NoSuchAlgorithmException {
         requireNonNull(pass);
         final File passFile = new File(path);
 
         final String trimmedPass = pass.trim();
+
         if (trimmedPass.length() != 0) {
+            final String encodedPass = encryptPass(trimmedPass);
             FileUtil.createIfMissing(passFile);
-            FileUtil.writeToFile(passFile, trimmedPass);
+            FileUtil.writeToFile(passFile, encodedPass);
         }
+    }
+
+    /**
+     * Simple Hashing of the password
+     */
+    private static String encryptPass(String pass) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(pass.getBytes(StandardCharsets.UTF_8));
+
+        return Base64.getEncoder().encodeToString(hash);
     }
 
     /**
      * Checks if given password is correct and posts and event to enable the application features.
      */
-    public static boolean unlock(String pass) throws IOException {
+    public static boolean unlock(String pass) throws IOException, NoSuchAlgorithmException {
         boolean isUnlocked = checkPass(pass);
         if (isUnlocked) {
             EventsCenter.getInstance().post(new PasswordAcceptedEvent());
@@ -504,17 +582,22 @@ public class SecurityManager {
     /**
      * Checks if given password is correct.
      */
-    public static boolean checkPass(String pass) throws IOException {
-        return getPass().equals(pass);
+    public static boolean checkPass(String pass) throws IOException, NoSuchAlgorithmException {
+        return getPass().equals(encryptPass(pass));
     }
 
     /**
-     * removes the need for password on application start.
+     * Removes the need for password on application start after checking if the user knows the existing password.
      */
-    public static void removePass() {
-        final File passFile = new File(path);
-        if (FileUtil.isFileExists(passFile)) {
-            passFile.delete();
+    public static void removePass(String existingPass) throws IOException, NoSuchAlgorithmException,
+            WrongPasswordException {
+        if (checkPass(existingPass)) {
+            final File passFile = new File(path);
+            if (FileUtil.isFileExists(passFile)) {
+                passFile.delete();
+            }
+        } else {
+            throw new WrongPasswordException();
         }
     }
 
@@ -529,8 +612,6 @@ public class SecurityManager {
 
     /**
      * Retrieves the Password.
-     *
-     * @throws IOException
      */
     private static String getPass() throws IOException {
         final File file = new File(path);
@@ -565,42 +646,27 @@ public class XmlAdaptedCustomField {
 ```
 ###### \java\seedu\address\ui\PersonCard.java
 ``` java
-    private static final HashMap<String, String> TAG_COLORS = new HashMap<String, String>();
-```
-###### \java\seedu\address\ui\PersonCard.java
-``` java
-        initTags(person);
-```
-###### \java\seedu\address\ui\PersonCard.java
-``` java
     /**
      * Creates and add the tags belonging to the person
      */
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> {
             final Label label = new Label(tag.tagName);
-            label.setStyle("-fx-background-color: " + getTagColor(tag));
+            label.setStyle("-fx-background-color: " + ColorUtil.getUniqueHsbColorForObject(tag));
             tags.getChildren().add(label);
         });
-    }
-
-    private String getTagColor(Tag tag) {
-        //TODO store the tag colors for consistent tag colors
-        if (!TAG_COLORS.containsKey(tag.tagName)) {
-            TAG_COLORS.put(tag.tagName, ColorUtil.getTagColor());
-        }
-
-        return TAG_COLORS.get(tag.tagName);
     }
 ```
 ###### \java\seedu\address\ui\PersonDetailsPanel.java
 ``` java
+
 /**
  * Panel containing the details of the selected person.
  */
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
-    private static final HashMap<String, String> TAG_COLORS = new HashMap<String, String>();
+    private static final String LOG_IGNORED = "Currently not showing edited Person. Panel not updated";
+    private static final String LOG_CHANGED = "Panel updated with new Person";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -625,19 +691,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
     @FXML
     private VBox fields;
 
-    //TODO Empty View
     public PersonDetailsPanel() {
         super(FXML);
-        registerAsAnEventHandler(this);
-    }
-
-    public PersonDetailsPanel(ReadOnlyPerson person, int displayedIndex) {
-        super(FXML);
-        this.person = person;
-        id.setText(displayedIndex + ". ");
-        initTags(person);
-        initFields(person);
-        bindListeners(person);
         registerAsAnEventHandler(this);
     }
 
@@ -648,18 +703,14 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void bindListeners(ReadOnlyPerson person) {
         name.textProperty().bind(Bindings.convert(person.nameProperty()));
         group.textProperty().bind(Bindings.convert(person.groupProperty()));
-        group.setStyle("-fx-background-color: Blue");
+        group.setStyle("-fx-background-color: " + ColorUtil.getUniqueHsbColorForObject(person.getGroup()));
         phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
         address.textProperty().bind(Bindings.convert(person.addressProperty()));
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
 
-        person.fieldsListProperty().addListener((observable, oldValue, newValue) -> {
-            regenerateFields(person);
-        });
+        person.fieldsListProperty().addListener((observable, oldValue, newValue) -> regenerateFields(person));
 
-        person.tagProperty().addListener((observable, oldValue, newValue) -> {
-            regenerateTags(person);
-        });
+        person.tagProperty().addListener((observable, oldValue, newValue) -> regenerateTags(person));
     }
 
     /**
@@ -668,7 +719,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> {
             final Label label = new Label(tag.tagName);
-            label.setStyle("-fx-background-color: " + getTagColor(tag));
+            label.setStyle("-fx-background-color: " + ColorUtil.getUniqueHsbColorForObject(tag));
             tags.getChildren().add(label);
         });
     }
@@ -679,17 +730,9 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void initFields(ReadOnlyPerson person) {
         person.getFields().forEach(field -> {
             final Label label = new Label(field.key + ": " + field.value);
+            label.getStyleClass().add("cell_small_label");
             fields.getChildren().add(label);
         });
-    }
-
-    private String getTagColor(Tag tag) {
-        //TODO store the tag colors for consistent tag colors
-        if (!TAG_COLORS.containsKey(tag.tagName)) {
-            TAG_COLORS.put(tag.tagName, ColorUtil.getTagColor());
-        }
-
-        return TAG_COLORS.get(tag.tagName);
     }
 
     @Override
@@ -700,7 +743,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof PersonDetailsPanel)) {
             return false;
         }
 
@@ -732,6 +775,17 @@ public class PersonDetailsPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setPerson(event.getNewSelection().person);
     }
+
+    @Subscribe
+    private void handlePersonEditedEvent(PersonEditedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.getOldPerson().equals(person)) {
+            setPerson(event.getNewPerson());
+            logger.info(LOG_CHANGED);
+        } else {
+            logger.info(LOG_IGNORED);
+        }
+    }
 }
 ```
 ###### \java\seedu\address\ui\PersonListPanel.java
@@ -762,6 +816,16 @@ public class PersonDetailsPanel extends UiPart<Region> {
             displayed.setValue("Enter Password:");
         }
 ```
+###### \resources\view\DarkTheme.css
+``` css
+#group {
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 1 10 1 10;
+    -fx-border-radius: 500;
+    -fx-background-radius: 500;
+}
+```
 ###### \resources\view\MainWindow.fxml
 ``` fxml
     <VBox>
@@ -787,24 +851,31 @@ public class PersonDetailsPanel extends UiPart<Region> {
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<ScrollPane VBox.vgrow="ALWAYS" minHeight="250" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            stylesheets="@DarkTheme.css">
-    <content>
-        <VBox stylesheets="@DarkTheme.css">
+<ScrollPane minHeight="250" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <VBox>
+        <padding>
+            <Insets bottom="5" left="15" right="5" top="5"/>
+        </padding>
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label fx:id="name" styleClass="cell_big_label"/>
+            <Label fx:id="group" styleClass="cell_big_label" text="Select a person to view their details."/>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </HBox>
+        <FlowPane fx:id="tags">
             <padding>
-                <Insets top="5" right="5" bottom="5" left="15"/>
+                <Insets bottom="4.0" top="4.0"/>
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
-                <Label fx:id="group" text="\$group" styleClass="cell_big_label"/>
-            </HBox>
-            <FlowPane fx:id="tags"/>
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address"/>
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
-            <!--fields are generated and added in the codes as they are of a variable number-->
-            <VBox fx:id="fields" styleClass="cell_small_label"/>
-        </VBox>
-    </content>
+        </FlowPane>
+        <Label fx:id="phone" styleClass="cell_small_label"/>
+        <Label fx:id="address" styleClass="cell_small_label"/>
+        <Label fx:id="email" styleClass="cell_small_label"/>
+        <!--fields are generated and added in the codes as they are of a variable number-->
+        <VBox fx:id="fields" styleClass="cell_small_label"/>
+    </VBox>
+
 </ScrollPane>
 ```

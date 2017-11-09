@@ -1,4 +1,18 @@
 # kengying
+###### \java\seedu\address\logic\commands\AddCommandTest.java
+``` java
+        @Override
+        public List<Tag> getTagList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public List<Group> getGroupList() {
+            fail("This method should not be called.");
+            return null;
+        }
+```
 ###### \java\seedu\address\logic\commands\ListCommandTest.java
 ``` java
 /**
@@ -9,60 +23,17 @@ public class ListCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_zeroKeyword_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        ListCommand command = prepareCommand(" ");
-        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
-    }
-
-    @Test
-    public void execute_oneTags_onePersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
-        ListCommand command = prepareCommand("owesMoney");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(BENSON));
-    }
-
-    @Test
-    public void execute_oneGroup_onePersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
-        ListCommand command = prepareCommand("Car");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(ELLE));
-    }
-
-    @Test
-    public void execute_twoTags_sevenPersonFound() {
+    public void execute_listAll_everPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 7);
-        ListCommand command = prepareCommand("owesMoney friend");
+        ListCommand command = prepareCommand("all");
         assertCommandSuccess(command, expectedMessage, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
-
-    @Test
-    public void execute_twoGroups_sevenPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 7);
-        ListCommand command = prepareCommand("Car Savings");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
-
-    @Test
-    public void execute_oneTagGroup_sevenPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
-        ListCommand command = prepareCommand("Car owesMoney");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(BENSON, ELLE));
-    }
-
-    @Test
-    public void execute_wrongKeyword_zeroPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        ListCommand command = prepareCommand("sdfsdf");
-        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
     }
 
     /**
      * Parses {@code userInput} into a {@code ListCommand}.
      */
     private ListCommand prepareCommand(String userInput) {
-        ListCommand command =
-                new ListCommand(new PersonContainsTagsPredicate(Arrays.asList(userInput.split("\\s+"))));
+        ListCommand command = new ListCommand();
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
@@ -99,19 +70,50 @@ public class ListCommandTest {
 ``` java
     @Test
     public void parseCommand_list() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        ListCommand command = (ListCommand) parser.parseCommand(
-                ListCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new ListCommand(new PersonContainsTagsPredicate(keywords)), command);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " all") instanceof ListCommand);
     }
 
     @Test
     public void parseCommandAlias_list() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        ListCommand command = (ListCommand) parser.parseCommand(
-                ListCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new ListCommand(new PersonContainsTagsPredicate(keywords)), command);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS + " all") instanceof ListCommand);
     }
+```
+###### \java\seedu\address\logic\parser\ListCommandParserTest.java
+``` java
+public class ListCommandParserTest {
+
+    private ListCommandParser parser = new ListCommandParser();
+
+    @Test
+    public void parse_emptyArg_throwsParseException() {
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_validArgs_returnsFindCommand() {
+        // no leading and trailing whitespaces
+        ListCommand expectedListCommand = new ListCommand();
+
+        assertParseSuccess(parser, "all", expectedListCommand);
+        assertParseSuccess(parser, "tags", expectedListCommand);
+        assertParseSuccess(parser, "groups", expectedListCommand);
+
+    }
+
+    @Test
+    public void parse_invalidArgs_returnsFindCommand() {
+        // no leading and trailing whitespaces
+        ListCommand expectedListCommand = new ListCommand();
+
+        assertParseFailure(parser, "random", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "all tags", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListCommand.MESSAGE_USAGE));
+
+    }
+
+}
 ```
 ###### \java\seedu\address\model\AddressBookTest.java
 ``` java
@@ -121,21 +123,28 @@ public class ListCommandTest {
         addressBook.getGroupList().remove(0);
     }
 ```
-###### \java\seedu\address\model\AddressBookTest.java
+###### \java\seedu\address\model\UniqueGroupListTest.java
 ``` java
-        @Override
-        public ObservableList<Group> getGroupList() {
-            return groups;
-        }
+public class UniqueGroupListTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+        UniqueGroupList uniqueGroupList = new UniqueGroupList();
+        thrown.expect(UnsupportedOperationException.class);
+        uniqueGroupList.asObservableList().remove(0);
+    }
+}
 ```
 ###### \java\seedu\address\testutil\EditPersonDescriptorBuilder.java
 ``` java
     /**
-     * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Group} of the {@code EditPersonDescriptorBuilder} that we are building.
      */
-    public EditPersonDescriptorBuilder withGroup(String groupHealth) {
+    public EditPersonDescriptorBuilder withGroup(String group) {
         try {
-            ParserUtil.parseGroup(Optional.of(groupHealth)).ifPresent(descriptor::setGroup);
+            ParserUtil.parseGroup(Optional.of(group)).ifPresent(descriptor::setGroup);
         } catch (IllegalValueException ive) {
             throw new IllegalArgumentException("group is expected to be unique.");
         }
