@@ -79,6 +79,7 @@ list groups, shows all groups in humanDEX +
 Format: `list [SEARCH_TERM]`
 
 Examples:
+
 * `list all`
 * `list tags`
 * `list groups`
