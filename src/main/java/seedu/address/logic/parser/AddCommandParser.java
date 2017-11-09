@@ -65,7 +65,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     //@@author kengying
     /**
-     * Returns null if prefixes contains empty values in the given
+     * Returns "" if prefixes contains empty values in the given
      * {@value}.
      */
     private static Optional<String> areValuePresent(Optional<String> value) {

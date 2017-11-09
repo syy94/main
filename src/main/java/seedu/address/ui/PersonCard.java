@@ -22,9 +22,7 @@ public class PersonCard extends UiPart<Region> {
     //@@author syy94
     private static final HashMap<String, String> TAG_COLORS = new HashMap<String, String>();
     //@@author
-    //@@author kengying
     private static final HashMap<String, String> GROUP_COLORS = new HashMap<String, String>();
-    //@@author
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -60,9 +58,7 @@ public class PersonCard extends UiPart<Region> {
         //@@author syy94
         initTags(person);
         //@@author
-        //@@author kengying
         initGroups(person);
-        //@@author
         bindListeners(person);
     }
 

@@ -6,16 +6,16 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 == Project: AddressBook - Level 4
 AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.
 
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] {give links to collated code files}
+*Code contributed*: [https://github.com/CS2103AUG2017-F11-B1/main/blob/master/collated/main/kengying.md[Functional Code]] [https://github.com/CS2103AUG2017-F11-B1/main/blob/master/collated/test/kengying.md[Test Code]]
 
-=== Enhancement Added: Undo/Redo
+=== Enhancement Added: `Group`
 
 ==== External behavior
 
 ---
 #Start of Extract [from: User Guide]#
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=adding-a-person-code-add-code]
 
 #End of Extract#
 
@@ -23,28 +23,43 @@ include::../UserGuide.adoc[tag=undoredo]
 
 ==== Justification
 
-{Justify the need for, and the current design (i.e. external behavior) of, the feature}
+User will be able to add group to their different clients. The difference between `tag` and `group` is that, a user must have a group when being added while tag is optional.
 
 ==== Implementation
 
 ---
 #Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=group]
 
 #End of Extract#
 
 ---
 
-=== Enhancement Proposed: Add command `remark`
+=== Enhancement Added: `List`
 
-{Explain similar to the Undo/Redo feature above.}
+==== External behavior
 
-=== Other contributions
+---
+#Start of Extract [from: User Guide]#
 
-* Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-* Wrote additional tests to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+include::../UserGuide.adoc[tag=listing-all-persons-code-list-code]
 
-== Project: PowerPointLabs
+#End of Extract#
 
-{Optionally (not graded), you may include other projects in your portfolio.}
+---
+
+==== Justification
+
+As the amount of contacts increase, there will be too many tags and groups to keep track. `List` tags/groups, will be able to show the available tags/groups that are currently being in used.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=list]
+
+#End of Extract#
+
+---

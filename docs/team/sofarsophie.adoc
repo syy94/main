@@ -6,45 +6,54 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 == Project: AddressBook - Level 4
 AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.
 
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] {give links to collated code files}
+*Code contributed*: [https://github.com/CS2103AUG2017-F11-B1/main/blob/master/collated/main/sofarsophie.md[Functional Code]] [https://github.com/CS2103AUG2017-F11-B1/main/blob/master/collated/test/sofarsophie.md[Test Code]
 
-=== Enhancement Added: Undo/Redo
+=== Enhancement Added: Enhance `FindCommand`
 
 ==== External behavior
 
 ---
-#Start of Extract [from: User Guide]#
 
-include::../UserGuide.adoc[tag=undoredo]
-
-#End of Extract#
+include::../UserGuide.adoc[tag=find]
 
 ---
 
 ==== Justification
 
-{Justify the need for, and the current design (i.e. external behavior) of, the feature}
+The `find` command allows the user to find the client or colleague that matches the information that they have. So the user
+can quickly locate a contact with little information. For instance, a user may have an unknown phone number on their phone.
+The user can use the `find` command to find whose number it is. Also, a user may wish to find out how many of their clients
+live in a specific neighbourhood, to plan their door-to-door selling dates.
 
 ==== Implementation
 
 ---
-#Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-#End of Extract#
+include::../DeveloperGuide.adoc[tag=find]
 
 ---
 
-=== Enhancement Proposed: Add command `remark`
+=== Enhancement Added: Add command `sort`
 
-{Explain similar to the Undo/Redo feature above.}
+==== External behavior
 
-=== Other contributions
+---
 
-* Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-* Wrote additional tests to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+include::../UserGuide.adoc[tag=sort]
 
-== Project: PowerPointLabs
+---
 
-{Optionally (not graded), you may include other projects in your portfolio.}
+==== Justification
+
+The target user of this application are typically likely to have many contacts on their address book. The sort command is essential
+for the user to neatly organize their list of contacts based on any field. For instance, an insurance seller using this address book may
+wish to see how many of their clients are stores or organizations. The user can simply sort their address book by phone number, which will
+place all the contacts with number starting with 6 at the top.
+
+==== Implementation
+
+---
+
+include::../DeveloperGuide.adoc[tag=sort]
+
+---

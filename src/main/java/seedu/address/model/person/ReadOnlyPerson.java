@@ -23,11 +23,8 @@ public interface ReadOnlyPerson {
     Email getEmail();
     ObjectProperty<Address> addressProperty();
     Address getAddress();
-
-    //@@author kengying
     ObjectProperty<Group> groupProperty();
     Group getGroup();
-    //@@author
 
     ObjectProperty<CustomFieldsList> fieldsListProperty();
     Set<CustomField> getFields();
