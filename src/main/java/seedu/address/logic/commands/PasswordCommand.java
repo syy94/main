@@ -22,7 +22,8 @@ public class PasswordCommand extends Command {
     public static final String COMMAND_ALIAS = "pwd";
 
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds, removes or changes passwords.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds, removes or changes the password required to use "
+            + "the application.\n"
             + "Set Password: " + COMMAND_WORD + " " + PREFIX_PASS + "PASS\n"
             + "Change Password: " + COMMAND_WORD + " " + PREFIX_PASS + "PASS" + " " + PREFIX_NEW_PASS + "NEW_PASS\n"
             + "Clear Password: " + COMMAND_WORD + " " + PREFIX_PASS + "PASS" + " " + PREFIX_CLEAR_PASS;
