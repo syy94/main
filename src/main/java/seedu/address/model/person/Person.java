@@ -109,7 +109,6 @@ public class Person implements ReadOnlyPerson {
         return address.get();
     }
 
-    //@@author kengying
     public void setGroup(Group group) {
         this.group.set(requireNonNull(group));
     }
@@ -123,7 +122,6 @@ public class Person implements ReadOnlyPerson {
     public Group getGroup() {
         return group.get();
     }
-    //@@author
 
     //@@author syy94
     public void setFields(Set<CustomField> replacement) {

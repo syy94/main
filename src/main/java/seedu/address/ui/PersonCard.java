@@ -48,9 +48,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         initTags(person);
-        //@@author kengying
         initGroups(person);
-        //@@author
         bindListeners(person);
     }
 

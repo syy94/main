@@ -104,12 +104,10 @@ public class AddressBookTest {
             return tags;
         }
 
-        //@@author kengying
         @Override
         public ObservableList<Group> getGroupList() {
             return groups;
         }
-        //@@author
     }
 
 }

@@ -1,9 +1,11 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -54,4 +56,7 @@ public interface Model {
     void removeTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
     //@@author
 
+    List<Tag> getTagList();
+
+    List<Group> getGroupList();
 }

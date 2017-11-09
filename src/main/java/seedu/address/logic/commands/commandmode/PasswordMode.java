@@ -1,8 +1,10 @@
 package seedu.address.logic.commands.commandmode;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.storage.SecurityManager;
 
 //@@author syy94
@@ -24,6 +26,6 @@ public abstract class PasswordMode {
         return SecurityManager.passExists();
     }
 
-    public abstract CommandResult execute() throws IOException;
+    public abstract CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException;
 }
 

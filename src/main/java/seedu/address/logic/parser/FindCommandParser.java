@@ -6,8 +6,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -38,10 +41,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CUSTOM_FIELD,
-                        PREFIX_ADDRESS);
+                        PREFIX_ADDRESS, PREFIX_GROUP, PREFIX_TAG);
 
         if (!(arePrefixesPresent(argMultimap, PREFIX_NAME) || arePrefixesPresent(argMultimap, PREFIX_PHONE)
             || (arePrefixesPresent(argMultimap, PREFIX_EMAIL)) || arePrefixesPresent(argMultimap, PREFIX_ADDRESS)
+            || (arePrefixesPresent(argMultimap, PREFIX_TAG)) || arePrefixesPresent(argMultimap, PREFIX_GROUP)
             || arePrefixesPresent(argMultimap, PREFIX_CUSTOM_FIELD))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
@@ -53,6 +57,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             parseEmailsForSearch(argMultimap.getAllValues(PREFIX_EMAIL)).ifPresent(fieldsToFind::setEmailKeywords);
             parseAddressesForSearch(argMultimap.getAllValues(PREFIX_ADDRESS))
                     .ifPresent(fieldsToFind::setAddressKeywords);
+            parseGroupForSearch(argMultimap.getAllValues(PREFIX_GROUP)).ifPresent(fieldsToFind::setGroupKeywords);
+            parseTagForSearch(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(fieldsToFind::setTagKeywords);
             parseCustomFieldsForSearch(argMultimap.getAllValues(PREFIX_CUSTOM_FIELD))
                     .ifPresent(fieldsToFind::setFieldsKeywords);
         } catch (IllegalValueException ive) {
@@ -123,11 +129,45 @@ public class FindCommandParser implements Parser<FindCommand> {
         return Optional.of(ParserUtil.parseAddresses(addressList));
     }
 
+    //@@author kengying
+    /**
+     * Parses {@code List<String> group} into a {@code List<Group>} if {@code group} is non-empty.
+     * If {@code group} contain only one element which is an empty string, it will be parsed into a
+     * {@code List<Group>} containing zero groups.
+     */
+    private Optional<List<Group>> parseGroupForSearch(List<String> group) throws IllegalValueException {
+        assert group != null;
+
+        if (group.isEmpty()) {
+            return Optional.empty();
+        }
+        List<String> groupList = group.size() == 1 && group.contains("")
+                ? Collections.emptyList() : group;
+        return Optional.of(ParserUtil.parseGroup(groupList));
+    }
+
+    /**
+     * Parses {@code List<String> tags} into a {@code List<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code List<String>} containing zero tags.
+     */
+    private Optional<List<String>> parseTagForSearch(List<String> tags) throws IllegalValueException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        List<String> tagList = tags.size() == 1 && tags.contains("")
+                ? Collections.emptyList() : tags;
+        return Optional.of(tagList);
+    }
+    //@@author
+
     //@@author syy94
     /**
      * Parses {@code List<String> fields} into a {@code List<CustomField>} if {@code fields} is non-empty.
      * If {@code fields} contain only one element which is an empty string, it will be parsed into a
-     * {@code List<Address>} containing zero addresses.
+     * {@code List<String>} containing zero CustomField.
      */
     private Optional<List<String>> parseCustomFieldsForSearch(List<String> fields) throws IllegalValueException {
         assert fields != null;

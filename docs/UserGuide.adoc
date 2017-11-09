@@ -62,7 +62,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GROUP [t/TAG]... [c/CUSTO
 [TIP]
 A person can have any number of tags or custom fields (including 0)
 [TIP]
-A person can be saved with just name and group (including 0)
+A person can be saved with just name and group
 
 Examples:
 
@@ -73,33 +73,26 @@ Examples:
 
 === Listing all persons : `list`
 
-Shows a list of persons according to the tag given in the address book. +
-Format: `list [TAG] [GROUP]`
-
-****
-* The search is case insensitive. e.g `Friends` will match `friends`,
-* Only full words will be matched e.g. `Friend` will not match `Friends`
-****
+list all, shows all person in humanDEX +
+list tags, shows all tags in humanDEX +
+list groups, shows all groups in humanDEX +
+Format: `list [SEARCH_TERM]`
 
 Examples:
+* `list all`
+* `list tags`
+* `list groups`
 
-* `list Friends` +
-Returns any persons with tag `friends`
-* `'list all` +
-Returns all persons with or without tags and groups
-* `list Friends Colleagues` +
-Returns any persons with tag `friends` or/and `Colleagues`
-* `list Friends Savings` +
-Returns any persons with tag `friends` or/and group `Savings`
-
+// tag::sort[]
 === [Since v1.3] [Since v1.4] Sorts and lists all persons using fields : `sort`
 
-Sorts all persons in the address book by the given parameter in lexicographic order. +
+Sorts the most recent persons listing by the given parameter in lexicographic order. +
 Format: `sort [n/] [p/] [e/] [a/] [g/]...`
 
 ****
 * Sorts list based on one given parameter from: Name, Phone, Email, Address, or Group.
 * If no parameter is given, sorts list by the contacts' names in alphabetical order.
+* Cannot sort using multiple parameters.
 * An empty contact list cannot be sorted.
 * A sorted contacts list can be unsorted by using the command `undo`.
 * Sort can also be done by using the filter dropdown above the persons list, as follows:
@@ -110,9 +103,12 @@ image::sort-filter-controls.png[width="600"]
 Examples:
 
 * `sort p/`
-Sorts contacts by phone number.
+Sorts the most recent persons listing by phone number.
+* `find a/jurong` + `sort`
+Finds all people with address containing 'jurong' and sorts by name.
 * `sort`, `sort n/`
-Sorts contacts by name.
+Sorts the most recent persons listing by name.
+// end::sort[]
 
 // tag::editindividual[]
 === Editing a person : `edit`
@@ -140,10 +136,12 @@ Clears all existing custom fields and adds the custom field `School:NUS`.
 
 // end::editindividual[]
 
+// tag::find[]
+
 === [Since v1.2] Locating persons by other fields: `find`
 
 Finds persons whose field matches any of the given fields, with the exception of tags.
-Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]...`
+Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP] [t/TAG]`
 
 ****
 * The search is case insensitive. e.g `Email@Email.com` will match `email@email.com`
@@ -162,6 +160,7 @@ Examples:
 Returns `Johnathan Kim` and `John Doe`
 * `find n/Bet p/9999 e/helloTim@gmail.com` +
 Returns any person having names containing `Bet`, a phone number containing `9999`, or email address `helloTim@gmail.com`
+// end::find[]
 
 === Deleting a person : `delete`
 
@@ -176,7 +175,7 @@ Format: `delete INDEX`
 
 Examples:
 
-* `list` +
+* `list all` +
 `delete 2` +
 Deletes the 2nd person in the address book.
 * `find Betsy` +
@@ -196,7 +195,7 @@ Format: `select INDEX`
 
 Examples:
 
-* `list` +
+* `list all` +
 `select 2` +
 Selects the 2nd person in the address book.
 * `find Betsy` +
@@ -227,11 +226,11 @@ Undoable commands: those commands that modify the address book's content (`add`,
 Examples:
 
 * `delete 1` +
-`list` +
+`list all` +
 `undo` (reverses the `delete 1` command) +
 
 * `select 1` +
-`list` +
+`list all` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -271,7 +270,9 @@ Format: `clear`
 // tag::password[]
 === [Since v1.4][Since v1.5] Setting Passwords: `password`
 
-Sets, removes or changes password.
+Sets, removes or changes password required to use the application. Once a password is set, upon restarting humanDEX, the user will be required to
+enter the password in order to access humanDex. If the password is forgotten refer to the Developer Guide to rectify the problem.
+
 Format:
 
 * Add: `password pwd/PASSWORD`
@@ -342,12 +343,12 @@ Format: `switch NAME`
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... [c/CUSTOMFIEILD_KEY:CUSTOMFIELD_VALUE]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague c/School:NUS`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [c/CUSTOMFIEILD_KEY:CUSTOMFIELD_VALUE] [g/GROUP]` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague c/School:NUS g/Savings`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [-t/TAG]... [+t/TAG]... [clearTag/]` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [-t/TAG]... [+t/TAG]... [clearTag/] [g/GROUP]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find by Name* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
@@ -355,8 +356,10 @@ e.g. `find James Jake`
 e.g. `find p/99991234`
 * *Find by Tag or Group* : `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...` +
 e.g. `find t/friend`
-* *List* : `list`
-e.g. `list Group Car`
+* *List* : `list [SEARCH_TERM]`
+e.g. `list tags`
+e.g. `list groups`
+e.g. `list all`
 * *Sort (by name)* : `sort`
 * *Sort* : `sort [n/] [p/] [e/] [a/] [t/]...` +
 e.g. `sort n/ a/`
@@ -368,8 +371,6 @@ e.g.`select 2`
 e.g. `edit_history 1`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Create Group* : `create GROUP_NAME [INDEX] [MORE_INDICES]...`
-e.g. `create Car Insurance Buyers 1 3 5 7`
 * *Password Management*
 
 ** Add: `password pwd/PASSWORD`

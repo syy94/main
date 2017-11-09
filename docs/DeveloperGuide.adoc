@@ -364,9 +364,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::find[]
 === Find
 
-The `find` command was enhanced to allow a more rigorous search. The new find command allows users to search for Persons in the humanDEX using fields such as Name, Email, Phone, and Address.
+The `find` command was enhanced to allow a more rigorous search. The new find command allows users to search for Persons in the humanDEX using fields such as Name, Email, Phone, Address, Group and Tag.
 It supports partial search and users are required to input fields using prefixes.
 
 ==== Implementation
@@ -426,6 +427,7 @@ The diagram below shows how the enhanced `find` command works. +
 **Alternative 2:** Implement an overloaded constructor for `Email` that surpasses validation. +
 **Pros:** Will allow more flexible uses for users. +
 **Cons:** The team needs to agree on whether implementing an overloaded constructor is useful in terms of the entire software. Not having enough uses for the constructor may call for other solutions.
+// end::find[]
 
 // tag::customfield[]
 
@@ -482,10 +484,8 @@ _Figure 2.1.1 : `list` Diagram_
 **Alternative 1 (current choice):** Add a class to parse command from `AddressBookParser` +
 **Pros:** A better usage for listing +
 **Cons:** New class will be added in, need to add more test cases. +
-**Alternative 2:** Use `find` command for finding tags +
-**Pros:** Easier to implement as `find` function is already available. +
-**Cons:** If contact's details contains same word as tag, contact will be listed. For example if May's mail is mayfriend@example.com but does not contain tag "friend", May will be found even though she does not include tag "friend".
 
+// tag::sort[]
 === Sort
 
 The `sort` command allows users to sort their contacts by any given field, with the exception of `Tag`. It is an undoable command.
@@ -505,6 +505,7 @@ To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `
 **Alternative 2:** Implement `SortCommand` as an ordinary command +
 **Pros:** Easier to implement. +
 **Cons:** When sorting by multiple parameters is enabled, users may wish to revert their address book to the original state after revising the sorted version. Thus not being able to undo a sort will lead to low usability.
+// end::sort[]
 
 // tag::editindividual[]
 === [Since v1.3] Edit (Individual Tags)
@@ -550,8 +551,9 @@ Every person will need to have a group.
 
 === Passwords
 
-As of v1.4, passwords can be of any string. This feature will be improved to check for stronger passwords and encrypting the saved password such that no one can just open the
-text file and reading the password. Until a better way of storing local passwords are found, the password will exist as a non-hidden file.
+As of v1.5, passwords can be of any string. This feature will be improved to check for stronger passwords. Until a
+better way of recovering passwords are found, the password will exist as a non-hidden file. Currently this password
+feature is a proof of concept on how the look and feel of the password command should be.
 
 The modes of this command is decided by the existence of the prefixes. Only the `pwd/` prefix is mandatory.
 
@@ -559,7 +561,16 @@ The modes of this command is decided by the existence of the prefixes. Only the 
 * Remove requires: `pwd/` and `clearPwd/` prefix.
 * Change requires: `pwd/` and `new/` prefix.
 
-No password recovery is supported. If the password is forgotted during development, go to the data folder and delete the `pass` file.
+==== Password Recovery
+
+As of v1.5, no password recovery is supported. If the password is forgotten during development, go to the data folder
+and delete the `pass` file and restart humanDex.
+
+==== Improvements
+
+To make the password more effective at keeping the data secure, the addressbook.xml should be encrypted too. As no matter how
+secure the password is, it is redundant if the data can be freely accessed in the xml. Then upon completion of this task
+ the password can then be saved with the data, therefore making it more difficult to access the password.
 
 ==== Implementation +
 
