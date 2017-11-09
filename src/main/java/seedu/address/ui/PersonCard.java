@@ -47,9 +47,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        //@@author syy94
         initTags(person);
-        //@@author
         //@@author kengying
         initGroups(person);
         //@@author
