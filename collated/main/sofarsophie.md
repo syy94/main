@@ -94,8 +94,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
 import java.util.List;
@@ -105,6 +107,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -126,10 +129,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CUSTOM_FIELD,
-                        PREFIX_ADDRESS);
+                        PREFIX_ADDRESS, PREFIX_GROUP, PREFIX_TAG);
 
         if (!(arePrefixesPresent(argMultimap, PREFIX_NAME) || arePrefixesPresent(argMultimap, PREFIX_PHONE)
             || (arePrefixesPresent(argMultimap, PREFIX_EMAIL)) || arePrefixesPresent(argMultimap, PREFIX_ADDRESS)
+            || (arePrefixesPresent(argMultimap, PREFIX_TAG)) || arePrefixesPresent(argMultimap, PREFIX_GROUP)
             || arePrefixesPresent(argMultimap, PREFIX_CUSTOM_FIELD))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
@@ -141,6 +145,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             parseEmailsForSearch(argMultimap.getAllValues(PREFIX_EMAIL)).ifPresent(fieldsToFind::setEmailKeywords);
             parseAddressesForSearch(argMultimap.getAllValues(PREFIX_ADDRESS))
                     .ifPresent(fieldsToFind::setAddressKeywords);
+            parseGroupForSearch(argMultimap.getAllValues(PREFIX_GROUP)).ifPresent(fieldsToFind::setGroupKeywords);
+            parseTagForSearch(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(fieldsToFind::setTagKeywords);
             parseCustomFieldsForSearch(argMultimap.getAllValues(PREFIX_CUSTOM_FIELD))
                     .ifPresent(fieldsToFind::setFieldsKeywords);
         } catch (IllegalValueException ive) {
@@ -344,15 +350,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         }
     }
 
-    @Override
-    public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> personsList,
-                                                                 Prefix prefix) {
-        addressBook.sortPersonsList(prefix);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-        return personsList;
-
-    }
 ```
 ###### \java\seedu\address\model\person\Address.java
 ``` java
@@ -397,6 +394,8 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.customfields.CustomField;
+import seedu.address.model.group.Group;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -422,11 +421,19 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
                 || (findFields.getAddressKeywordsStream().anyMatch(keyword
                     -> StringUtil.containsPartialTextIgnoreCase(person.getAddress().value, keyword.value)))
                 || (findFields.getFieldsKeywordsStream().anyMatch(keyword
-                    -> customFieldContainsWordIgnoreCase(person.getFields(), keyword))));
+                    -> customFieldContainsWordIgnoreCase(person.getFields(), keyword)))
+                || (findFields.getGroupsKeywordsStream().anyMatch(keyword
+                    -> StringUtil.containsPartialTextIgnoreCase(person.getGroup().groupName, keyword.groupName)))
+                || (findFields.getTagsKeywordsStream().anyMatch(keyword
+                    -> tagContainsWordIgnoreCase(person.getTags(), keyword))));
     }
 
     private boolean customFieldContainsWordIgnoreCase(Set<CustomField> fields, String keyword) {
         return fields.stream().anyMatch(field -> StringUtil.containsPartialTextIgnoreCase(field.toString(), keyword));
+    }
+
+    private boolean tagContainsWordIgnoreCase(Set<Tag> tags, String keyword) {
+        return tags.stream().anyMatch(tag -> StringUtil.containsPartialTextIgnoreCase(tag.toString(), keyword));
     }
 
     @Override
@@ -440,7 +447,9 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
                 && this.findFields.getEmailKeywords().equals(((PersonContainsKeywordsPredicate) other)
                         .findFields.getEmailKeywords())
                 && this.findFields.getAddressKeywords().equals(((PersonContainsKeywordsPredicate) other)
-                        .findFields.getAddressKeywords())); // state check
+                        .findFields.getAddressKeywords())
+                && this.findFields.getGroupsKeywords().equals(((PersonContainsKeywordsPredicate) other)
+                        .findFields.getGroupsKeywords())); // state check
     }
 
     /**
@@ -452,6 +461,8 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
         private List<Email> emailKeywords;
         private List<Address> addressKeywords;
         private List<String> customFieldKeywords;
+        private List<Group> groupKeywords;
+        private List<String> tagKeywords;
 
         public FindFields() {}
 
@@ -461,6 +472,8 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
             this.emailKeywords = findFields.emailKeywords;
             this.addressKeywords = findFields.addressKeywords;
             this.customFieldKeywords = findFields.customFieldKeywords;
+            this.groupKeywords = findFields.groupKeywords;
+            this.tagKeywords = findFields.tagKeywords;
         }
 
         public void setNameKeywords(List<Name> names) {
@@ -497,6 +510,30 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
 
         public Stream<Email> getEmailKeywordsStream() {
             return this.getEmailKeywords().map(List::stream).orElseGet(Stream::empty);
+        }
+
+        public void setGroupKeywords(List<Group> group) {
+            this.groupKeywords = group;
+        }
+
+        public Optional<List<Group>> getGroupsKeywords() {
+            return Optional.ofNullable(groupKeywords);
+        }
+
+        public Stream<Group> getGroupsKeywordsStream() {
+            return this.getGroupsKeywords().map(List::stream).orElseGet(Stream::empty);
+        }
+
+        public void setTagKeywords(List<String> tags) {
+            this.tagKeywords = tags;
+        }
+
+        public Optional<List<String>> getTagKeywords() {
+            return Optional.ofNullable(tagKeywords);
+        }
+
+        public Stream<String> getTagsKeywordsStream() {
+            return this.getTagKeywords().map(List::stream).orElseGet(Stream::empty);
         }
 
         public void setAddressKeywords(List<Address> addresses) {
@@ -768,7 +805,7 @@ public class FilterControls extends UiPart<Region> {
 <VBox prefHeight="45.0" prefWidth="318.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <SplitPane dividerPositions="0.40822784810126583" prefHeight="45.0" prefWidth="314.0">
       <items>
-          <Label fx:id="dropdownLabel" prefHeight="17.0" prefWidth="150.0" styleClass="label-bright" text="Filter by..." textFill="WHITE" />
+          <Label fx:id="dropdownLabel" prefHeight="17.0" prefWidth="150.0" styleClass="label-bright" text="Sort by..." textFill="WHITE" />
           <ComboBox fx:id="filterByDropdown" prefHeight="27.0" prefWidth="136.0" />
       </items>
    </SplitPane>
