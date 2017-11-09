@@ -86,12 +86,13 @@ Examples:
 // tag::sort[]
 === [Since v1.3] [Since v1.4] Sorts and lists all persons using fields : `sort`
 
-Sorts all persons in the address book by the given parameter in lexicographic order. +
+Sorts the most recent persons listing by the given parameter in lexicographic order. +
 Format: `sort [n/] [p/] [e/] [a/] [g/]...`
 
 ****
 * Sorts list based on one given parameter from: Name, Phone, Email, Address, or Group.
 * If no parameter is given, sorts list by the contacts' names in alphabetical order.
+* Cannot sort using multiple parameters.
 * An empty contact list cannot be sorted.
 * A sorted contacts list can be unsorted by using the command `undo`.
 * Sort can also be done by using the filter dropdown above the persons list, as follows:
@@ -102,9 +103,11 @@ image::sort-filter-controls.png[width="600"]
 Examples:
 
 * `sort p/`
-Sorts contacts by phone number.
+Sorts the most recent persons listing by phone number.
+* `find a/jurong` + `sort`
+Finds all people with address containing 'jurong' and sorts by name.
 * `sort`, `sort n/`
-Sorts contacts by name.
+Sorts the most recent persons listing by name.
 // end::sort[]
 
 === Editing a person : `edit`
