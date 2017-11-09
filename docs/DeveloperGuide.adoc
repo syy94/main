@@ -474,6 +474,7 @@ The CustomField class was developed first and added to Person class. Then the ne
 
 // end::customfield[]
 
+// tag::list[]
 === List
 
 The `list` command allows the user to list the contacts by tag(s).
@@ -488,6 +489,8 @@ _Figure 2.1.1 : `list` Diagram_
 **Alternative 1 (current choice):** Add a class to parse command from `AddressBookParser` +
 **Pros:** A better usage for listing +
 **Cons:** New class will be added in, need to add more test cases. +
+
+// end::list[]
 
 // tag::sort[]
 === Sort
@@ -540,6 +543,8 @@ Argument:
 
 // end::editindividual[]
 
+// tag::group[]
+
 === Group
 
 The `add` command allows user to add group to a person.
@@ -554,6 +559,8 @@ Every person will need to have a group.
 **Alternative 2:** Create another command for managing groups.  +
 **Pros:** More distinct differentiation of link:#group[group] and link:#tag[tag]. +
 **Cons:** Time consuming.
+
+// end::group[]
 
 // tag::password[]
 
