@@ -105,7 +105,6 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> personsList,
                                                                  Prefix prefix) {
         addressBook.sortPersonsList(prefix);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
         return personsList;
 
