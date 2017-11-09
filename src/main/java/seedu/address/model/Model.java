@@ -56,9 +56,7 @@ public interface Model {
     void removeTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
     //@@author
 
-    //@@author kengying
     List<Tag> getTagList();
 
     List<Group> getGroupList();
-    //@@author
 }

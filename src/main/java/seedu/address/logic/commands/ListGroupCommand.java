@@ -7,7 +7,7 @@ import seedu.address.model.group.Group;
 //@@author kengying
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all group in the address book to the user.
  */
 public class ListGroupCommand extends ListCommand {
 

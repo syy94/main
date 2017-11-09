@@ -8,7 +8,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 
 //@@author kengying
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons/groups/tags in the address book to the user.
  */
 public class ListCommand extends Command {
 

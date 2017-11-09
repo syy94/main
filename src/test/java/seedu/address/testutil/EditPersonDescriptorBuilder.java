@@ -125,11 +125,11 @@ public class EditPersonDescriptorBuilder {
 
     //@@author kengying
     /**
-     * Sets the {@code Group} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Group} of the {@code EditPersonDescriptorBuilder} that we are building.
      */
-    public EditPersonDescriptorBuilder withGroup(String groupHealth) {
+    public EditPersonDescriptorBuilder withGroup(String group) {
         try {
-            ParserUtil.parseGroup(Optional.of(groupHealth)).ifPresent(descriptor::setGroup);
+            ParserUtil.parseGroup(Optional.of(group)).ifPresent(descriptor::setGroup);
         } catch (IllegalValueException ive) {
             throw new IllegalArgumentException("group is expected to be unique.");
         }
