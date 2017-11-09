@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- @@author syy94 -->
 
 <?import javafx.geometry.Insets?>
@@ -7,23 +8,30 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<ScrollPane VBox.vgrow="ALWAYS" minHeight="250" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            stylesheets="@DarkTheme.css">
-    <content>
-        <VBox stylesheets="@DarkTheme.css">
+<ScrollPane minHeight="250" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <VBox>
+        <padding>
+            <Insets bottom="5" left="15" right="5" top="5"/>
+        </padding>
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label fx:id="name" styleClass="cell_big_label"/>
+            <Label fx:id="group" styleClass="cell_big_label" text="Select a person to view their details."/>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </HBox>
+        <FlowPane fx:id="tags">
             <padding>
-                <Insets top="5" right="5" bottom="5" left="15"/>
+                <Insets bottom="4.0" top="4.0"/>
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
-                <Label fx:id="group" text="\$group" styleClass="cell_big_label"/>
-            </HBox>
-            <FlowPane fx:id="tags"/>
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address"/>
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
-            <!--fields are generated and added in the codes as they are of a variable number-->
-            <VBox fx:id="fields" styleClass="cell_small_label"/>
-        </VBox>
-    </content>
+        </FlowPane>
+        <Label fx:id="phone" styleClass="cell_small_label"/>
+        <Label fx:id="address" styleClass="cell_small_label"/>
+        <Label fx:id="email" styleClass="cell_small_label"/>
+        <!--fields are generated and added in the codes as they are of a variable number-->
+        <VBox fx:id="fields" styleClass="cell_small_label"/>
+    </VBox>
+
 </ScrollPane>

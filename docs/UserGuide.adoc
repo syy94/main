@@ -110,6 +110,7 @@ Finds all people with address containing 'jurong' and sorts by name.
 Sorts the most recent persons listing by name.
 // end::sort[]
 
+// tag::editindividual[]
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -133,7 +134,10 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 * `edit 3 c/School:NUS` +
 Clears all existing custom fields and adds the custom field `School:NUS`.
 
+// end::editindividual[]
+
 // tag::find[]
+
 === [Since v1.2] Locating persons by other fields: `find`
 
 Finds persons whose field matches any of the given fields, with the exception of tags.
@@ -263,7 +267,8 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== [Since v1.4] Setting Passwords: `password`
+// tag::password[]
+=== [Since v1.4][Since v1.5] Setting Passwords: `password`
 
 Sets, removes or changes password required to use the application. Once a password is set, upon restarting humanDEX, the user will be required to
 enter the password in order to access humanDex. If the password is forgotten refer to the Developer Guide to rectify the problem.
@@ -273,6 +278,8 @@ Format:
 * Add: `password pwd/PASSWORD`
 * Remove: `password pwd/PASSWORD clearPwd/`
 * Change: `password pwd/PASSWORD new/NEW_PASSWORD`
+
+// end::password[]
 
 === Exiting the program : `exit`
 
@@ -306,16 +313,6 @@ Examples:
 
 * `edit 1 p/12341234` +
 `edit_history 1` (prints: `phone number changed from ******** to 12341234`
-
-=== [Coming in v1.5] Setting a password to humanDEX : `password`
-
-Sets a password for humanDEX.
-Format: `password pwd/PASSWORD`
-
-***
-* A password must be at least 8 characters long.
-* A password must contain at least one lowercase letter, at least one uppercase letter, and at least one special character.
-***
 
 == Features v2.0
 

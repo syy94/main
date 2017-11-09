@@ -6,16 +6,17 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 == Project: AddressBook - Level 4
 AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.
 
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] {give links to collated code files}
+*Code contributed*: [https://github.com/CS2103AUG2017-F11-B1/main/blob/master/collated/main/syy94.md[Functional code]]
+ [https://github.com/CS2103AUG2017-F11-B1/main/tree/master/collated/test[Test code]]
 
-=== Enhancement Added: Undo/Redo
+=== Enhancement Added: Edit Individual Tags
 
 ==== External behavior
 
 ---
 #Start of Extract [from: User Guide]#
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=editindividual]
 
 #End of Extract#
 
@@ -23,28 +24,82 @@ include::../UserGuide.adoc[tag=undoredo]
 
 ==== Justification
 
-{Justify the need for, and the current design (i.e. external behavior) of, the feature}
+By implementing this feature, the user can just simply edit their tags by just using the
+prefixes `+t/`, `-t/` and `clearTag/`, without the need of a re-entering the tags the user
+wants to keep. This is most beneficial when a person have multiple tags.
 
 ==== Implementation
 
 ---
 #Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=editindividual]
 
 #End of Extract#
 
 ---
 
-=== Enhancement Proposed: Add command `remark`
+=== Enhancement Added: Custom Fields
 
-{Explain similar to the Undo/Redo feature above.}
+==== External behavior
+
+---
+#Start of Extract [from: User Guide]#
+
+include::../UserGuide.adoc[tag=editindividual]
+
+#End of Extract#
+
+---
+
+==== Justification
+
+By implementing this feature, the user freely add additional information about of the persons stored in humanDEX. This
+additional information can be found in the PersonDetailsPanel above the Browser.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=customfield]
+
+#End of Extract#
+
+---
+
+=== Enhancement Added: Password
+
+==== External behavior
+
+---
+#Start of Extract [from: User Guide]#
+
+include::../UserGuide.adoc[tag=password]
+
+#End of Extract#
+
+---
+
+==== Justification
+
+With password, the data stored in humanDEX will not be accessed easily.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=password]
+
+#End of Extract#
+
+---
+
+=== Enhancement Proposed:
+
+
 
 === Other contributions
 
-* Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-* Wrote additional tests to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-
-== Project: PowerPointLabs
-
-{Optionally (not graded), you may include other projects in your portfolio.}
+* Touched up Gui(Pull requests https://github.com/CS2103AUG2017-F11-B1/main/pull/86[#86])
