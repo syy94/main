@@ -10,6 +10,29 @@
                         + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL + FIELD_DESC_COMPANY,
                 new AddCommand(expectedPersonMultipleFields));
 ```
+###### \java\seedu\address\logic\UnlockApplicationTest.java
+``` java
+    private static final String testPass = "testPass";
+
+    private Model model = new ModelManager();
+    private Logic logic = new LogicManager(model);
+
+    @BeforeClass
+    public static void setup() throws IOException, NoSuchAlgorithmException {
+        SecurityManager.savePass(testPass);
+    }
+
+    @Test
+    public void applicationUnlockTest() {
+        assertCommandException("test1", PasswordCommand.MESSAGE_WRONG_PASS);
+        assertCommandSuccess(testPass, "Welcome", model);
+    }
+
+    @AfterClass
+    public static void cleanUp() throws NoSuchAlgorithmException, IOException, WrongPasswordException {
+        SecurityManager.removePass(testPass);
+    }
+```
 ###### \java\seedu\address\testutil\PersonBuilder.java
 ``` java
     /**
