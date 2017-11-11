@@ -35,15 +35,18 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, PasswordCommand.MESSAGE_PASS_EXISTS);
 
         //Edit Password
-        command = PasswordCommand.COMMAND_WORD + " " + PREFIX_PASS + PASSWORD_SAMPLE + " " + PREFIX_NEW_PASS + PASSWORD_NEW_SAMPLE;
+        command = PasswordCommand.COMMAND_WORD + " " + PREFIX_PASS + PASSWORD_SAMPLE + " " + PREFIX_NEW_PASS
+                + PASSWORD_NEW_SAMPLE;
         assertCommandSuccess(command, PasswordCommand.MESSAGE_CHANGED_PASS);
 
         //Edit Password back to PASSWORD_SAMPLE for convenience.
-        command = PasswordCommand.COMMAND_WORD + " " + PREFIX_PASS + PASSWORD_NEW_SAMPLE + " " + PREFIX_NEW_PASS + PASSWORD_SAMPLE;
+        command = PasswordCommand.COMMAND_WORD + " " + PREFIX_PASS + PASSWORD_NEW_SAMPLE + " " + PREFIX_NEW_PASS
+                + PASSWORD_SAMPLE;
         assertCommandSuccess(command, PasswordCommand.MESSAGE_CHANGED_PASS);
 
         //Edit Password with wrong existing password
-        command = PasswordCommand.COMMAND_WORD + " " + PREFIX_PASS + PASSWORD_NEW_SAMPLE + " " + PREFIX_NEW_PASS + PASSWORD_SAMPLE;
+        command = PasswordCommand.COMMAND_WORD + " " + PREFIX_PASS + PASSWORD_NEW_SAMPLE + " " + PREFIX_NEW_PASS
+                + PASSWORD_SAMPLE;
         assertCommandFailure(command, PasswordCommand.MESSAGE_WRONG_PASS
                 + "\n" + PasswordCommand.MESSAGE_PASS_NOT_CHANGED);
 
@@ -60,7 +63,8 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, PasswordCommand.MESSAGE_NO_PASS_TO_CLEAR);
 
         //No existing Password to change
-        command = PasswordCommand.COMMAND_WORD + " " + PREFIX_PASS + PASSWORD_SAMPLE + " " + PREFIX_NEW_PASS + PASSWORD_NEW_SAMPLE;
+        command = PasswordCommand.COMMAND_WORD + " " + PREFIX_PASS + PASSWORD_SAMPLE + " " + PREFIX_NEW_PASS
+                + PASSWORD_NEW_SAMPLE;
         assertCommandFailure(command, PasswordCommand.MESSAGE_NO_PASS_TO_CHANGE);
     }
 

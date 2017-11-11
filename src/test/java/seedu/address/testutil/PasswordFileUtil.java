@@ -10,10 +10,16 @@ import seedu.address.commons.exceptions.WrongPasswordException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.storage.SecurityManager;
 
+/**
+ *
+ */
 public class PasswordFileUtil {
     private static File testPassFile = new File("data/pass");
 
-    public static void removePassFile(){
+    /**
+     * Removes the Password file if it exists.
+     */
+    public static void removePassFile() {
         try {
             if (FileUtil.isFileExists(testPassFile)) {
                 removePass();
@@ -23,7 +29,7 @@ public class PasswordFileUtil {
         }
     }
 
-    public static boolean passFileExist(){
+    public static boolean passFileExist() {
         return FileUtil.isFileExists(testPassFile);
     }
 

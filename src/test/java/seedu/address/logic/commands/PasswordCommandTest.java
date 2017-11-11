@@ -136,6 +136,9 @@ public class PasswordCommandTest {
         }
     }
 
+    /**
+     * Asserts if the password file should exist or not.
+     */
     private static void assertShouldPasswordFileExist(boolean shouldExist) {
         if (shouldExist) {
             assertTrue("Password File Should Exist", PasswordFileUtil.passFileExist());

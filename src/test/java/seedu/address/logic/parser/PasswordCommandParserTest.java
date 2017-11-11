@@ -19,7 +19,8 @@ public class PasswordCommandParserTest {
 
     @Test
     public void parse_missingPrefix() {
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, PasswordCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                PasswordCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -41,7 +42,8 @@ public class PasswordCommandParserTest {
 
         // missing PREFIX_PASS
         userInput = " " + PREFIX_NEW_PASS + PASSWORD_NEW_SAMPLE;
-        assertParseFailure(parser, userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT, PasswordCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                PasswordCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -53,6 +55,7 @@ public class PasswordCommandParserTest {
 
         // missing PREFIX_PASS
         userInput = " " + PREFIX_CLEAR_PASS;
-        assertParseFailure(parser, userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT, PasswordCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                PasswordCommand.MESSAGE_USAGE));
     }
 }

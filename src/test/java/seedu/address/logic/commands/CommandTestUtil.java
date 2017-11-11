@@ -77,7 +77,8 @@ public class CommandTestUtil {
     public static final String INVALID_GROUP_DESC = " " + PREFIX_GROUP + "Savings!"; // '!' not allowed in groups
     public static final String INVALID_ADD_TAG_DESC = " " + PREFIX_ADD_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_REMOVE_TAG_DESC = " " + PREFIX_REMOVE_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_CUSTOM_FIELD_DESC = " " + PREFIX_CUSTOM_FIELD + "asdasd:hubby*"; // '*' not allowed in tags
+    public static final String INVALID_CUSTOM_FIELD_DESC = " " + PREFIX_CUSTOM_FIELD
+            + "asdasd:hubby*"; // '*' not allowed in tags
 
     // key and value not spearated by ":"
     public static final String INVALID_FIELD_DESC = " " + PREFIX_CUSTOM_FIELD + "School_NUS";
