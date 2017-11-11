@@ -85,6 +85,20 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    //@@author syy94
+
+    /**
+     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withFields(String... fields) {
+        try {
+            descriptor.setFieldsList(ParserUtil.parseCustomFields(Arrays.asList(fields)));
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("fields are expected to be unique.");
+        }
+        return this;
+    }
+
     /**
      * Parses the {@code tags} to be added into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
@@ -122,6 +136,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptor build() {
         return descriptor;
     }
+    //@@author
 
     //@@author kengying
     /**

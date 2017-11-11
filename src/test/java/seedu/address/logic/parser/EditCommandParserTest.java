@@ -5,8 +5,12 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.FIELD_DESC_COMPANY;
+import static seedu.address.logic.commands.CommandTestUtil.FIELD_DESC_SCHOOL;
+import static seedu.address.logic.commands.CommandTestUtil.GROUP_DESC_HEALTH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADD_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FIELD_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMOVE_TAG_DESC;
@@ -20,12 +24,16 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FIELD_COMPANY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FIELD_SCHOOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_HEALTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOM_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -38,6 +46,7 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.customfields.CustomField;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -87,6 +96,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADD_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid add tag
         assertParseFailure(parser, "1" + INVALID_REMOVE_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid remove tag
+        assertParseFailure(parser, "1" + INVALID_FIELD_DESC, CustomField.MESSAGE_FIELD_CONSTRAINTS); // invalid custom field
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_PHONE_CONSTRAINTS);
@@ -103,12 +113,13 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_ADD_DESC_HUSBAND
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_ADD_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_ADD_DESC_HUSBAND + GROUP_DESC_HEALTH
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_REMOVE_DESC_FRIEND + FIELD_DESC_SCHOOL;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withToAddTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withToAddTags(VALID_TAG_HUSBAND).withToRemoveTags(VALID_TAG_FRIEND).withFields(VALID_FIELD_SCHOOL)
+                .withGroup(VALID_GROUP_HEALTH).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -153,6 +164,15 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
+        //@@author kengying
+        // add tags
+        userInput = targetIndex.getOneBased() + GROUP_DESC_HEALTH;
+        descriptor = new EditPersonDescriptorBuilder().withGroup(VALID_GROUP_HEALTH).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+        //@@author
+
+        //@@author syy94
         // add tags
         userInput = targetIndex.getOneBased() + TAG_ADD_DESC_FRIEND;
         descriptor = new EditPersonDescriptorBuilder().withToAddTags(VALID_TAG_FRIEND).build();
@@ -170,6 +190,13 @@ public class EditCommandParserTest {
         descriptor = new EditPersonDescriptorBuilder().clearTags(true).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
+
+        // custom field
+        userInput = targetIndex.getOneBased() + FIELD_DESC_COMPANY;
+        descriptor = new EditPersonDescriptorBuilder().withFields(VALID_FIELD_COMPANY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+        //@@author
     }
 
     @Test

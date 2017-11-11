@@ -14,7 +14,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class CustomField {
     public static final String MESSAGE_FIELD_CONSTRAINTS =
             "Custom fields should be 2 alphanumeric strings separated by ':'";
-    public static final String FIELD_VALIDATION_REGEX = "[\\w]+:[\\w]+";
+    public static final String FIELD_VALIDATION_REGEX = "(\\p{Alnum}+ *)+: *(\\p{Alnum}+ *)+";
 
     public final String key;
     public final String value;
@@ -27,8 +27,8 @@ public class CustomField {
         }
         final String[] fieldData = trimmedField.split(":", 2);
         requireAllNonNull(fieldData[0], fieldData[1]);
-        this.key = fieldData[0];
-        this.value = fieldData[1];
+        this.key = fieldData[0].trim().toUpperCase();
+        this.value = fieldData[1].trim();
     }
 
     /**
@@ -40,6 +40,17 @@ public class CustomField {
 
     @Override
     public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof CustomField)) {
+            return false;
+        }
+
+        // state check
         final CustomField other = (CustomField) obj;
         return key.equals(other.key) && value.equals(other.value);
     }
