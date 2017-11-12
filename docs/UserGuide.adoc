@@ -96,7 +96,10 @@ Examples:
 === [Since v1.3] [Since v1.4] Sorts and lists all persons using fields : `sort`
 
 Sorts the most recent persons listing by the given parameter in lexicographic order. +
-Format: `sort [n/] [p/] [e/] [a/] [g/]`
+Format: `sort [prefix]...`
+
+[TIP]
+prefix includes [n/] [p/] [e/] [a/] [g/]
 
 ****
 * Sorts list based on one given parameter from: Name, Phone, Email, Address, or Group.
