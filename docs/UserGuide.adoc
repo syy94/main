@@ -59,7 +59,7 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GROUP [t/TAG]... [c/CUSTOMFIEILD_KEY:CUSTOMFIELD_VALUE]...`
+Format: `add n/NAME  g/GROUP [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]... [c/CUSTOMFIEILD_KEY:CUSTOMFIELD_VALUE]...`
 
 [TIP]
 A person can have any number of tags or custom fields (including 0)
@@ -77,7 +77,7 @@ Examples:
 
 // tag::listing-all-persons-code-list-code[]
 
-=== Listing all persons : `list`
+=== [Since v1.3] Listing all persons : `list`
 
 list all, shows all person in humanDEX +
 list tags, shows all tags in humanDEX +
@@ -96,7 +96,10 @@ Examples:
 === [Since v1.3] [Since v1.4] Sorts and lists all persons using fields : `sort`
 
 Sorts the most recent persons listing by the given parameter in lexicographic order. +
-Format: `sort [n/] [p/] [e/] [a/] [g/]...`
+Format: `sort [prefix]`
+
+[TIP]
+prefix includes [n/] [p/] [e/] [a/] [g/]
 
 ****
 * Sorts list based on one given parameter from: Name, Phone, Email, Address, or Group.
@@ -231,7 +234,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit`, `clear`, `find` and `sort`).
 ====
 
 Examples:
