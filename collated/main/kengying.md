@@ -62,7 +62,6 @@ public class ListGroupCommand extends ListCommand {
     @Override
     public CommandResult execute() {
         List<Group> listGroups = model.getGroupList();
-        System.out.println(listGroups);
         return new CommandResult(String.format(MESSAGE_SUCCESS + " "
                 + listGroups.toString().replaceAll("[\\[\\]]", "")));
     }
@@ -87,7 +86,6 @@ public class ListTagCommand extends ListCommand {
     @Override
     public CommandResult execute() {
         List<Tag> listTags = model.getTagList();
-        System.out.println(listTags);
         return new CommandResult(String.format(MESSAGE_SUCCESS + " " + listTags.toString().replaceAll("[\\[\\]]", "")));
     }
 
@@ -104,7 +102,20 @@ public class ListTagCommand extends ListCommand {
         return value;
     }
 ```
-###### /java/seedu/address/logic/parser/FindCommandParser.java
+###### \java\seedu\address\logic\parser\AddressBookParser.java
+``` java
+        case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_ALIAS:
+            return new ListCommandParser().parse(arguments);
+```
+###### \java\seedu\address\logic\parser\AddressBookParser.java
+``` java
+    private String firstLetterToLowerCase(String commandWord) {
+        return commandWord.substring(0, 1).toLowerCase() + commandWord.substring(1);
+    }
+```
+###### \java\seedu\address\logic\parser\FindCommandParser.java
+
 ``` java
     /**
      * Parses {@code List<String> group} into a {@code List<Group>} if {@code group} is non-empty.
