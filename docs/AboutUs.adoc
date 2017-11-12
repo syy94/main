@@ -4,8 +4,8 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 aka humanDEX is currently developed by the https://github.com/CS2103AUG2017-F11-B1[humanDEX] team. +
-The project is originally creadted by https://se-edu.github.io/docs/Team.html[SE-EDU] team. +
+AddressBook - Level 4, aka humanDEX, is currently developed by the https://github.com/CS2103AUG2017-F11-B1[humanDEX] team. +
+The project is originally created by the https://se-edu.github.io/docs/Team.html[SE-EDU] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
