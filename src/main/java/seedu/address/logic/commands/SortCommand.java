@@ -1,4 +1,3 @@
-//@@author sofarsophie
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -13,8 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.ReadOnlyPerson;
 
+//@@author sofarsophie
 /**
- * Sorts and displays the persons listing.
+ * Sorts and displays the most recent persons listing based on a field identified by the prefix given.
  */
 public class SortCommand extends UndoableCommand {
 
@@ -22,7 +22,7 @@ public class SortCommand extends UndoableCommand {
     public static final String COMMAND_ALIAS = "st";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts and lists the Persons in the last person listing based on the given field. "
+            + ": Sorts and lists the Persons in the last person listing based on the single given field. "
             + "Sorts Persons by name by default if no parameter is given.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "] "
