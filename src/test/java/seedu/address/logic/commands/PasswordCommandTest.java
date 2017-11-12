@@ -12,7 +12,6 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.After;
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.WrongPasswordException;
 import seedu.address.logic.commands.commandmode.PasswordMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.storage.SecurityManager;
