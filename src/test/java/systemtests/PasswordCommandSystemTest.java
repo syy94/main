@@ -7,14 +7,21 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_PASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_PASS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASS;
 
+import org.junit.After;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.PasswordCommand;
 import seedu.address.model.Model;
+import seedu.address.testutil.PasswordFileUtil;
 
 //@@author syy94
 public class PasswordCommandSystemTest extends AddressBookSystemTest {
+
+    @After
+    public void cleanUp() {
+        PasswordFileUtil.removePassFile();
+    }
 
     @Test
     public void passwordTest() {

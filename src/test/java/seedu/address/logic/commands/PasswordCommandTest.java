@@ -24,10 +24,6 @@ public class PasswordCommandTest {
         SecurityManager.savePass(PASSWORD_SAMPLE);
     }
 
-    private void removePass() throws IOException, NoSuchAlgorithmException, WrongPasswordException {
-        SecurityManager.removePass(PASSWORD_SAMPLE);
-    }
-
     @After
     public void cleanUp() {
         PasswordFileUtil.removePassFile();
