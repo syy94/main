@@ -67,6 +67,9 @@ public class CommandTestUtil {
     public static final String GROUP_DESC_HEALTH = " " + PREFIX_GROUP + VALID_GROUP_HEALTH;
     public static final String GROUP_DESC_SAVING = " " + PREFIX_GROUP + VALID_GROUP_SAVING;
 
+    public static final String PASSWORD_SAMPLE = "testPass";
+    public static final String PASSWORD_NEW_SAMPLE = "newPass";
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -74,6 +77,8 @@ public class CommandTestUtil {
     public static final String INVALID_GROUP_DESC = " " + PREFIX_GROUP + "Savings!"; // '!' not allowed in groups
     public static final String INVALID_ADD_TAG_DESC = " " + PREFIX_ADD_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_REMOVE_TAG_DESC = " " + PREFIX_REMOVE_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_CUSTOM_FIELD_DESC = " " + PREFIX_CUSTOM_FIELD
+            + "asdasd:hubby*"; // '*' not allowed in tags
 
     // key and value not spearated by ":"
     public static final String INVALID_FIELD_DESC = " " + PREFIX_CUSTOM_FIELD + "School_NUS";

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= humanDEX - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -10,7 +10,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103AUG2017-F11-B1/main
 
 By: `Team CS2103AUG2017-F11-B1`      Since: `Sep 2017`      Licence: `MIT`
 
@@ -472,6 +472,13 @@ Therefore, HashSet is used as it is able to allow the user to fully choose which
 ==== Implementation
 The CustomField class was developed first and added to Person class. Then the necessary classes are created and developed such that it fits into the existing code. The add and edit command are then updated to support this new feature and finally, test cases are updated to check that this feature have been integrated seamlessly with the existing code.
 
+Other than this, CustomField is structured almost the same as `Name` and `Tags` attribute.
+
+==== Improvements
+
+If there is a need to collate values with similar keys, a `HashMap<String, Set<String>>` can be used, where `String`
+represents the key and the `Set<String>` will be the values.
+
 // end::customfield[]
 
 // tag::list[]
@@ -538,7 +545,7 @@ Argument:
 * If `+t/` > `-t/` > `clearTag/`
 ** When the user uses all 3 prefixes, `+t/` and `-t/` will be made redundant and the user have wasted time typing values for `+t/` and `-t/`.
 * If `clearTag/` > `-t/` > `+t/`
-** When the user uses all 3 prefixes, with `+t/` and `-t/` have the same value, `-t/` will be ignored and `+t/` and `-t/` will not cancel each other out.
+** When the user uses all 3 prefixes, with `+t/` and `-t/` having the same values, `-t/` will not be ignored and `+t/` and `-t/` will cancel each other out.
 =====
 
 // end::editindividual[]

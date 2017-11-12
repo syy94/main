@@ -13,9 +13,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.PersonEditedEvent;
+import seedu.address.commons.events.ui.PasswordAcceptedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.util.ColorUtil;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.storage.SecurityManager;
 //@@author syy94
 
 /**
@@ -23,6 +25,8 @@ import seedu.address.model.person.ReadOnlyPerson;
  */
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
+    private static final String MESSAGE_ENTER_PASS = "Please enter the password";
+    private static final String MESSAGE_SELECT_PERSON = "Select a person to view their details.";
     private static final String LOG_IGNORED = "Currently not showing edited Person. Panel not updated";
     private static final String LOG_CHANGED = "Panel updated with new Person";
 
@@ -52,6 +56,15 @@ public class PersonDetailsPanel extends UiPart<Region> {
     public PersonDetailsPanel() {
         super(FXML);
         registerAsAnEventHandler(this);
+        setStartMessage();
+    }
+
+    private void setStartMessage() {
+        if (SecurityManager.passExists()) {
+            group.setText(MESSAGE_ENTER_PASS);
+        } else {
+            group.setText(MESSAGE_SELECT_PERSON);
+        }
     }
 
     /**
@@ -143,5 +156,11 @@ public class PersonDetailsPanel extends UiPart<Region> {
         } else {
             logger.info(LOG_IGNORED);
         }
+    }
+
+    @Subscribe
+    private void handlePasswordAcceptedEvent(PasswordAcceptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        group.setText(MESSAGE_SELECT_PERSON);
     }
 }

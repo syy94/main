@@ -66,6 +66,13 @@ public class PasswordCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PasswordCommand // instanceof handles nulls
+                && this.mode.equals(((PasswordCommand) other).mode)); // state check
+    }
+
     /**
      * PasswordMode to set Password
      */
@@ -130,8 +137,16 @@ public class PasswordCommand extends Command {
                     throw new CommandException(MESSAGE_WRONG_PASS + "\n" + MESSAGE_PASS_NOT_CHANGED);
                 }
             } else {
-                return new CommandResult(MESSAGE_NO_PASS_TO_CHANGE);
+                throw new CommandException(MESSAGE_NO_PASS_TO_CHANGE);
             }
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this // short circuit if same object
+                    || (other instanceof ChangePass // instanceof handles nulls
+                    && this.newPass.equals(((ChangePass) other).newPass)
+                    && super.equals(other)); // state check
         }
     }
 }

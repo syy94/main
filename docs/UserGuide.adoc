@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= humanDEX - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -10,7 +10,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103AUG2017-F11-B1/main
 
 By: `Team CS2103AUG2017-F11-B1`      Since: `Sep 2017`      Licence: `MIT`
 
@@ -354,7 +354,7 @@ Format: `switch NAME`
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [c/CUSTOMFIEILD_KEY:CUSTOMFIELD_VALUE] [g/GROUP]` +
+* *Add* `add n/NAME g/GROUP [p/PHONE_NUMBER] [e/EMAIL a/ADDRESS] [t/TAG] [c/CUSTOMFIEILD_KEY:CUSTOMFIELD_VALUE]` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague c/School:NUS g/Savings`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
