@@ -139,6 +139,7 @@ public class ColorUtil {
 ```
 ###### /java/seedu/address/logic/commands/commandmode/PasswordMode.java
 ``` java
+
 /**
  * Represents the modes that PasswordCommand is able to do
  */
@@ -158,6 +159,13 @@ public abstract class PasswordMode {
     }
 
     public abstract CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException;
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PasswordMode // instanceof handles nulls
+                && this.pass.equals(((PasswordMode) other).pass)); // state check
+    }
 }
 
 ```
@@ -264,6 +272,13 @@ public class PasswordCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PasswordCommand // instanceof handles nulls
+                && this.mode.equals(((PasswordCommand) other).mode)); // state check
+    }
+
     /**
      * PasswordMode to set Password
      */
@@ -328,14 +343,23 @@ public class PasswordCommand extends Command {
                     throw new CommandException(MESSAGE_WRONG_PASS + "\n" + MESSAGE_PASS_NOT_CHANGED);
                 }
             } else {
-                return new CommandResult(MESSAGE_NO_PASS_TO_CHANGE);
+                throw new CommandException(MESSAGE_NO_PASS_TO_CHANGE);
             }
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this // short circuit if same object
+                    || (other instanceof ChangePass // instanceof handles nulls
+                    && this.newPass.equals(((ChangePass) other).newPass)
+                    && super.equals(other)); // state check
         }
     }
 }
 ```
 ###### /java/seedu/address/logic/LogicManager.java
 ``` java
+
     /**
      * Takes in a password and checks with SecurityManager if the application should be unlocked.
      */
@@ -463,7 +487,7 @@ public class PasswordCommandParser implements Parser<PasswordCommand> {
 public class CustomField {
     public static final String MESSAGE_FIELD_CONSTRAINTS =
             "Custom fields should be 2 alphanumeric strings separated by ':'";
-    public static final String FIELD_VALIDATION_REGEX = "[\\w]+:[\\w]+";
+    public static final String FIELD_VALIDATION_REGEX = "(\\p{Alnum}+ *)+: *(\\p{Alnum}+ *)+";
 
     public final String key;
     public final String value;
@@ -476,8 +500,8 @@ public class CustomField {
         }
         final String[] fieldData = trimmedField.split(":", 2);
         requireAllNonNull(fieldData[0], fieldData[1]);
-        this.key = fieldData[0];
-        this.value = fieldData[1];
+        this.key = fieldData[0].trim().toUpperCase();
+        this.value = fieldData[1].trim();
     }
 
     /**
@@ -489,6 +513,17 @@ public class CustomField {
 
     @Override
     public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof CustomField)) {
+            return false;
+        }
+
+        // state check
         final CustomField other = (CustomField) obj;
         return key.equals(other.key) && value.equals(other.value);
     }
@@ -537,6 +572,7 @@ public class CustomField {
  */
 public class SecurityManager {
     private static String path = "data/pass";
+    private static final Logger logger = LogsCenter.getLogger(SecurityManager.class);
 
     public static void setPasswordStoragePath(String path) {
         SecurityManager.path = path;
@@ -574,7 +610,10 @@ public class SecurityManager {
     public static boolean unlock(String pass) throws IOException, NoSuchAlgorithmException {
         boolean isUnlocked = checkPass(pass);
         if (isUnlocked) {
+            logger.info("----------[PASSWORD ACCEPTED]");
             EventsCenter.getInstance().post(new PasswordAcceptedEvent());
+        } else {
+            logger.info("----------[PASSWORD REJECTED]");
         }
         return isUnlocked;
     }
@@ -665,6 +704,8 @@ public class XmlAdaptedCustomField {
  */
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
+    private static final String MESSAGE_ENTER_PASS = "Please enter the password";
+    private static final String MESSAGE_SELECT_PERSON = "Select a person to view their details.";
     private static final String LOG_IGNORED = "Currently not showing edited Person. Panel not updated";
     private static final String LOG_CHANGED = "Panel updated with new Person";
 
@@ -694,6 +735,15 @@ public class PersonDetailsPanel extends UiPart<Region> {
     public PersonDetailsPanel() {
         super(FXML);
         registerAsAnEventHandler(this);
+        setStartMessage();
+    }
+
+    private void setStartMessage() {
+        if (SecurityManager.passExists()) {
+            group.setText(MESSAGE_ENTER_PASS);
+        } else {
+            group.setText(MESSAGE_SELECT_PERSON);
+        }
     }
 
     /**
@@ -785,6 +835,12 @@ public class PersonDetailsPanel extends UiPart<Region> {
         } else {
             logger.info(LOG_IGNORED);
         }
+    }
+
+    @Subscribe
+    private void handlePasswordAcceptedEvent(PasswordAcceptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        group.setText(MESSAGE_SELECT_PERSON);
     }
 }
 ```

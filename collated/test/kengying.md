@@ -78,6 +78,14 @@ public class ListCommandTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS + " all") instanceof ListCommand);
     }
 ```
+###### /java/seedu/address/logic/parser/EditCommandParserTest.java
+``` java
+        // add tags
+        userInput = targetIndex.getOneBased() + GROUP_DESC_HEALTH;
+        descriptor = new EditPersonDescriptorBuilder().withGroup(VALID_GROUP_HEALTH).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+```
 ###### /java/seedu/address/logic/parser/ListCommandParserTest.java
 ``` java
 public class ListCommandParserTest {
