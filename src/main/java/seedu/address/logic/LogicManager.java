@@ -40,15 +40,21 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-
         if (isLocked) {
+            logger.info("----------------[USER COMMAND][Password Entered]");
             tryUnlock(commandText);
             if (isLocked) {
                 throw new CommandException(PasswordCommand.MESSAGE_WRONG_PASS);
             } else {
                 return new CommandResult("Welcome");
             }
+        }
+
+        //makes sure password does not get leaked to the logs
+        if (commandText.toLowerCase().contains(PasswordCommand.COMMAND_ALIAS)) {
+            logger.info("----------------[USER COMMAND][" + PasswordCommand.class.getSimpleName() + "]");
+        } else {
+            logger.info("----------------[USER COMMAND][" + commandText + "]");
         }
 
         try {
@@ -62,7 +68,12 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
 
+    @Override
+    public boolean getIsLocked() {
+        return isLocked;
+    }
     //@@author syy94
+
     /**
      * Takes in a password and checks with SecurityManager if the application should be unlocked.
      */

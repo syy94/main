@@ -9,8 +9,10 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PasswordAcceptedEvent;
 import seedu.address.commons.exceptions.WrongPasswordException;
 import seedu.address.commons.util.FileUtil;
@@ -22,6 +24,7 @@ import seedu.address.commons.util.FileUtil;
  */
 public class SecurityManager {
     private static String path = "data/pass";
+    private static final Logger logger = LogsCenter.getLogger(SecurityManager.class);
 
     public static void setPasswordStoragePath(String path) {
         SecurityManager.path = path;
@@ -59,7 +62,10 @@ public class SecurityManager {
     public static boolean unlock(String pass) throws IOException, NoSuchAlgorithmException {
         boolean isUnlocked = checkPass(pass);
         if (isUnlocked) {
+            logger.info("----------[PASSWORD ACCEPTED]");
             EventsCenter.getInstance().post(new PasswordAcceptedEvent());
+        } else {
+            logger.info("----------[PASSWORD REJECTED]");
         }
         return isUnlocked;
     }
