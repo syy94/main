@@ -158,8 +158,9 @@ Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP] [t/TAG]`
 * The order of the keywords does not matter. e.g. `find n\Hans n\Bo` will match `find n\Bo n\Hans`
 * For name, phone, and address, partial words will also be matched.
 e.g. `find p/9004` will match anyone whose phone number contains `9004`.
-* For email, the given email must also be in the correct form of an email.
+* For phone and email, the given input must also be in the correct form of the corresponding field.
 e.g. `find e/gmail` is invalid. `find e\_lee@nus.edu.sg` is valid.
+e.g. `find p/9` is invalid. Use the `sort` command instead if you want to categorize contacts by the starting digit of a phone number.
 * Persons matching at least one field will be returned (i.e. `OR` search).
 ****
 
@@ -167,10 +168,10 @@ Examples:
 
 * `find n/John` +
 Returns `Johnathan Kim` and `John Doe`
-* `find n/Bet p/9999 e/helloTim@gmail.com` +
-Returns any person having names containing `Bet`, a phone number containing `9999`, or email address `helloTim@gmail.com`
+* `find n/Bet p/9999 e/helloTim@gexample.com` +
+Returns any person having names containing `Bet`, a phone number containing `9999`, or email address `helloTim@gexample.com`
 * `find t/shopkeeper g/Retail`
-Returns any persons with the `shopkeeper` tag in the `Retail` group.
+Returns any persons who has the `shopkeeper` tag or is in the `Retail` group.
 // end::find[]
 
 === Deleting a person : `delete`
