@@ -389,7 +389,7 @@ private Optional<List<Name>> parseNamesForSearch(List<String> names) throws Ille
 
 The method above returns an Optional so that when a user does not input any name fields to search, the method still returns. +
 
-These parsed arguments are delivered to the `PersonContainsKeywordsPredicate` (`Predicate`) by creating a `FindFields` class within the `PersonContainsKeywordsPredicate` class. For each searchable field, the FindFields class uses a list to store the search inputs. For instance, keywords that are a `Name` are saved in a list like below. +
+These parsed arguments are delivered to the `PersonContainsKeywordsPredicate` (`Predicate`) by creating a `FindFields` object that is located within the `PersonContainsKeywordsPredicate` class. For each searchable field, the `FindFields` class uses a list to store the search inputs. For instance, keywords that are a `Name` are saved in a list like below. +
 
 [source,java]
 ----
@@ -419,8 +419,9 @@ By having a method that returns a stream, the stream is able to call the `anyMat
 
 After successful parsing, `FindCommand` is executed as per other commands. The `find` command now returns partial matches. +
 
-The diagram below shows how the enhanced `find` command works. +
+The sequence diagram below shows how the enhanced `find` command works. +
 
+image::SDForFind.png[width="800"]
 
 ==== Design Considerations
 
@@ -431,6 +432,12 @@ The diagram below shows how the enhanced `find` command works. +
 **Alternative 2:** Implement an overloaded constructor for `Email` that surpasses validation. +
 **Pros:** Will allow more flexible uses for users. +
 **Cons:** The team needs to agree on whether implementing an overloaded constructor is useful in terms of the entire software. Not having enough uses for the constructor may call for other solutions.
+
+==== Improvements
+
+**Improvement:** Create new constructor for `Email` and `Phone` so that any type of input can be processed without a validation warning. For each constructor, provide a boolean `needsValidation` value to flag whether the `value` must be validated. This can be a quick fix to enhancing the `find` method so that any input can be used as a `FindField` element,
+ without changing too much of the code. +
+
 // end::find[]
 
 // tag::customfield[]
@@ -504,13 +511,15 @@ _Figure 2.1.1 : `list` Diagram_
 
 The `sort` command allows users to sort their contacts by any given field, with the exception of `Tag`. It is an undoable command.
 
-=== Implementation
+==== Implementation
 
-Upon executing the command, the `model` executes `sortFilteredPersonList`, which sorts the AddressBook according to the given field. +
+The following sequence diagram represents the sort command.
 
-To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `compare` method, that holds a static `Prefix` variable to compare two `ReadOnlyPerson` objects by. +
+image::SDForSort.png[width="800"]
 
-The implementation involves a UI element, implemented using Java FX. A dropdown UI element is more intuitive for users who prefer GUI controls over CLI controls. A `SortControls` stack plane is placed inside the `PersonList` vertical box. When a user selects a sort parameter from the dropdown, it triggers the logic to execute a command with the relevant parameter. +
+In the sequence diagram, the sequence after the `Model` calls `sortPersonsList(Prefix prefix)` are omitted. The `Model` executes `sortFilteredPersonList`, which sorts the `internalList` using a custom comparator. A `ReadOnlyPersonComparator` has been defined with an overridden `compare` method, that holds a static `Prefix` variable to compare two `ReadOnlyPerson` objects by. The comparator returns an appropriate integer after comparing two `ReadOnlyPerson` objects based on the field identified by the given `prefix`. +
+
+The implementation also involves a UI element, implemented using Java FX. A dropdown UI element is more intuitive for users who prefer GUI controls over CLI controls. A `SortControls` stack plane is placed inside the `PersonList` vertical box. When a user selects a sort parameter from the dropdown, it triggers the logic to execute a command with the relevant parameter. +
 
 A `ComboBox` was used to implement the dropdown. CSS codes were written for the dropdown so that the dropdown and the list cells change shade upon `hover`. This improves the user experience by explicitly showing the system response. +
 
@@ -523,6 +532,15 @@ A `ComboBox` was used to implement the dropdown. CSS codes were written for the 
 **Alternative 2:** Implement `SortCommand` as an ordinary command +
 **Pros:** Easier to implement. +
 **Cons:** When sorting by multiple parameters is enabled, users may wish to revert their address book to the original state after revising the sorted version. Thus not being able to undo a sort will lead to low usability.
+
+**Aspect:** Command word of `SortCommand` +
+**Alternative 1 (current choice):** Use the prefixes (e.g., n/) for the sort command word. +
+**Pros:** Easy for users, as other commands use the prefixes for distinguishing between fields. +
+**Cons:** Some users may feel it not so intuitive. Difficult to standardize. +
+**Alternative 3:** Use the name of the field (e.g., name) for the sort command word. +
+**Pros:** Can be more intuitive. Matching each prefix to the field name can be useful in other parts of the code as well (e.g., returning the `name` comparator for the `n/` prefix), although implementing this may be an overkill. +
+**Cons:** Inconsistent with the other commands. +
+**Mitigation:** Enable a UI element for the same command, so that users who feel it unintuitive to use the prefixes as the command word can use this alternative.
 // end::sort[]
 
 // tag::editindividual[]
@@ -1216,19 +1234,3 @@ Group
 A 'Group' is a broad category that users can categorize their contacts into. For instance, these can include school names ('NUS') or relationships ('work').
 ....
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...

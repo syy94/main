@@ -32,8 +32,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* *`list`**`all` : lists all contacts
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 g/Savings` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -96,7 +96,7 @@ Examples:
 === [Since v1.3] [Since v1.4] Sorts and lists all persons using fields : `sort`
 
 Sorts the most recent persons listing by the given parameter in lexicographic order. +
-Format: `sort [prefix]`
+Format: `sort [prefix]...`
 
 [TIP]
 prefix includes [n/] [p/] [e/] [a/] [g/]
@@ -105,7 +105,7 @@ prefix includes [n/] [p/] [e/] [a/] [g/]
 * Sorts list based on one given parameter from: Name, Phone, Email, Address, or Group.
 * If no parameter is given, sorts list by the contacts' names in alphabetical order.
 * Cannot sort using multiple parameters.
-* An empty contact list cannot be sorted.
+* Cannot sort an empty contact list.
 * A sorted contacts list can be unsorted by using the command `undo`.
 * Sort can also be done by using the filter dropdown above the persons list, as follows:
 ****
@@ -153,16 +153,17 @@ Clears all existing custom fields and adds the custom field `School:NUS`.
 === [Since v1.2] Locating persons by other fields: `find`
 
 Finds persons whose field matches any of the given fields.
-Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP] [t/TAG]`
+Format: `find prefix/INPUT [n/NAME]... [p/PHONE]... [e/EMAIL]... [a/ADDRESS]... [g/GROUP]... [t/TAG]...`
 
 ****
 * The search is case insensitive. e.g `Email@Email.com` will match `email@email.com`
-* Any field, with the exception of tags, will be searched.
+* Any field will be searched.
 * The order of the keywords does not matter. e.g. `find n\Hans n\Bo` will match `find n\Bo n\Hans`
 * For name, phone, and address, partial words will also be matched.
 e.g. `find p/9004` will match anyone whose phone number contains `9004`.
-* For email, the given email must also be in the correct form of an email.
+* For phone and email, the given input must also be in the correct form of the corresponding field.
 e.g. `find e/gmail` is invalid. `find e\_lee@nus.edu.sg` is valid.
+e.g. `find p/9` is invalid. Use the `sort` command instead if you want to categorize contacts by the starting digit of a phone number.
 * Persons matching at least one field will be returned (i.e. `OR` search).
 ****
 
@@ -170,10 +171,10 @@ Examples:
 
 * `find n/John` +
 Returns `Johnathan Kim` and `John Doe`
-* `find n/Bet p/9999 e/helloTim@gmail.com` +
-Returns any person having names containing `Bet`, a phone number containing `9999`, or email address `helloTim@gmail.com`
+* `find t/colleagues t/friends` +
+Returns any person who has a `colleague` tag or a `friends` tag.
 * `find t/shopkeeper g/Retail`
-Returns any persons with the `shopkeeper` tag in the `Retail` group.
+Returns any persons who has the `shopkeeper` tag or is in the `Retail` group.
 // end::find[]
 
 === Deleting a person : `delete`
@@ -192,7 +193,7 @@ Examples:
 * `list all` +
 `delete 2` +
 Deletes the 2nd person in the address book.
-* `find Betsy` +
+* `find n/Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
@@ -212,7 +213,7 @@ Examples:
 * `list all` +
 `select 2` +
 Selects the 2nd person in the address book.
-* `find Betsy` +
+* `find n/Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
@@ -305,29 +306,6 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-== Features v1.5
-
-=== [Coming in v1.5] Locating and listing persons by tag and/or group: `find`
-
-Finds persons who belongs to at least one of the given tags and/or groups. +
-Format: `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...`
-
-****
-* The search is case insensitive. e.g `Friend` will match `friend`
-* Only full words will be matched e.g. `Enem` will not match `Enemy`
-* Persons matching at least one tag or group will be returned (i.e. `OR` search). e.g. `t/Friend t/NUS g/Google` will return `John Smith ... t/friend g/google` and `Sarah Li ... t/NUS`
-****
-
-=== [Coming in v1.5] Listing the edit history of a contact : `edit_history`
-
-Lists all edit history of the person, identified by the index number used in the last person listing, in reverse chronological order. +
-Format: `edit_history INDEX`
-
-Examples:
-
-* `edit 1 p/12341234` +
-`edit_history 1` (prints: `phone number changed from ******** to 12341234`
-
 == Features v2.0
 
 === [Coming in v2.0] Creating a new humanDEX : `new_humanDEX`
@@ -350,6 +328,16 @@ Format: `switch NAME`
 * A new humanDEX interface will popup.
 ***
 
+=== [Coming in v2.0] Listing the edit history of a contact : `edit_history`
+
+Lists all edit history of the person, identified by the index number used in the last person listing, in reverse chronological order. +
+Format: `edit_history INDEX`
+
+Examples:
+
+* `edit 1 p/12341234` +
+`edit_history 1` (prints: `phone number changed from ******** to 12341234`
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -364,25 +352,20 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [-t/TAG]... [+t/TAG]... [clearTag/] [g/GROUP]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find by Name* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *Find by Phone / Email / Address* : `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]...` +
+* *Find by field* : `find [n/NAME]... [p/PHONE]... [e/EMAIL]... [a/ADDRESS]... [t/TAG]... [g/GROUP]...` +
 e.g. `find p/99991234`
-* *Find by Tag or Group* : `find [t/TAG] [t/MORE_TAGS] [g/GROUP] [g/MORE_GROUPS]...` +
-e.g. `find t/friend`
+e.g. `find t/colleagues t/clients g/Savings`
 * *List* : `list [SEARCH_TERM]`
 e.g. `list tags`
 e.g. `list groups`
 e.g. `list all`
 * *Sort (by name)* : `sort`
-* *Sort* : `sort [n/] [p/] [e/] [a/] [t/]...` +
+* *Sort* : `sort [n/] [p/] [e/] [a/] [t/]` +
 e.g. `sort n/ a/`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
-* *Edit History* : `edit_history INDEX` +
-e.g. `edit_history 1`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Password Management*

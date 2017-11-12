@@ -67,7 +67,7 @@ public class SortControls extends UiPart<Region> {
     private void handleItemSelection() {
         sortByDropdown.setOnAction((event) -> {
             String selectedField = sortByDropdown.getSelectionModel().getSelectedItem().toString();
-            Prefix prefix = null;
+            Prefix prefix;
             switch (selectedField) {
             case "Name": prefix = PREFIX_NAME;
                 break;

@@ -1,4 +1,3 @@
-//@@author sofarsophie
 package seedu.address.model.person;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -11,6 +10,7 @@ import java.util.Comparator;
 
 import seedu.address.logic.parser.Prefix;
 
+//@@author sofarsophie
 /**
  * A comparator for comparing two {@code ReadOnlyPerson} objects by a given field identified the given {@code Prefix}.
  */
@@ -42,8 +42,9 @@ public class ReadOnlyPersonComparator implements Comparator<ReadOnlyPerson> {
             return a.getGroup().compareTo(b.getGroup());
         } else if (compareByPrefix.equals(PREFIX_NAME)) {
             return a.getName().compareTo(b.getName());
+        } else {
+            return 0;
         }
-        return 0;
     }
 
 }
