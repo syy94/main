@@ -389,7 +389,7 @@ private Optional<List<Name>> parseNamesForSearch(List<String> names) throws Ille
 
 The method above returns an Optional so that when a user does not input any name fields to search, the method still returns. +
 
-These parsed arguments are delivered to the `PersonContainsKeywordsPredicate` (`Predicate`) by creating a `FindFields` class within the `PersonContainsKeywordsPredicate` class. For each searchable field, the FindFields class uses a list to store the search inputs. For instance, keywords that are a `Name` are saved in a list like below. +
+These parsed arguments are delivered to the `PersonContainsKeywordsPredicate` (`Predicate`) by creating a `FindFields` object that is located within the `PersonContainsKeywordsPredicate` class. For each searchable field, the `FindFields` class uses a list to store the search inputs. For instance, keywords that are a `Name` are saved in a list like below. +
 
 [source,java]
 ----
@@ -419,8 +419,9 @@ By having a method that returns a stream, the stream is able to call the `anyMat
 
 After successful parsing, `FindCommand` is executed as per other commands. The `find` command now returns partial matches. +
 
-The diagram below shows how the enhanced `find` command works. +
+The sequence diagram below shows how the enhanced `find` command works. +
 
+image::SDForFind.png[width="800"]
 
 ==== Design Considerations
 
@@ -512,11 +513,13 @@ The `sort` command allows users to sort their contacts by any given field, with 
 
 ==== Implementation
 
-Upon executing the command, the `model` executes `sortFilteredPersonList`, which sorts the AddressBook according to the given field. +
+The following sequence diagram represents the sort command.
 
-To enable the sort, a `ReadOnlyPersonComparator` is defined with an overridden `compare` method, that holds a static `Prefix` variable to compare two `ReadOnlyPerson` objects by. +
+image::SDForSort.png[width="800"]
 
-The implementation involves a UI element, implemented using Java FX. A dropdown UI element is more intuitive for users who prefer GUI controls over CLI controls. A `SortControls` stack plane is placed inside the `PersonList` vertical box. When a user selects a sort parameter from the dropdown, it triggers the logic to execute a command with the relevant parameter. +
+In the sequence diagram, the sequence after the `Model` calls `sortPersonsList(Prefix prefix)` are omitted. The `Model` executes `sortFilteredPersonList`, which sorts the `internalList` using a custom comparator. A `ReadOnlyPersonComparator` has been defined with an overridden `compare` method, that holds a static `Prefix` variable to compare two `ReadOnlyPerson` objects by. The comparator returns an appropriate integer after comparing two `ReadOnlyPerson` objects based on the field identified by the given `prefix`. +
+
+The implementation also involves a UI element, implemented using Java FX. A dropdown UI element is more intuitive for users who prefer GUI controls over CLI controls. A `SortControls` stack plane is placed inside the `PersonList` vertical box. When a user selects a sort parameter from the dropdown, it triggers the logic to execute a command with the relevant parameter. +
 
 A `ComboBox` was used to implement the dropdown. CSS codes were written for the dropdown so that the dropdown and the list cells change shade upon `hover`. This improves the user experience by explicitly showing the system response. +
 
@@ -538,7 +541,6 @@ A `ComboBox` was used to implement the dropdown. CSS codes were written for the 
 **Pros:** Can be more intuitive. Matching each prefix to the field name can be useful in other parts of the code as well (e.g., returning the `name` comparator for the `n/` prefix), although implementing this may be an overkill. +
 **Cons:** Inconsistent with the other commands. +
 **Mitigation:** Enable a UI element for the same command, so that users who feel it unintuitive to use the prefixes as the command word can use this alternative.
-
 // end::sort[]
 
 // tag::editindividual[]
