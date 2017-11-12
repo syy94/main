@@ -21,7 +21,6 @@ public class ListTagCommand extends ListCommand {
     @Override
     public CommandResult execute() {
         List<Tag> listTags = model.getTagList();
-        System.out.println(listTags);
         return new CommandResult(String.format(MESSAGE_SUCCESS + " " + listTags.toString().replaceAll("[\\[\\]]", "")));
     }
 

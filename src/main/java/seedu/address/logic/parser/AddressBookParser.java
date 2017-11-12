@@ -48,7 +48,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (firstLetterToLowerCase(commandWord)) {
 
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_ALIAS:
@@ -74,17 +74,17 @@ public class AddressBookParser {
         case FindCommand.COMMAND_ALIAS:
             return new FindCommandParser().parse(arguments);
 
-        //@@ author kengying
+        //@@author kengying
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:
             return new ListCommandParser().parse(arguments);
-        //@@ author
+        //@@author
 
-            //@@author sofarsophie
+        //@@author sofarsophie
         case SortCommand.COMMAND_WORD:
         case SortCommand.COMMAND_ALIAS:
             return new SortCommandParser().parse(arguments);
-            //@@author
+        //@@author
 
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:
@@ -114,4 +114,10 @@ public class AddressBookParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+
+    //@@author kengying
+    private String firstLetterToLowerCase(String commandWord) {
+        return commandWord.substring(0, 1).toLowerCase() + commandWord.substring(1);
+    }
+    //@@author
 }

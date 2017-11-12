@@ -21,7 +21,6 @@ public class ListGroupCommand extends ListCommand {
     @Override
     public CommandResult execute() {
         List<Group> listGroups = model.getGroupList();
-        System.out.println(listGroups);
         return new CommandResult(String.format(MESSAGE_SUCCESS + " "
                 + listGroups.toString().replaceAll("[\\[\\]]", "")));
     }

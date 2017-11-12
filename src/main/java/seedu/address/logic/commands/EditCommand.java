@@ -55,7 +55,7 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_ADD_TAG + "TAG]... "
             + "[" + PREFIX_REMOVE_TAG + "TAG]... "
-            + PREFIX_CLEAR_TAG + "\n"
+            + "[" + PREFIX_CLEAR_TAG + "]\n"
             + "[" + PREFIX_CUSTOM_FIELD + "KEY:VALUE]...\n"
             + "[" + PREFIX_GROUP + "GROUP] "
             + "Example: " + COMMAND_WORD + " 1 "
