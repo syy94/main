@@ -1,8 +1,7 @@
 = humanDEX Manual Testing
-:toc:
-:toc-placement: preamble
-:imagesDir: images
-:stylesDir: stylesheets
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == Project Configuration
 1. Run *humanDEX.jar* to generate default files and folder. +
@@ -13,7 +12,7 @@
 
 == Testing instruction
 
-==== 1.1 Add Contact
+=== 1.1 Add Contact
 
 *user actions* +
 1. User adding `Katie Harbour`. +
@@ -25,7 +24,7 @@
 1. New person added: Katie Harbour Phone: 98889898 Email: katie_harbour@example.com Address: 311, Clementi Ave 2, #02-25 Group: Health Fields: [NEXT MEETING:Dec 3] Tags: 1year +
 
 ---
-==== 1.2 Add Contact, Partial field
+=== 1.2 Add Contact, Partial field
 
 *user actions* +
 1. User adding `Tom Timmy`. +
@@ -37,7 +36,7 @@
 1. New person added: Tom Timmy Phone:  Email: tom@example.com Address:  Group: Savings Fields: [] Tags:  +
 
 ---
-==== 2.1 Edit Contact
+=== 2.1 Edit Contact
 
 *user actions* +
 1. User edit `Alice Pang` to `Alicey Pang`, add tag `friends` and delete `client`. +
@@ -52,7 +51,7 @@
 2. Edited Person: Grover Johnson Phone: 99831125 Email: johnson@example.com Address:  Group: AXA Fields: [] Tags:  +
 
 ---
-==== 3.1 List contacts, tags, groups
+=== 3.1 List contacts, tags, groups
 
 *user actions* +
 1. User list all contact based on last sorted/unsorted order. +
@@ -70,7 +69,7 @@
 3. List all groups:  AXA, Allianz, Health, House, Predontial, Retail, Saving, Savings, Travel +
 
 ---
-==== 4.1 Sort
+=== 4.1 Sort
 
 *user actions* +
 1. User sort by prefix p/ +
@@ -88,7 +87,7 @@
 3. Sorted list! +
 
 ---
-==== 5.1 Find
+=== 5.1 Find
 
 *user actions* +
 1. User find name with alice or phone number that contain 910 or custom field with meeting. +
@@ -100,7 +99,7 @@
 1. 6 persons listed! +
 
 ---
-==== 6.1 Delete
+=== 6.1 Delete
 
 *user actions* +
 1. User list all contacts +
@@ -115,7 +114,7 @@
 2. Deleted Person: Xina Gin Phone: 928401923 Email: gin@example.com Address: Kovan Av 87, Blk 19 Group: Predontial Fields: [STATUS:Signed, PAYMENT:Yearly] Tags: Client +
 
 ---
-==== 7.1 Select
+=== 7.1 Select
 
 *user actions* +
 1. User select index 1 +
@@ -127,7 +126,7 @@
 1. Selected Person: 1 +
 
 ---
-==== 8.1 Undo, Redo
+=== 8.1 Undo, Redo
 
 *user actions* +
 1. User request undo +
@@ -142,7 +141,7 @@
 2. Redo success! +
 
 ---
-==== 9.1 Password, add
+=== 9.1 Password, add
 
 *user actions* +
 1. User add password +
@@ -160,7 +159,7 @@
 2. Welcome +
 
 ---
-==== 9.2 Password, clear
+=== 9.2 Password, clear
 
 *user actions* +
 1. User clear password +
@@ -172,7 +171,7 @@
 1. Password Cleared +
 
 ---
-==== 9.3 Password, change
+=== 9.3 Password, change
 
 *user actions* +
 1. User add password +
@@ -187,7 +186,7 @@
 2. Password Changed +
 
 ---
-==== 10.1 Help
+=== 10.1 Help
 
 *user actions* +
 1. User open help. +
