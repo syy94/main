@@ -128,6 +128,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ? Collections.emptyList() : addresses;
         return Optional.of(ParserUtil.parseAddresses(addressList));
     }
+    //@@author
 
     //@@author kengying
     /**
@@ -181,6 +182,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
     //@@author
 
+    //@@author sofarsophie
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.

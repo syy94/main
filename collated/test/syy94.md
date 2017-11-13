@@ -10,7 +10,7 @@
                         + TAG_DESC_FRIEND + FIELD_DESC_SCHOOL + FIELD_DESC_COMPANY,
                 new AddCommand(expectedPersonMultipleFields));
 ```
-###### \java\seedu\address\logic\parser\EditCommandParserTest.java
+###### /java/seedu/address/logic/parser/EditCommandParserTest.java
 ``` java
         // add tags
         userInput = targetIndex.getOneBased() + TAG_ADD_DESC_FRIEND;
@@ -36,7 +36,7 @@
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 ```
-###### \java\seedu\address\logic\parser\PasswordCommandParserTest.java
+###### /java/seedu/address/logic/parser/PasswordCommandParserTest.java
 ``` java
 public class PasswordCommandParserTest {
     private PasswordCommandParser parser = new PasswordCommandParser();
@@ -84,7 +84,7 @@ public class PasswordCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\UnlockApplicationTest.java
+###### /java/seedu/address/logic/UnlockApplicationTest.java
 ``` java
     private static final String testPass = "testPass";
 
@@ -107,7 +107,7 @@ public class PasswordCommandParserTest {
         SecurityManager.removePass(testPass);
     }
 ```
-###### \java\seedu\address\testutil\EditPersonDescriptorBuilder.java
+###### /java/seedu/address/testutil/EditPersonDescriptorBuilder.java
 ``` java
 
     /**
@@ -160,7 +160,7 @@ public class PasswordCommandParserTest {
         return descriptor;
     }
 ```
-###### \java\seedu\address\testutil\PersonBuilder.java
+###### /java/seedu/address/testutil/PersonBuilder.java
 ``` java
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
@@ -236,7 +236,7 @@ public class PasswordCommandParserTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 ```
-###### \java\systemtests\PasswordCommandSystemTest.java
+###### /java/systemtests/PasswordCommandSystemTest.java
 ``` java
 public class PasswordCommandSystemTest extends AddressBookSystemTest {
 

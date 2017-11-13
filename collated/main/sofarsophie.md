@@ -201,7 +201,18 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ? Collections.emptyList() : addresses;
         return Optional.of(ParserUtil.parseAddresses(addressList));
     }
+```
+###### /java/seedu/address/logic/parser/FindCommandParser.java
+``` java
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
 
+}
 ```
 ###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
@@ -543,18 +554,6 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
 ```
 ###### \java\seedu\address\model\person\ReadOnlyPersonComparator.java
 ``` java
-package seedu.address.model.person;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-
-import java.util.Comparator;
-
-import seedu.address.logic.parser.Prefix;
-
 /**
  * A comparator for comparing two {@code ReadOnlyPerson} objects by a given field identified the given {@code Prefix}.
  */
@@ -586,8 +585,9 @@ public class ReadOnlyPersonComparator implements Comparator<ReadOnlyPerson> {
             return a.getGroup().compareTo(b.getGroup());
         } else if (compareByPrefix.equals(PREFIX_NAME)) {
             return a.getName().compareTo(b.getName());
+        } else {
+            return 0;
         }
-        return 0;
     }
 
 }
@@ -687,7 +687,7 @@ public class SortControls extends UiPart<Region> {
     private void handleItemSelection() {
         sortByDropdown.setOnAction((event) -> {
             String selectedField = sortByDropdown.getSelectionModel().getSelectedItem().toString();
-            Prefix prefix = null;
+            Prefix prefix;
             switch (selectedField) {
             case "Name": prefix = PREFIX_NAME;
                 break;
