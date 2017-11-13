@@ -1,5 +1,5 @@
 # sofarsophie
-###### /java/seedu/address/logic/commands/AddCommandTest.java
+###### \java\seedu\address\logic\commands\AddCommandTest.java
 ``` java
         @Override
         public ObservableList<ReadOnlyPerson> sortFilteredPersonList(
@@ -13,13 +13,13 @@
             fail("This method should not be called.");
         }
 ```
-###### /java/seedu/address/logic/commands/CommandTestUtil.java
+###### \java\seedu\address\logic\commands\CommandTestUtil.java
 ``` java
         PersonContainsKeywordsPredicate.FindFields fieldsToFind = new FindFieldsBuilder().withName(splitName[0])
                 .build();
         model.updateFilteredPersonList(new PersonContainsKeywordsPredicate(fieldsToFind));
 ```
-###### /java/seedu/address/logic/commands/FindCommandTest.java
+###### \java\seedu\address\logic\commands\FindCommandTest.java
 ``` java
         PersonContainsKeywordsPredicate.FindFields firstField = new FindFieldsBuilder().withName("first").build();
         PersonContainsKeywordsPredicate firstPredicate =
@@ -28,7 +28,7 @@
         PersonContainsKeywordsPredicate secondPredicate =
                 new PersonContainsKeywordsPredicate(secondField);
 ```
-###### /java/seedu/address/logic/commands/FindCommandTest.java
+###### \java\seedu\address\logic\commands\FindCommandTest.java
 ``` java
     @Test
     public void execute_zeroKeywords_noPersonFound() {
@@ -70,7 +70,7 @@
         FindCommand command =
                 new FindCommand(new PersonContainsKeywordsPredicate(fieldsToFind));
 ```
-###### /java/seedu/address/logic/commands/SortCommandTest.java
+###### \java\seedu\address\logic\commands\SortCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) and unit tests for SortCommand.
@@ -122,7 +122,7 @@ public class SortCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/FindCommandParserTest.java
+###### \java\seedu\address\logic\parser\FindCommandParserTest.java
 ``` java
     @Test
     public void parse_multiWhiteSpaceValidArgs_returnsFindCommand() {
@@ -155,13 +155,13 @@ public class SortCommandTest {
                 + " " + PREFIX_PHONE + "89898989", expectedFindCommand);
     }
 ```
-###### /java/seedu/address/logic/parser/FindCommandParserTest.java
+###### \java\seedu\address\logic\parser\FindCommandParserTest.java
 ``` java
         // Wrong prefix
         assertParseFailure(parser, FindCommand.COMMAND_WORD + " y/" + "Alice",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
 ```
-###### /java/seedu/address/logic/parser/SortCommandParserTest.java
+###### \java\seedu\address\logic\parser\SortCommandParserTest.java
 ``` java
 public class SortCommandParserTest {
 
@@ -197,7 +197,7 @@ public class SortCommandParserTest {
 
 }
 ```
-###### /java/seedu/address/model/person/PersonContainsKeywordsPredicateTest.java
+###### \java\seedu\address\model\person\PersonContainsKeywordsPredicateTest.java
 ``` java
         // Keywords match phone, email and address, but does not match name
         PersonContainsKeywordsPredicate.FindFields differentMatchFields = new FindFieldsBuilder().withPhone("12345")
@@ -207,7 +207,7 @@ public class SortCommandParserTest {
         assertTrue(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
 ```
-###### /java/seedu/address/testutil/FindFieldsBuilder.java
+###### \java\seedu\address\testutil\FindFieldsBuilder.java
 ``` java
 /**
  * A utility class to help with building FindFields objects.

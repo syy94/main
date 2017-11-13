@@ -1,5 +1,5 @@
 # syy94
-###### /java/seedu/address/commons/events/model/PersonEditedEvent.java
+###### \java\seedu\address\commons\events\model\PersonEditedEvent.java
 ``` java
 
 /**
@@ -39,7 +39,7 @@ public class PersonEditedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/PasswordAcceptedEvent.java
+###### \java\seedu\address\commons\events\ui\PasswordAcceptedEvent.java
 ``` java
 /**
  * Represents the password is accepted.
@@ -57,7 +57,7 @@ public class PasswordAcceptedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/util/ColorUtil.java
+###### \java\seedu\address\commons\util\ColorUtil.java
 ``` java
 
 /**
@@ -110,7 +110,7 @@ public class ColorUtil {
     }
 }
 ```
-###### /java/seedu/address/commons/util/StringUtil.java
+###### \java\seedu\address\commons\util\StringUtil.java
 ``` java
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
@@ -137,8 +137,9 @@ public class ColorUtil {
         return preppedSentence.contains(preppedWord);
     }
 ```
-###### /java/seedu/address/logic/commands/commandmode/PasswordMode.java
+###### \java\seedu\address\logic\commands\commandmode\PasswordMode.java
 ``` java
+
 /**
  * Represents the modes that PasswordCommand is able to do
  */
@@ -158,10 +159,17 @@ public abstract class PasswordMode {
     }
 
     public abstract CommandResult execute() throws IOException, NoSuchAlgorithmException, CommandException;
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PasswordMode // instanceof handles nulls
+                && this.pass.equals(((PasswordMode) other).pass)); // state check
+    }
 }
 
 ```
-###### /java/seedu/address/logic/commands/EditCommand.java
+###### \java\seedu\address\logic\commands\EditCommand.java
 ``` java
         Set<CustomField> updatedFields = editPersonDescriptor.getFieldsList().orElse(personToEdit.getFields());
 
@@ -174,7 +182,7 @@ public abstract class PasswordMode {
         editPersonDescriptor.getToAdd().ifPresent(updatedTags::addAll);
         editPersonDescriptor.getToRemove().ifPresent(updatedTags::removeAll);
 ```
-###### /java/seedu/address/logic/commands/EditCommand.java
+###### \java\seedu\address\logic\commands\EditCommand.java
 ``` java
         public void setFieldsList(Set<CustomField> fieldsList) {
             this.fieldsList = fieldsList;
@@ -208,7 +216,7 @@ public abstract class PasswordMode {
             this.toRemove = toRemove;
         }
 ```
-###### /java/seedu/address/logic/commands/PasswordCommand.java
+###### \java\seedu\address\logic\commands\PasswordCommand.java
 ``` java
 
 /**
@@ -262,6 +270,13 @@ public class PasswordCommand extends Command {
         } catch (NoSuchAlgorithmException e) {
             throw new CommandException(MESSAGE_NO_SUCH_ALGORITHM);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PasswordCommand // instanceof handles nulls
+                && this.mode.equals(((PasswordCommand) other).mode)); // state check
     }
 
     /**
@@ -328,14 +343,23 @@ public class PasswordCommand extends Command {
                     throw new CommandException(MESSAGE_WRONG_PASS + "\n" + MESSAGE_PASS_NOT_CHANGED);
                 }
             } else {
-                return new CommandResult(MESSAGE_NO_PASS_TO_CHANGE);
+                throw new CommandException(MESSAGE_NO_PASS_TO_CHANGE);
             }
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this // short circuit if same object
+                    || (other instanceof ChangePass // instanceof handles nulls
+                    && this.newPass.equals(((ChangePass) other).newPass)
+                    && super.equals(other)); // state check
         }
     }
 }
 ```
-###### /java/seedu/address/logic/LogicManager.java
+###### \java\seedu\address\logic\LogicManager.java
 ``` java
+
     /**
      * Takes in a password and checks with SecurityManager if the application should be unlocked.
      */
@@ -349,13 +373,13 @@ public class PasswordCommand extends Command {
         }
     }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParser.java
+###### \java\seedu\address\logic\parser\AddressBookParser.java
 ``` java
         case PasswordCommand.COMMAND_WORD:
         case PasswordCommand.COMMAND_ALIAS:
             return new PasswordCommandParser().parse(arguments);
 ```
-###### /java/seedu/address/logic/parser/CliSyntax.java
+###### \java\seedu\address\logic\parser\CliSyntax.java
 ``` java
     public static final Prefix PREFIX_ADD_TAG = new Prefix("+t/");
     public static final Prefix PREFIX_REMOVE_TAG = new Prefix("-t/");
@@ -365,7 +389,7 @@ public class PasswordCommand extends Command {
     public static final Prefix PREFIX_NEW_PASS = new Prefix("new/");
     public static final Prefix PREFIX_CLEAR_PASS = new Prefix("clearPwd/");
 ```
-###### /java/seedu/address/logic/parser/FindCommandParser.java
+###### \java\seedu\address\logic\parser\FindCommandParser.java
 ``` java
     /**
      * Parses {@code List<String> fields} into a {@code List<CustomField>} if {@code fields} is non-empty.
@@ -383,7 +407,7 @@ public class PasswordCommand extends Command {
         return Optional.of(fieldList);
     }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     /**
      *
@@ -404,7 +428,7 @@ public class PasswordCommand extends Command {
         return new CustomField(field);
     }
 ```
-###### /java/seedu/address/logic/parser/PasswordCommandParser.java
+###### \java\seedu\address\logic\parser\PasswordCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new PasswordCommand object
@@ -454,7 +478,7 @@ public class PasswordCommandParser implements Parser<PasswordCommand> {
     }
 }
 ```
-###### /java/seedu/address/model/customfields/CustomField.java
+###### \java\seedu\address\model\customfields\CustomField.java
 ``` java
 /**
  * Represents a field as created by the user in the address book.
@@ -463,7 +487,7 @@ public class PasswordCommandParser implements Parser<PasswordCommand> {
 public class CustomField {
     public static final String MESSAGE_FIELD_CONSTRAINTS =
             "Custom fields should be 2 alphanumeric strings separated by ':'";
-    public static final String FIELD_VALIDATION_REGEX = "[\\w]+:[\\w]+";
+    public static final String FIELD_VALIDATION_REGEX = "(\\p{Alnum}+ *)+: *(\\p{Alnum}+ *)+";
 
     public final String key;
     public final String value;
@@ -476,8 +500,8 @@ public class CustomField {
         }
         final String[] fieldData = trimmedField.split(":", 2);
         requireAllNonNull(fieldData[0], fieldData[1]);
-        this.key = fieldData[0];
-        this.value = fieldData[1];
+        this.key = fieldData[0].trim().toUpperCase();
+        this.value = fieldData[1].trim();
     }
 
     /**
@@ -489,6 +513,17 @@ public class CustomField {
 
     @Override
     public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof CustomField)) {
+            return false;
+        }
+
+        // state check
         final CustomField other = (CustomField) obj;
         return key.equals(other.key) && value.equals(other.value);
     }
@@ -513,7 +548,7 @@ public class CustomField {
     }
 }
 ```
-###### /java/seedu/address/model/person/Person.java
+###### \java\seedu\address\model\person\Person.java
 ``` java
     public void setFields(Set<CustomField> replacement) {
         fieldsList.set(new CustomFieldsList(replacement));
@@ -529,7 +564,7 @@ public class CustomField {
         return Collections.unmodifiableSet(fieldsList.get().toSet());
     }
 ```
-###### /java/seedu/address/storage/SecurityManager.java
+###### \java\seedu\address\storage\SecurityManager.java
 ``` java
 
 /**
@@ -537,6 +572,7 @@ public class CustomField {
  */
 public class SecurityManager {
     private static String path = "data/pass";
+    private static final Logger logger = LogsCenter.getLogger(SecurityManager.class);
 
     public static void setPasswordStoragePath(String path) {
         SecurityManager.path = path;
@@ -574,7 +610,10 @@ public class SecurityManager {
     public static boolean unlock(String pass) throws IOException, NoSuchAlgorithmException {
         boolean isUnlocked = checkPass(pass);
         if (isUnlocked) {
+            logger.info("----------[PASSWORD ACCEPTED]");
             EventsCenter.getInstance().post(new PasswordAcceptedEvent());
+        } else {
+            logger.info("----------[PASSWORD REJECTED]");
         }
         return isUnlocked;
     }
@@ -619,7 +658,7 @@ public class SecurityManager {
     }
 }
 ```
-###### /java/seedu/address/storage/XmlAdaptedCustomField.java
+###### \java\seedu\address\storage\XmlAdaptedCustomField.java
 ``` java
 /**
  * JAXB-friendly adapted version of the Field.
@@ -644,7 +683,7 @@ public class XmlAdaptedCustomField {
     }
 }
 ```
-###### /java/seedu/address/ui/PersonCard.java
+###### \java\seedu\address\ui\PersonCard.java
 ``` java
     /**
      * Creates and add the tags belonging to the person
@@ -657,7 +696,7 @@ public class XmlAdaptedCustomField {
         });
     }
 ```
-###### /java/seedu/address/ui/PersonDetailsPanel.java
+###### \java\seedu\address\ui\PersonDetailsPanel.java
 ``` java
 
 /**
@@ -665,6 +704,8 @@ public class XmlAdaptedCustomField {
  */
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
+    private static final String MESSAGE_ENTER_PASS = "Please enter the password";
+    private static final String MESSAGE_SELECT_PERSON = "Select a person to view their details.";
     private static final String LOG_IGNORED = "Currently not showing edited Person. Panel not updated";
     private static final String LOG_CHANGED = "Panel updated with new Person";
 
@@ -694,6 +735,15 @@ public class PersonDetailsPanel extends UiPart<Region> {
     public PersonDetailsPanel() {
         super(FXML);
         registerAsAnEventHandler(this);
+        setStartMessage();
+    }
+
+    private void setStartMessage() {
+        if (SecurityManager.passExists()) {
+            group.setText(MESSAGE_ENTER_PASS);
+        } else {
+            group.setText(MESSAGE_SELECT_PERSON);
+        }
     }
 
     /**
@@ -786,23 +836,29 @@ public class PersonDetailsPanel extends UiPart<Region> {
             logger.info(LOG_IGNORED);
         }
     }
+
+    @Subscribe
+    private void handlePasswordAcceptedEvent(PasswordAcceptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        group.setText(MESSAGE_SELECT_PERSON);
+    }
 }
 ```
-###### /java/seedu/address/ui/PersonListPanel.java
+###### \java\seedu\address\ui\PersonListPanel.java
 ``` java
         this.personList = personList;
         if (!SecurityManager.passExists()) {
             init();
         }
 ```
-###### /java/seedu/address/ui/PersonListPanel.java
+###### \java\seedu\address\ui\PersonListPanel.java
 ``` java
     private void init() {
         setConnections(personList);
         registerAsAnEventHandler(this);
     }
 ```
-###### /java/seedu/address/ui/PersonListPanel.java
+###### \java\seedu\address\ui\PersonListPanel.java
 ``` java
     @Subscribe
     private void handlePasswordAcceptedEvent(PasswordAcceptedEvent event) {
@@ -810,13 +866,13 @@ public class PersonDetailsPanel extends UiPart<Region> {
         init();
     }
 ```
-###### /java/seedu/address/ui/ResultDisplay.java
+###### \java\seedu\address\ui\ResultDisplay.java
 ``` java
         if (SecurityManager.passExists()) {
             displayed.setValue("Enter Password:");
         }
 ```
-###### /resources/view/DarkTheme.css
+###### \resources\view\DarkTheme.css
 ``` css
 #group {
     -fx-text-fill: white;
@@ -826,7 +882,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     -fx-background-radius: 500;
 }
 ```
-###### /resources/view/MainWindow.fxml
+###### \resources\view\MainWindow.fxml
 ``` fxml
     <VBox>
         <StackPane fx:id="personDetailsPlaceholder" prefWidth="340">
@@ -842,7 +898,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
       </StackPane>
     </VBox>
 ```
-###### /resources/view/PersonDetailsPanel.fxml
+###### \resources\view\PersonDetailsPanel.fxml
 ``` fxml
 
 <?import javafx.geometry.Insets?>
