@@ -1,8 +1,7 @@
 = humanDEX Manual Testing
-:toc:
-:toc-placement: preamble
-:imagesDir: images
-:stylesDir: stylesheets
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == Project Configuration
 1. Run *humanDEX.jar* to generate default files and folder. +
