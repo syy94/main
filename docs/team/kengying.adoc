@@ -63,3 +63,7 @@ include::../DeveloperGuide.adoc[tag=list]
 #End of Extract#
 
 ---
+
+=== Other contributions
+
+* Wrote the test script and some test data (Pull requests https://github.com/CS2103AUG2017-F11-B1/main/pull/107[#107])
