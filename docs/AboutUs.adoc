@@ -22,7 +22,7 @@ Responsibilities: Logic
 
 === Sim Yan Yu
 image::syy94.jpg[width="150", align="left"]
-{empty}[http://github.com/syy94[github]] [https://github.com/CS2103AUG2017-F11-B1/main/blob/master/docs/team/syy94.adoc[portfolio]]
+{empty}[http://github.com/syy94[github]] [<<syy94#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
