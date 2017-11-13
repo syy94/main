@@ -1,5 +1,5 @@
 # sofarsophie
-###### /EditHistoryCommand.java
+###### \EditHistoryCommand.java
 ``` java
 public class EditHistoryCommand extends Command {
 
@@ -30,7 +30,7 @@ public class EditHistoryCommand extends Command {
     }
 }
 ```
-###### /EditHistoryCommandParser.java
+###### \EditHistoryCommandParser.java
 ``` java
 public class EditHistoryCommandParser {
 
@@ -51,7 +51,7 @@ public class EditHistoryCommandParser {
     }
 }
 ```
-###### /EditHistoryMap.java
+###### \EditHistoryMap.java
 ``` java
 public class EditHistoryMap {
 

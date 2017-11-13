@@ -601,6 +601,12 @@ The modes of this command is decided by the existence of the prefixes. Only the 
 * Remove requires: `pwd/` and `clearPwd/` prefix.
 * Change requires: `pwd/` and `new/` prefix.
 
+==== Sequence Diagram
+
+image::PasswordCommandSequenceDiagram.png[width="691"]
+
+Depending on the user input mode may be of either `SetPass`, `ChangePass` or `ClearPass`.
+
 ==== Password Recovery
 
 As of v1.5, no password recovery is supported. If the password is forgotten during development, go to the data folder

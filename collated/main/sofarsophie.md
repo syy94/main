@@ -1,12 +1,12 @@
 # sofarsophie
-###### /java/seedu/address/logic/commands/FindCommand.java
+###### \java\seedu\address\logic\commands\FindCommand.java
 ``` java
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose name, phone, email, "
             + "address, tag or group contain at least one of the keywords specified by parameter "
             + "and displays them as a list with index numbers. "
             + "Each parameter can be specified any number of times.\n"
-            + "Parameters: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [g/GROUP] [MORE_PARAMETERS]...\n"
-            + "Example: " + COMMAND_WORD + " a/bukit a/jurong g/Savings";
+            + "Parameters: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GROUP] [c/CUSTOMFIELD] [t/TAG]...\n"
+            + "Example: " + COMMAND_WORD + " n/alice p/910 a/bukit e/pp@pp.com c/meeting";
 
     private final Predicate<ReadOnlyPerson> predicate;
 
@@ -14,7 +14,7 @@
         this.predicate = predicate;
     }
 ```
-###### /java/seedu/address/logic/commands/SortCommand.java
+###### \java\seedu\address\logic\commands\SortCommand.java
 ``` java
 /**
  * Sorts and displays the most recent persons listing based on a field identified by the prefix given.
@@ -64,13 +64,13 @@ public class SortCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParser.java
+###### \java\seedu\address\logic\parser\AddressBookParser.java
 ``` java
         case SortCommand.COMMAND_WORD:
         case SortCommand.COMMAND_ALIAS:
             return new SortCommandParser().parse(arguments);
 ```
-###### /java/seedu/address/logic/parser/FindCommandParser.java
+###### \java\seedu\address\logic\parser\FindCommandParser.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -202,7 +202,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         return Optional.of(ParserUtil.parseAddresses(addressList));
     }
 ```
-###### /java/seedu/address/logic/parser/FindCommandParser.java
+###### \java\seedu\address\logic\parser\FindCommandParser.java
 ``` java
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -214,7 +214,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
 }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     /**
      * Parses a {@code Collection<String> names} into a {@code List<Name>}
@@ -228,7 +228,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         return nameList;
     }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     /**
      * Parses a {@code Collection<String> phones} into a {@code List<Phone>}
@@ -242,7 +242,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         return phoneList;
     }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     /**
      * Parses a {@code Collection<String> addresses} into a {@code List<Address>}
@@ -256,7 +256,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         return addressList;
     }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     /**
      *
@@ -271,7 +271,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         return emailList;
     }
 ```
-###### /java/seedu/address/logic/parser/SortCommandParser.java
+###### \java\seedu\address\logic\parser\SortCommandParser.java
 ``` java
 /**
  * Parses arguments and returns a new SortCommand object.
@@ -302,7 +302,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Sorts addressbook according to field identified by the given prefix.
@@ -311,14 +311,14 @@ public class SortCommandParser implements Parser<SortCommand> {
         persons.sortPersons(prefix);
     }
 ```
-###### /java/seedu/address/model/Model.java
+###### \java\seedu\address\model\Model.java
 ``` java
     ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> unsortedList, Prefix prefix);
 
     /** Removes the specified tag from everyone in the AddressBook. */
     void removeTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void removeTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException {
@@ -335,7 +335,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         }
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public ObservableList<ReadOnlyPerson> sortFilteredPersonList(ObservableList<ReadOnlyPerson> personsList,
@@ -345,7 +345,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         return personsList;
     }
 ```
-###### /java/seedu/address/model/person/Address.java
+###### \java\seedu\address\model\person\Address.java
 ``` java
     public int compareTo(Address a) {
         return this.value.compareTo(a.value);
@@ -355,7 +355,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         return a.value.compareTo(b.value);
     }
 ```
-###### /java/seedu/address/model/person/Email.java
+###### \java\seedu\address\model\person\Email.java
 ``` java
     public int compareTo(Email e) {
         return this.value.compareTo(e.value);
@@ -365,7 +365,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         return a.value.compareTo(b.value);
     }
 ```
-###### /java/seedu/address/model/person/Name.java
+###### \java\seedu\address\model\person\Name.java
 ``` java
     public int compareTo(Name n) {
         return this.fullName.compareTo(n.fullName);
@@ -375,7 +375,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         return a.fullName.compareTo(b.fullName);
     }
 ```
-###### /java/seedu/address/model/person/PersonContainsKeywordsPredicate.java
+###### \java\seedu\address\model\person\PersonContainsKeywordsPredicate.java
 ``` java
 /**
  * Tests that any of {@code ReadOnlyPerson}'s fields
@@ -542,7 +542,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
     }
 }
 ```
-###### /java/seedu/address/model/person/Phone.java
+###### \java\seedu\address\model\person\Phone.java
 ``` java
     public int compareTo(Phone p) {
         return this.value.compareTo(p.value);
@@ -552,7 +552,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<ReadOnlyPerson
         return a.value.compareTo(b.value);
     }
 ```
-###### /java/seedu/address/model/person/ReadOnlyPersonComparator.java
+###### \java\seedu\address\model\person\ReadOnlyPersonComparator.java
 ``` java
 /**
  * A comparator for comparing two {@code ReadOnlyPerson} objects by a given field identified the given {@code Prefix}.
@@ -592,7 +592,7 @@ public class ReadOnlyPersonComparator implements Comparator<ReadOnlyPerson> {
 
 }
 ```
-###### /java/seedu/address/model/person/UniquePersonList.java
+###### \java\seedu\address\model\person\UniquePersonList.java
 ``` java
     /**
      * Sorts the internal list by the field identified by the given prefix.
@@ -635,12 +635,12 @@ public class ReadOnlyPersonComparator implements Comparator<ReadOnlyPerson> {
     }
 }
 ```
-###### /java/seedu/address/ui/MainWindow.java
+###### \java\seedu\address\ui\MainWindow.java
 ``` java
         sortControls = new SortControls(logic);
         sortControlsPlaceholder.getChildren().add(sortControls.getRoot());
 ```
-###### /java/seedu/address/ui/SortControls.java
+###### \java\seedu\address\ui\SortControls.java
 ``` java
 /**
  * The UI component that is responsible for processing a GUI-interaction triggered sort..
@@ -727,7 +727,7 @@ public class SortControls extends UiPart<Region> {
     }
 }
 ```
-###### /resources/view/DarkTheme.css
+###### \resources\view\DarkTheme.css
 ``` css
 .combo-box {
     -fx-background: white;
@@ -751,7 +751,7 @@ public class SortControls extends UiPart<Region> {
     -fx-background-color: #dadada;
 }
 ```
-###### /resources/view/MainWindow.fxml
+###### \resources\view\MainWindow.fxml
 ``` fxml
       <StackPane fx:id="sortControlsPlaceholder">
         <padding>
@@ -759,7 +759,7 @@ public class SortControls extends UiPart<Region> {
         </padding>
       </StackPane>
 ```
-###### /resources/view/SortControls.fxml
+###### \resources\view\SortControls.fxml
 ``` fxml
 
 <VBox prefHeight="45.0" prefWidth="318.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
